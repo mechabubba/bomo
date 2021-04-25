@@ -1,0 +1,77 @@
+:root {
+  --card-red: rgba(199, 42, 24, 0.45);
+  --card-yellow: rgba(230, 202, 30, 0.6);
+  --card-green: rgba(24, 168, 73, 0.45);
+  --card-blue: rgba(0, 99, 179, 0.45);
+  --card-wild: rgba(0, 0, 0, 0.45);
+  --card-width: 80px;
+  --card-height: 118px;
+  /* --card-width: 128px;
+  --card-height: 180px; */
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: var(--card-width);
+  min-height: var(--card-height);
+  font-size: 2em;
+  border-radius: 4px;
+  margin-right: 8px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.card.red {
+  background-color: var(--card-red);
+}
+
+.card.yellow {
+  background-color: var(--card-yellow);
+}
+
+.card.green {
+  background-color: var(--card-green);
+}
+
+.card.blue {
+  background-color: var(--card-blue);
+}
+
+.card.wild {
+  background-color: var(--card-wild);
+  border-left: 6px solid var(--card-red);
+  border-top: 6px solid var(--card-yellow);
+  border-right: 6px solid var(--card-green);
+  border-bottom: 6px solid var(--card-blue);
+}
+
+.card.wild.red {
+  border: 6px solid var(--card-red);
+}
+
+.card.wild.yellow {
+  border: 6px solid var(--card-yellow);
+}
+
+.card.wild.green {
+  border: 6px solid var(--card-green);
+}
+
+.card.wild.blue {
+  border: 6px solid var(--card-blue);
+}
+
+.card>.skip {
+  font-size: 46px;
+  transform: scaleX(-1);
+}
+
+.card>.reverse {
+  transform: rotate(-45deg);
+}
+
+.card[data-value="6"], .card[data-value="9"] {
+  text-decoration: underline;
+}
