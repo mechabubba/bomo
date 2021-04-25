@@ -48,16 +48,19 @@ body {
 
 #game {
   padding: 0.5em 0.5em 0.5em 0;
-  width: 100px;
+  /* this is a hack to make elements scroll properly */
+  width: 10px;
 }
 
 /* Chat */
 
 #log {
   background-color: var(--background-color-secondary);
-  overflow-y: scroll;
   width: 260px;
   padding: 0.5em;
+  overflow-y: scroll;
+  /* this is a hack to make elements scroll properly */
+  height: 10px;
 }
 
 #chat-input {
@@ -92,7 +95,6 @@ body {
   flex-direction: row;
   overflow-x: auto;
   flex-wrap: nowrap;
-  align-items: flex-start;
   /* align-items: flex-start; */
 }
 
