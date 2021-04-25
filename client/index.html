@@ -1,154 +1,59 @@
 <html lang="en">
-    <head>
-        <title>uwu</title>
-        <link rel="stylesheet" href="shared.css">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <style>
-            html {
-                background-color: rgb(50, 50, 50);
-                color: white;
-            }
-            body {
-                display: grid;
-                grid-template-areas:
-                    "header"
-                    "main";
-                grid-template-rows: min-content 100%;
-            }
-            #header {
-                grid-area: header;
-                align-self: start;
-                padding: 12px;
-                background-color: rgba(0, 0, 0, 0.5);
-            }
-            p { margin: 0 }
-            #main {
-                grid-area: main;
-                display: grid;
-                grid-template-areas:
-                    "chat game";
-                grid-template-columns: 15% auto;
-            }
-            #chat {
-                grid-area: chat;
-                position: relative;
-                background-color: rgba(0, 0, 0, 0.25);
-                margin: 8px;
-                border: 2px solid white;
-                border-radius: 12px;
-            }
-            #chatlog {
-                height: 100%;
-                background-color: rgba(255, 0, 0, 0.5)
-            }
-            #mbox {
-                position: absolute;
-                width: calc(100% - 12px);
-                margin: 6px;
-                padding: 4px;
-                background-color: rgba(0, 0, 0, 0.5);
-                color: white;
-                outline: none;
-                border-radius: 8px;
-                resize: none;
-                bottom: 0;
-            }
-            #mbox, #mbox:hover, #mbox:focus, #mbox:active {
-                border-color: transparent;
-            }
-            #game {
-                position: relative;
-            }
-            #deck {
-                position: absolute;
-                bottom: 0;
-                margin: 8px;
-                width: calc(100% - 16px);
-                display: flex;
-                flex-direction: row;
-                justify-content: space-evenly;
-                align-items: center;
-                background-color: rgba(0, 0, 255, 0.5)
-            }
-            .logo {
-                color: #F2D93A;
-                -webkit-text-stroke: 0.75px white;
-                text-shadow: -2px 2px 0 black;
-            }
-        </style>
-        <style>
-            :root {
-                --card-red: hsl(0, 100%, 33%);
-                --card-yellow: hsl(54, 100%, 50%);
-                --card-green: hsl(120, 100%, 33%);
-                --card-blue: hsl(240, 100%, 33%);
-                --card-default: rgb(20, 20, 20);
-                --card-wild-border-grad: linear-gradient(45deg, hsl(0, 100%, 66%), hsl(54, 100%, 75%), #fdff7a, hsl(120, 100%, 66%), hsl(240, 100%, 66%));
-            }
-            /* card styles */
-            .card {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 200px;
-                width: 150px;
-                font-size: 48px;
-                color: black;
-                -webkit-text-stroke: 1.5px white;
-                border-radius: 16px;
-                background-color: var(--card-default);
-                border: 8px solid black;
-            }
-            .c_red {
-                background-color: var(--card-red)
-            }
-            .c_yellow {
-                background-color: var(--card-yellow)
-            }
-            .c_green {
-                background-color: var(--card-green)
-            }
-            .c_blue {
-                background-color: var(--card-blue)
-            }
-            .c_wild {
-                position: relative;
-                border: 8px solid transparent;
-                background-clip: padding-box;
-            }
-            .c_wild::after {
-                position: absolute;
-                top: -8px; bottom: -8px;
-                left: -8px; right: -8px;
-                background: var(--card-wild-border-grad);
-                content: "";
-                z-index: -1;
-                border-radius: 16px;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="header">
-            <p style="float:left"><span class="logo">uwu</span> - the classic card game</p>
-            <p style="float:right">About • Contact</p>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>uwu</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="cards.css">
+</head>
+
+<body>
+  <!-- Using flexbox for this layout is simpler & far easier imo -->
+  <!-- No absolute or relative positioning needed anywhere -->
+  <!-- Body is a column -->
+  <div id="header">
+    <!-- Header and main are both rows, main grows to fill body -->
+    <!-- I noticed you added a rule to remove paragraph's margin. span is intended for this, paragraphs aren't -->
+    <!-- Also, float is the child of the devil. With flexbox we don't need it -->
+    <span><span class="logo">uwu</span> - The Classic Card Game</span>
+    <span>About • Contact</span>
+  </div>
+  <div id="main">
+    <!-- Chat and game are both columns, game grows to fill main -->
+    <div id="chat">
+      <!-- Log grows to fill chat -->
+      <div id="log">
+        <p>the deck can be scrolled with shift + mouse wheel when you have enough cards</p>
+        <p>you can use the following functions from the console:</p>
+        <p><code>demoNormal()</code></p>
+        <p><code>demoRandom()</code></p>
+        <p><code>demoLotsOfCards()</code></p>
+        <p><code>demoDraw()</code></p>
+        <p><code>demoReverse()</code></p>
+        <p><code>demoSkip()</code></p>
+        <p><code>demoWild()</code></p>
+        <p><code>demoEntireDeck()</code></p>
+      </div>
+      <div id="chat-input" contenteditable></div>
+    </div>
+    <div id="game">
+      <!-- Cards is a row, Field grows to fill game -->
+      <div id="field"></div>
+      <div id="hand">
+        <div id="cards">
+          <div id="cards-margin-fix"></div>
         </div>
-        <div id="main">
-            <div id="chat">
-                <div id="chatlog"></div>
-                <textarea id="mbox"></textarea>
-            </div>
-            <div id="game">
-                <div id="deck">
-                    <div class="card c_green">4</div>
-                    <div class="card c_wild">+4</div>
-                    <div class="card c_wild">Wild</div>
-                    <div class="card c_red">7</div>
-                    <div class="card c_red">3</div>
-                    <div class="card c_blue">0</div>
-                    <div class="card c_yellow">9</div>
-                </div>
-            </div>
-        </div>
-    </body>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="cards.js" defer></script>
+  <!-- Manipulated Elements -->
+  <template id="card-template">
+    <div class="card"></div>
+  </template>
+</body>
+
 </html>
