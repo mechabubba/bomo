@@ -23,6 +23,10 @@
   cursor: pointer;
 }
 
+.card.blank {
+  background-color: transparent;
+}
+
 .card.red {
   background-color: var(--card-red);
 }

@@ -1,0 +1,99 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>uwu</title>
+  <link rel="stylesheet" href="shared.css">
+  <!-- <link rel="stylesheet" href="app.css"> -->
+  <link rel="stylesheet" href="cards.css">
+  <style>
+    body {
+      padding: 0.5em 0 0 0.5em;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      align-content: flex-start;
+      flex-wrap: wrap;
+    }
+    .card {
+      margin-bottom: 8px;
+    }
+    .br {
+      flex-basis: 100%;
+      height: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    This is used to demo card designs with the bare
+    minimum amount of html, classes, and attributes.
+    It showcases most possible cards.
+  -->
+  <!-- Number cards -->
+  <div class="card red">1</div>
+  <div class="card yellow">2</div>
+  <div class="card green">3</div>
+  <div class="card blue">4</div>
+  <div class="br"></div>
+  <!-- 6s and 9s have an underline -->
+  <div class="card red" data-value="6">6</div>
+  <div class="card yellow" data-value="9">9</div>
+  <div class="card green" data-value="6">6</div>
+  <div class="card blue" data-value="9">9</div>
+  <div class="br"></div>
+  <!-- Blank cards are simply transparent with no special styling -->
+  <div class="card blank">?</div>
+  <div class="br"></div>
+  <!-- Reverse, Skip, +2, +4 of each color -->
+  <div class="card red"><span class="reverse">⮂</span></div>
+  <div class="card red"><span class="skip">⦸</span></div>
+  <div class="card red">+2</div>
+  <div class="card red">+4</div>
+  <div class="br"></div>
+  <div class="card yellow"><span class="reverse">⮂</span></div>
+  <div class="card yellow"><span class="skip">⦸</span></div>
+  <div class="card yellow">+2</div>
+  <div class="card yellow">+4</div>
+  <div class="br"></div>
+  <div class="card green"><span class="reverse">⮂</span></div>
+  <div class="card green"><span class="skip">⦸</span></div>
+  <div class="card green">+2</div>
+  <div class="card green">+4</div>
+  <div class="br"></div>
+  <div class="card blue"><span class="reverse">⮂</span></div>
+  <div class="card blue"><span class="skip">⦸</span></div>
+  <div class="card blue">+2</div>
+  <div class="card blue">+4</div>
+  <div class="br"></div>
+  <!-- Wild Cards -->
+  <div class="card wild"><span class="reverse">⮂</span></div>
+  <div class="card wild"><span class="skip">⦸</span></div>
+  <div class="card wild">+2</div>
+  <div class="card wild">+4</div>
+  <div class="card wild">Wild</div>
+  <div class="br"></div>
+  <div class="card wild red">+4</div>
+  <div class="card wild yellow">+4</div>
+  <div class="card wild green">+4</div>
+  <div class="card wild blue">+4</div>
+  <div class="br"></div>
+  <div class="card wild red">Wild</div>
+  <div class="card wild yellow">Wild</div>
+  <div class="card wild green">Wild</div>
+  <div class="card wild blue">Wild</div>
+  <div class="br"></div>
+  <div class="card wild red"><span class="reverse">⮂</span></div>
+  <div class="card wild yellow"><span class="reverse">⮂</span></div>
+  <div class="card wild green"><span class="reverse">⮂</span></div>
+  <div class="card wild blue"><span class="reverse">⮂</span></div>
+  <div class="br"></div>
+  <div class="card wild red"><span class="skip">⦸</span></div>
+  <div class="card wild yellow"><span class="skip">⦸</span></div>
+  <div class="card wild green"><span class="skip">⦸</span></div>
+  <div class="card wild blue"><span class="skip">⦸</span></div>
+</body>
+
+</html>
