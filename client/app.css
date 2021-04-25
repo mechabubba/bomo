@@ -1,0 +1,108 @@
+/* Root */
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Body */
+
+#header, #main {
+  display: flex;
+  flex-direction: row;
+}
+
+#header {
+  background-color: var(--background-color-secondary);
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}
+
+.logo {
+  color: #F2D93A;
+}
+
+#main {
+  flex-grow: 1;
+}
+
+/* Main */
+
+#chat, #game {
+  display: flex;
+  flex-direction: column;
+}
+
+#log, #game {
+  flex-grow: 1;
+}
+
+#chat {
+  margin: 0.5em;
+  border-radius: 4px;
+  min-width: 260px;
+  /* this allows for the border radius to clip the visibility of it's children */
+  overflow: hidden;
+}
+
+#game {
+  padding: 0.5em 0.5em 0.5em 0;
+  width: 100px;
+}
+
+/* Chat */
+
+#log {
+  background-color: var(--background-color-secondary);
+  overflow-y: scroll;
+  width: 260px;
+  padding: 0.5em;
+}
+
+#chat-input {
+  /* height: 4.5em; */
+  margin: unset;
+  width: 260px;
+  background-color: var(--background-color-tertiary);
+  color: var(--text-color);
+  padding: 0.5em;
+  border: none;
+  outline: none;
+  resize: none;
+  /* overflow-y: auto; */
+}
+
+/* Game */
+
+#field {
+  flex-grow: 1;
+}
+
+#hand {
+  background-color: var(--background-color-secondary);
+  border-radius: 4px;
+  /* this allows for the border radius to clip the visibility of it's children */
+  overflow: hidden;
+}
+
+#cards {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  /* align-items: flex-start; */
+}
+
+#cards-margin-fix {
+  /* This fixes a highly annoying issue with padding of the last element being
+  ignored on any element that has scroll enabled. The only other way to fix it
+  is to give cards *another* container and I didn't want to. The reason I made
+  chat input expand with height rather than scroll is to avoid the same issue */
+  margin: none;
+  margin-left: -1px;
+  min-width: 1px;
+  min-height: var(--card-height);
+}
