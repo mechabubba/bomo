@@ -224,6 +224,21 @@ function demoRandom() {
   });
 }
 
+function demoRandomFromDeck() {
+  // Six randomized cards from the deck
+  clearHand();
+  [
+    deck[Math.floor(Math.random() * deck.length)],
+    deck[Math.floor(Math.random() * deck.length)],
+    deck[Math.floor(Math.random() * deck.length)],
+    deck[Math.floor(Math.random() * deck.length)],
+    deck[Math.floor(Math.random() * deck.length)],
+    deck[Math.floor(Math.random() * deck.length)],
+  ].forEach((element) => {
+    generateCard(element);
+  });
+}
+
 function demoLotsOfCards() {
   // 8 randomized cards, plus +4 and Wild
   clearHand();
@@ -302,4 +317,4 @@ function demoEntireDeck() {
   });
 }
 
-demoWild();
+demoRandomFromDeck();
