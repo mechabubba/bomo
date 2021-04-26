@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@400&display=swap');
 
 :root {
   --background-color: rgb(50, 50, 50);
@@ -12,16 +12,16 @@
   box-sizing: border-box;
 }
 
-*> :first-child {
+* > :first-child {
   margin-top: 0;
 }
 
-*> :last-child {
+* > :last-child {
   margin-bottom: 0;
 }
 
+/* Fix the hidden attribute being overrode by any display rule */
 [hidden] {
-  /* Fix the hidden attribute being overrode by any display rule */
   display: none !important;
 }
 

@@ -63,6 +63,11 @@ body {
   height: 10px;
 }
 
+#log > * {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
 #chat-input {
   /* height: 4.5em; */
   margin: unset;

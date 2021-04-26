@@ -10,20 +10,12 @@
 </head>
 
 <body>
-  <!-- Using flexbox for this layout is simpler & far easier imo -->
-  <!-- No absolute or relative positioning needed anywhere -->
-  <!-- Body is a column -->
   <div id="header">
-    <!-- Header and main are both rows, main grows to fill body -->
-    <!-- I noticed you added a rule to remove paragraph's margin. span is intended for this, paragraphs aren't -->
-    <!-- Also, float is the child of the devil. With flexbox we don't need it -->
     <span><span class="logo">uwu</span> - The Classic Card Game</span>
     <span>About • Contact</span>
   </div>
   <div id="main">
-    <!-- Chat and game are both columns, game grows to fill main -->
     <div id="chat">
-      <!-- Log grows to fill chat -->
       <div id="log">
         <p>the deck can be scrolled with shift + mouse wheel when you have enough cards</p>
         <p>you can use the following functions from the console:</p>
@@ -40,7 +32,6 @@
       <div id="chat-input" contenteditable></div>
     </div>
     <div id="game">
-      <!-- Cards is a row, Field grows to fill game -->
       <div id="field"></div>
       <div id="hand">
         <div id="cards">
@@ -49,9 +40,8 @@
       </div>
     </div>
   </div>
-  <!-- Scripts -->
   <script src="cards.js" defer></script>
-  <!-- Manipulated Elements -->
+  <script src="app.js" defer></script>
   <template id="card-template">
     <div class="card"></div>
   </template>

@@ -317,4 +317,4 @@ function demoEntireDeck() {
   });
 }
 
-demoRandomFromDeck();
+//demoRandomFromDeck();
