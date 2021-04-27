@@ -72,15 +72,16 @@
   border: 4px solid var(--card-blue);
 }
 
-.card>.skip {
+.card > .skip {
   font-size: 46px;
   transform: scaleX(-1);
 }
 
-.card>.reverse {
+.card > .reverse {
   transform: rotate(-45deg);
 }
 
-.card[data-value="6"], .card[data-value="9"] {
+.card[data-value="6"],
+.card[data-value="9"] {
   text-decoration: underline;
 }

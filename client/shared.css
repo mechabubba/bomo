@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Roboto:wght@400&display=swap");
 
 :root {
   --background-color: rgb(50, 50, 50);
@@ -25,7 +25,8 @@
   display: none !important;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -42,9 +43,11 @@ body {
   color: var(--text-color);
 }
 
-body, textarea, input {
+body,
+textarea,
+input {
   font-size: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   /* line-height: 1.2; */
 }
 
@@ -55,12 +58,18 @@ a {
   transition: 0.2s;
 }
 
-a:hover, a:focus, a:active {
+a:hover,
+a:focus,
+a:active {
   color: rgb(153, 189, 255);
   text-decoration: underline;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 16px 0;
 }
-

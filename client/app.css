@@ -7,7 +7,8 @@ body {
 
 /* Body */
 
-#header, #main {
+#header,
+#main {
   display: flex;
   flex-direction: row;
 }
@@ -20,7 +21,7 @@ body {
 }
 
 .logo {
-  color: #F2D93A;
+  color: #f2d93a;
 }
 
 #main {
@@ -29,12 +30,14 @@ body {
 
 /* Main */
 
-#chat, #game {
+#chat,
+#game {
   display: flex;
   flex-direction: column;
 }
 
-#log, #game {
+#log,
+#game {
   flex-grow: 1;
 }
 
@@ -64,7 +67,7 @@ body {
 }
 
 #log > * {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 14px;
 }
 
