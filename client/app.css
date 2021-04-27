@@ -66,7 +66,7 @@ body {
   height: 10px;
 }
 
-#log > * {
+#log p {
   font-family: "Roboto Mono", monospace;
   font-size: 14px;
 }
@@ -103,16 +103,6 @@ body {
   flex-direction: row;
   overflow-x: auto;
   flex-wrap: nowrap;
+  align-items: flex-end;
   /* align-items: flex-start; */
-}
-
-#cards-margin-fix {
-  /* This fixes a highly annoying issue with padding of the last element being
-  ignored on any element that has scroll enabled. The only other way to fix it
-  is to give cards *another* container and I didn't want to. The reason I made
-  chat input expand with height rather than scroll is to avoid the same issue */
-  margin: none;
-  margin-left: -1px;
-  min-width: 1px;
-  min-height: var(--card-height);
 }

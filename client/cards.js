@@ -143,7 +143,8 @@ const styled = ["reverse", "skip"];
 function generateCard(data) {
     // Does the element generation behind cards & adds it to your hand.
     // NOTE: In the future, this would return the finished card element instead.
-    const card = document.getElementById("card-template").content.firstElementChild.cloneNode(true);
+    const sleeve = document.getElementById("card-template").content.firstElementChild.cloneNode(true);
+    const card = sleeve.querySelector(".card");
     card.classList.add(data.color);
     card.setAttribute("data-color", data.color);
     card.setAttribute("data-type", data.type);
@@ -157,7 +158,7 @@ function generateCard(data) {
         card.textContent = data.text ? data.text : data.value;
     }
     // insertionPoint
-    document.getElementById("cards-margin-fix").before(card);
+    document.getElementById("cards").appendChild(sleeve);
 }
 
 // NOTE: Some of these functions need to be interacting with the server in regards to card data

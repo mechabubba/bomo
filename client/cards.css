@@ -1,13 +1,21 @@
 :root {
-  --card-red: rgba(199, 42, 24, 0.45);
+  /* --card-red: rgba(199, 42, 24, 0.45);
   --card-yellow: rgba(230, 202, 30, 0.6);
   --card-green: rgba(24, 168, 73, 0.45);
-  --card-blue: rgba(0, 99, 179, 0.45);
+  --card-blue: rgba(0, 99, 179, 0.45); */
+  --card-red: #6d261e;
+  --card-yellow: #988720;
+  --card-green: #1e5f34;
+  --card-blue: #134064;
   --card-wild: rgba(0, 0, 0, 0.45);
   --card-width: 80px;
   --card-height: 118px;
   /* --card-width: 128px;
   --card-height: 180px; */
+}
+
+.sleeve {
+  user-select: none;
 }
 
 .card {
@@ -19,13 +27,16 @@
   font-size: 2em;
   border-radius: 4px;
   margin-right: 8px;
-  user-select: none;
-  cursor: pointer;
   transition: 0.2s;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
+/* .sleeve:hover .card { */
 .card:hover {
-  transform: translateY(-40px);
+  margin-top: 0px;
+  margin-bottom: 20px;
+  /* transform: translateY(-20px); */
 }
 
 .card.blank {
