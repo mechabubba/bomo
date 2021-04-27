@@ -6,6 +6,7 @@
   --background-color-secondary: rgb(35, 35, 35);
   --background-color-tertiary: rgb(25, 25, 25);
   --text-color: #eee;
+  --spacing: 8px;
 }
 
 * {
