@@ -1,8 +1,3 @@
-// Would be more pragmatic to define limits for cards as numbers which could
-// be depleted, rather than defining an entire deck. But I haven't thought
-// of a way to to do it while retaining customizability
-const deckLimits = {};
-
 // Text just overrides value for the card's text content
 const deck = [
 // Red
