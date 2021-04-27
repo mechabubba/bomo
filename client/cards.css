@@ -29,11 +29,14 @@
   border-radius: 4px;
   margin-right: var(--spacing);
   transition: 0.2s;
+  margin-top: 25px;
   cursor: pointer;
 }
 
 .sleeve:hover .card {
-  transform: translateY(-24px);
+  margin-top: 0px;
+  /* margin-bottom: 25px; */
+  transform: translateY(-25px);
 }
 
 .card.blank {
