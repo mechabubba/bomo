@@ -35,15 +35,22 @@
       <div id="field"></div>
       <div id="hand">
         <div id="cards">
-          <div id="cards-margin-fix"></div>
+          <!-- <div id="cards-margin-fix"></div> -->
         </div>
       </div>
     </div>
   </div>
+  <!-- When we sort out the client side js and start turning this into a proper web app, we likely won't use defer and instead make use of event listeners to ensure the dom has loaded, w/ our script elements in the head -->
+  <script>
+    // Prevent elements automatically scrolling to the position they were prior to page load
+    history.scrollRestoration = "manual"
+  </script>
   <script src="cards.js" defer></script>
   <script src="app.js" defer></script>
   <template id="card-template">
-    <div class="card"></div>
+    <div class="sleeve">
+      <div class="card"></div>
+    </div>
   </template>
 </body>
 

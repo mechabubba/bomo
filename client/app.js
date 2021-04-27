@@ -1,5 +1,5 @@
 let _settings = localStorage.getItem("settings");
-if(_settings == null) {
+if (_settings == null) {
     _settings = {
         wildSkips: true,
         wildReverses: true,
@@ -63,14 +63,14 @@ updateWeights();
  * @returns {*} The value that was generated.
  */
 function weightedRandom(arr, weight) {
-    if(!arr || !weight) throw new Error("Missing an argument");
+    if (!arr || !weight) throw new Error("Missing an argument");
     let sum = 0;
-    for(const val of arr) { // Sum all the weights.
+    for (const val of arr) { // Sum all the weights.
         sum += weight[val] || 0;
     }
     let rand = Math.floor(Math.random() * sum); // Get a random value; 0 >= x > sum.
-    for(const val of arr) { // Subtract until we can no longer.
-        if(rand < weight[val]) return val;
+    for (const val of arr) { // Subtract until we can no longer.
+        if (rand < weight[val]) return val;
         rand -= weight[val] || 0;
     }
     throw new Error("This should never happen. Prepare to die.");
@@ -83,14 +83,14 @@ function weightedRandom(arr, weight) {
  */
 function generateWeightedCards(length = 1) {
     const cards = [];
-    for(let i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         const color = weightedRandom(["red", "yellow", "green", "blue", "wild"], weights.color);
         let _type;
 
-        if(color == "wild") {
+        if (color == "wild") {
             _type = ["wild", "wildDraw"];
-            if(settings.wildReverses) _type.push("wildReverse");
-            if(settings.wildSkips) _type.push("wildSkip");
+            if (settings.wildReverses) _type.push("wildReverse");
+            if (settings.wildSkips) _type.push("wildSkip");
         } else {
             _type = ["number", "draw", "reverse", "skip"];
         }
@@ -99,23 +99,23 @@ function generateWeightedCards(length = 1) {
         let text;
         let value;
 
-        if(type == "number") {
+        if (type == "number") {
             value = weightedRandom(["zero", "regular"], weights.value);
-            if(value == "zero") value = 0;
+            if (value == "zero") value = 0;
             else value = Math.floor(Math.random() * settings.cardCount);
-        } else if(type == "wild") {
+        } else if (type == "wild") {
             text = "Wild";
-        } else if(type == "draw" || type == "wildDraw") {
+        } else if (type == "draw" || type == "wildDraw") {
             type = "draw";
             let values;
-            if(color == "wild") values = settings["drawValues"]["wild"];
+            if (color == "wild") values = settings["drawValues"]["wild"];
             else values = settings["drawValues"]["regular"];
             value = values[Math.floor(Math.random() * values.length)];
             text = `+${value}`;
-        } else if(type == "reverse" || type == "wildReverse") {
+        } else if (type == "reverse" || type == "wildReverse") {
             type = "reverse";
             text = "\u2B82";
-        } else if(type == "skip" || type == "wildSkip") {
+        } else if (type == "skip" || type == "wildSkip") {
             type = "skip";
             text = "\u29B8";
         }
@@ -132,14 +132,15 @@ function generateWeightedCards(length = 1) {
  * @returns {Object} A DOM element.
  */
 function generateCard(data) {
-    // Does the element generation behind cards & adds it to your hand.
-    // NOTE: In the future, this would return the finished card element instead.
-    const card = document.getElementById("card-template").content.firstElementChild.cloneNode(true);
+    // Does the element generation behind cards & adds it to your hand
+    // NOTE: In the future, this would return the finished card element, and insertion would then be up to what called it
+    const sleeve = document.getElementById("card-template").content.firstElementChild.cloneNode(true);
+    const card = sleeve.querySelector(".card");
     card.classList.add(data.color);
     card.setAttribute("data-color", data.color);
     card.setAttribute("data-type", data.type);
     card.setAttribute("data-value", data.value);
-    if (styled.includes(data.type)) {
+    if (["reverse", "skip"].includes(data.type)) {
         const span = document.createElement("span");
         span.classList.add(data.type);
         span.textContent = data.text ? data.text : data.value;
@@ -148,11 +149,11 @@ function generateCard(data) {
         card.textContent = data.text ? data.text : data.value;
     }
     // insertionPoint
-    document.getElementById("cards-margin-fix").before(card);
+    document.getElementById("cards").appendChild(sleeve);
     return card;
 }
 
 const cards = generateWeightedCards(10);
-for(let i = 0; i < cards.length; i++) {
+for (let i = 0; i < cards.length; i++) {
     generateCard(cards[i]);
 }

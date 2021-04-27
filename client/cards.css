@@ -1,13 +1,22 @@
 :root {
-  --card-red: rgba(199, 42, 24, 0.45);
+  /* --card-red: rgba(199, 42, 24, 0.45);
   --card-yellow: rgba(230, 202, 30, 0.6);
   --card-green: rgba(24, 168, 73, 0.45);
   --card-blue: rgba(0, 99, 179, 0.45);
-  --card-wild: rgba(0, 0, 0, 0.45);
+  --card-wild: rgba(0, 0, 0, 0.45); */
+  --card-red: #6d261e;
+  --card-yellow: #988720;
+  --card-green: #1e5f34;
+  --card-blue: #134064;
+  --card-wild: #131313;
   --card-width: 80px;
   --card-height: 118px;
   /* --card-width: 128px;
   --card-height: 180px; */
+}
+
+.sleeve {
+  user-select: none;
 }
 
 .card {
@@ -18,14 +27,16 @@
   min-height: var(--card-height);
   font-size: 2em;
   border-radius: 4px;
-  margin-right: 8px;
-  user-select: none;
-  cursor: pointer;
+  margin-right: var(--spacing);
   transition: 0.2s;
+  margin-top: 25px;
+  cursor: pointer;
 }
 
-.card:hover {
-  transform: translateY(-40px);
+.sleeve:hover .card {
+  margin-top: 0px;
+  /* margin-bottom: 25px; */
+  transform: translateY(-25px);
 }
 
 .card.blank {
@@ -72,15 +83,16 @@
   border: 4px solid var(--card-blue);
 }
 
-.card>.skip {
+.card > .skip {
   font-size: 46px;
   transform: scaleX(-1);
 }
 
-.card>.reverse {
+.card > .reverse {
   transform: rotate(-45deg);
 }
 
-.card[data-value="6"], .card[data-value="9"] {
+.card[data-value="6"],
+.card[data-value="9"] {
   text-decoration: underline;
 }

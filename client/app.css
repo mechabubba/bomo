@@ -7,7 +7,8 @@ body {
 
 /* Body */
 
-#header, #main {
+#header,
+#main {
   display: flex;
   flex-direction: row;
 }
@@ -16,11 +17,11 @@ body {
   background-color: var(--background-color-secondary);
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em;
+  padding: var(--spacing);
 }
 
 .logo {
-  color: #F2D93A;
+  color: #f2d93a;
 }
 
 #main {
@@ -29,25 +30,27 @@ body {
 
 /* Main */
 
-#chat, #game {
+#chat,
+#game {
   display: flex;
   flex-direction: column;
 }
 
-#log, #game {
+#log,
+#game {
   flex-grow: 1;
 }
 
 #chat {
-  margin: 0.5em;
-  border-radius: 8px;
+  border-radius: var(--spacing);
+  margin: var(--spacing);
   min-width: 260px;
   /* this allows for the border radius to clip the visibility of it's children */
   overflow: hidden;
 }
 
 #game {
-  padding: 0.5em 0.5em 0.5em 0;
+  padding: var(--spacing) var(--spacing) var(--spacing) 0;
   /* this is a hack to make elements scroll properly */
   width: 10px;
 }
@@ -57,14 +60,14 @@ body {
 #log {
   background-color: var(--background-color-secondary);
   width: 260px;
-  padding: 0.5em;
+  padding: var(--spacing);
   overflow-y: scroll;
   /* this is a hack to make elements scroll properly */
   height: 10px;
 }
 
-#log > * {
-  font-family: 'Roboto Mono', monospace;
+#log p {
+  font-family: "Roboto Mono", monospace;
   font-size: 14px;
 }
 
@@ -74,7 +77,7 @@ body {
   width: 260px;
   background-color: var(--background-color-tertiary);
   color: var(--text-color);
-  padding: 0.5em;
+  padding: var(--spacing);
   border: none;
   outline: none;
   resize: none;
@@ -88,6 +91,8 @@ body {
 }
 
 #hand {
+  /* border-right: 8px solid var(--background-color-secondary); */
+  /* border-left: 8px solid var(--background-color-secondary); */
   background-color: var(--background-color-secondary);
   border-radius: 8px;
   /* this allows for the border radius to clip the visibility of it's children */
@@ -100,16 +105,6 @@ body {
   flex-direction: row;
   overflow-x: auto;
   flex-wrap: nowrap;
+  align-items: flex-end;
   /* align-items: flex-start; */
-}
-
-#cards-margin-fix {
-  /* This fixes a highly annoying issue with padding of the last element being
-  ignored on any element that has scroll enabled. The only other way to fix it
-  is to give cards *another* container and I didn't want to. The reason I made
-  chat input expand with height rather than scroll is to avoid the same issue */
-  margin: none;
-  margin-left: -1px;
-  min-width: 1px;
-  min-height: var(--card-height);
 }
