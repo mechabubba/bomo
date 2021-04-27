@@ -91,6 +91,8 @@ body {
 }
 
 #hand {
+  /* border-right: 8px solid var(--background-color-secondary); */
+  /* border-left: 8px solid var(--background-color-secondary); */
   background-color: var(--background-color-secondary);
   border-radius: 8px;
   /* this allows for the border radius to clip the visibility of it's children */
