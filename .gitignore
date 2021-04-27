@@ -17,3 +17,5 @@ npm-debug.log*
 *.zip
 *.7z
 *.tar
+
+client/sv_temp.js
