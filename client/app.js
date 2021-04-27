@@ -125,7 +125,6 @@ function generateWeightedCards(length = 1) {
     return cards;
 }
 
-const styled = ["reverse", "skip"];
 /**
  * Adds cards to the users hand.
  * @param {*} data The card object.
@@ -139,7 +138,7 @@ function generateCard(data) {
     card.setAttribute("data-color", data.color);
     card.setAttribute("data-type", data.type);
     card.setAttribute("data-value", data.value);
-    if (styled.includes(data.type)) {
+    if (["reverse", "skip"].includes(data.type)) {
         const span = document.createElement("span");
         span.classList.add(data.type);
         span.textContent = data.text ? data.text : data.value;
