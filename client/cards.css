@@ -21,6 +21,11 @@
   margin-right: 8px;
   user-select: none;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-40px);
 }
 
 .card.blank {
