@@ -17,6 +17,7 @@
 
 .sleeve {
   user-select: none;
+  cursor: pointer;
 }
 
 .card {
@@ -28,7 +29,6 @@
   font-size: 2em;
   border-radius: 4px;
   transition: 0.2s;
-  cursor: pointer;
 }
 
 .sleeve:hover .card {
