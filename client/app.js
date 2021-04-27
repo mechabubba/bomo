@@ -14,22 +14,20 @@ if(_settings == null) {
     _settings = JSON.parse(_settings);
 }
 
-/*
-    when we update the amount of number cards or a value relating to it, we also need to update the weights as
-    some weights correspond to settings that may have changed; by default we rely on the 9 card meta. 
-    we do that here using a Proxy. we also save our settings because why not
-*/
+/**
+ * When we update the amount of number cards or a value relating to it, we also need to update the weights as
+ * some weights correspond to settings that may have changed; by default we rely on the 9 card meta. 
+ * we do that here using a Proxy. we also save our settings because why not
+ */
 const settings = new Proxy(_settings, {
     set: (o, p, v) => {
-        o[p] = v
+        o[p] = v;
         updateWeights();
         localStorage.setItem("settings", JSON.stringify(_settings));
-    }
+    };
 });
 
-/* ------------------------------------------------------------------------------ */
-// this section will be server code eventually, but we're just demonstrating for now
-
+// This section will be server code eventually, but we're just demonstrating for now.
 let weights;
 function updateWeights() {
     weights = {
@@ -50,33 +48,42 @@ function updateWeights() {
             blue: (settings.cardCount * 2) + 7,
             wild: 8,
         },
-        value: { // the number zero has less of a chance to be chosen over other numbers
+        value: { // Zero has a higher chance of being chosen over regular numbers.
             zero: 4,
-            regular: settings.cardCount * 8 // if this is the result its a simple random choice between 1 and 9
+            regular: settings.cardCount * 8
         }
     };
 }
 updateWeights();
 
-// courtesy of https://stackoverflow.com/a/1761646
-function weightedRandom(arr, weights) {
-    if(!arr || !weights) throw new Error("Missing an argument");
+/**
+ * Weighted random generation. Courtesy of https://stackoverflow.com/a/1761646.
+ * @param {Array} arr The values to be randomly chosen from.
+ * @param {Object} weights An object of weights; higher values correspond to a higher likelyhood of being returned. 
+ * @returns {*} The value that was generated.
+ */
+function weightedRandom(arr, weight) {
+    if(!arr || !weight) throw new Error("Missing an argument");
     let sum = 0;
-    for(const val of arr) { // sum all weights
-        sum += weights[val] || 0;
+    for(const val of arr) { // Sum all the weights.
+        sum += weight[val] || 0;
     }
-    let rand = Math.floor(Math.random() * sum); // get a random value between 0 inclusive and the sum uninclusive
-    for(const val of arr) { // subtract until we can subtract no more
-        if(rand < weights[val]) return val;
-        rand -= weights[val] || 0;
+    let rand = Math.floor(Math.random() * sum); // Get a random value; 0 >= x > sum.
+    for(const val of arr) { // Subtract until we can no longer.
+        if(rand < weight[val]) return val;
+        rand -= weight[val] || 0;
     }
     throw new Error("This should never happen. Prepare to die.");
 }
 
-// generates cards using the calculated weights
+/**
+ * Returns randomly generated card objects.
+ * @param {number} length The amount of cards to return.
+ * @returns {Array} An array of card objects.
+ */
 function generateWeightedCards(length = 1) {
     let cards = [];
-    for(i = 0; i < length; i++) {
+    for(let i = 0; i < length; i++) {
         let color = weightedRandom(["red", "yellow", "green", "blue", "wild"], weights.color);
         let _type;
 
@@ -118,8 +125,12 @@ function generateWeightedCards(length = 1) {
     return cards;
 }
 
-/* ------------------------------------------------------------------------------ */
-
+const styled = ["reverse", "skip"];
+/**
+ * Adds cards to the users hand.
+ * @param {*} data The card object.
+ * @returns {Object} A DOM element.
+ */
 function generateCard(data) {
     // Does the element generation behind cards & adds it to your hand.
     // NOTE: In the future, this would return the finished card element instead.
@@ -142,6 +153,6 @@ function generateCard(data) {
 }
 
 let cards = generateWeightedCards(10);
-for(i = 0; i < cards.length; i++) {
+for(let i = 0; i < cards.length; i++) {
     generateCard(cards[i]);
 }
