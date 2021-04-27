@@ -42,7 +42,7 @@ body {
 }
 
 #chat {
-  border-radius: 8px;
+  border-radius: var(--spacing);
   margin: var(--spacing);
   min-width: 260px;
   /* this allows for the border radius to clip the visibility of it's children */
