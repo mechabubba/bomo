@@ -11,6 +11,7 @@
   --card-wild: #131313;
   --card-width: 80px;
   --card-height: 118px;
+  --card-spacing: 8px;
   /* --card-width: 128px;
   --card-height: 180px; */
 }
@@ -20,6 +21,7 @@
 }
 
 .card {
+  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +29,6 @@
   min-height: var(--card-height);
   font-size: 2em;
   border-radius: 4px;
-  margin-right: var(--spacing);
   transition: 0.2s;
   margin-top: 25px;
   cursor: pointer;
@@ -37,6 +38,10 @@
   margin-top: 0px;
   /* margin-bottom: 25px; */
   transform: translateY(-25px);
+}
+
+.sleeve:not(:last-child) {
+  margin-right: var(--card-spacing);
 }
 
 .card.blank {
@@ -61,26 +66,26 @@
 
 .card.wild {
   background-color: var(--card-wild);
-  border-left: 4px solid var(--card-red);
-  border-top: 4px solid var(--card-yellow);
-  border-right: 4px solid var(--card-green);
-  border-bottom: 4px solid var(--card-blue);
+  border-left: 3px solid var(--card-red);
+  border-top: 3px solid var(--card-yellow);
+  border-right: 3px solid var(--card-green);
+  border-bottom: 3px solid var(--card-blue);
 }
 
 .card.wild.red {
-  border: 4px solid var(--card-red);
+  border: 3px solid var(--card-red);
 }
 
 .card.wild.yellow {
-  border: 4px solid var(--card-yellow);
+  border: 3px solid var(--card-yellow);
 }
 
 .card.wild.green {
-  border: 4px solid var(--card-green);
+  border: 3px solid var(--card-green);
 }
 
 .card.wild.blue {
-  border: 4px solid var(--card-blue);
+  border: 3px solid var(--card-blue);
 }
 
 .card > .skip {
