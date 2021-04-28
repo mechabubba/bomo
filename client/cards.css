@@ -11,7 +11,8 @@
   --card-wild: #131313;
   --card-width: 80px;
   --card-height: 118px;
-  --card-spacing: 8px;
+  --card-spacing: var(--spacing);
+  --card-border-width: 3px;
   /* --card-width: 128px;
   --card-height: 180px; */
 }
@@ -21,7 +22,7 @@
 }
 
 .card {
-  border: 2px solid black;
+  border: 3px solid var(--card-wild);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,35 +67,35 @@
 
 .card.wild {
   background-color: var(--card-wild);
-  border-left: 3px solid var(--card-red);
-  border-top: 3px solid var(--card-yellow);
-  border-right: 3px solid var(--card-green);
-  border-bottom: 3px solid var(--card-blue);
+  border-left: var(--card-border-width) solid var(--card-red);
+  border-top: var(--card-border-width) solid var(--card-yellow);
+  border-right: var(--card-border-width) solid var(--card-green);
+  border-bottom: var(--card-border-width) solid var(--card-blue);
 }
 
 .card.wild.red {
-  border: 3px solid var(--card-red);
+  border: var(--card-border-width) solid var(--card-red);
 }
 
 .card.wild.yellow {
-  border: 3px solid var(--card-yellow);
+  border: var(--card-border-width) solid var(--card-yellow);
 }
 
 .card.wild.green {
-  border: 3px solid var(--card-green);
+  border: var(--card-border-width) solid var(--card-green);
 }
 
 .card.wild.blue {
-  border: 3px solid var(--card-blue);
+  border: var(--card-border-width) solid var(--card-blue);
 }
 
 .card > .skip {
   font-size: 46px;
-  transform: scaleX(-1);
+  transform: scaleX(-1) translateY(-3px);
 }
 
 .card > .reverse {
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translateY(-2px);
 }
 
 .card[data-value="6"],
