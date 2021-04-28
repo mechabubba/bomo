@@ -22,7 +22,7 @@
 }
 
 .card {
-  border: 3px solid var(--card-wild);
+  border: var(--card-border-width) solid var(--card-wild);
   display: flex;
   justify-content: center;
   align-items: center;
