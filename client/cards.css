@@ -12,6 +12,7 @@
   --card-width: 80px;
   --card-height: 118px;
   --card-spacing: var(--spacing);
+  --card-border-color: rgba(255, 255, 255, 0.5);
   --card-border-width: 3px;
   /* --card-width: 128px;
   --card-height: 180px; */
@@ -22,7 +23,7 @@
 }
 
 .card {
-  border: var(--card-border-width) solid var(--card-wild);
+  border: var(--card-border-width) solid var(--card-border-color);
   display: flex;
   justify-content: center;
   align-items: center;
