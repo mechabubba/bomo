@@ -329,8 +329,8 @@ function demoNormal() {
         { type: "number", color: "blue", value: randomNumber() },
         { type: "change", color: "wild", value: null, text: "Wild" },
         { type: "draw", color: "wild", value: "4", text: "+4" },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -342,8 +342,8 @@ function demoRandom() {
         { type: "number", color: colors[Math.floor(Math.random() * colors.length)], value: randomNumber() },
         { type: "number", color: colors[Math.floor(Math.random() * colors.length)], value: randomNumber() },
         { type: "number", color: colors[Math.floor(Math.random() * colors.length)], value: randomNumber() },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -357,8 +357,8 @@ function demoRandomFromDeck() {
         deck[Math.floor(Math.random() * deck.length)],
         deck[Math.floor(Math.random() * deck.length)],
         deck[Math.floor(Math.random() * deck.length)],
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -376,8 +376,8 @@ function demoLotsOfCards() {
         { type: "number", color: colors[Math.floor(Math.random() * colors.length)], value: randomNumber() },
         { type: "change", color: "wild", value: null, text: "Wild" },
         { type: "draw", color: "wild", value: "4", text: "+4" },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -389,8 +389,8 @@ function demoDraw() {
         { type: "draw", color: "green", value: "2", text: "+2" },
         { type: "draw", color: "blue", value: "2", text: "+2" },
         { type: "draw", color: "wild", value: "4", text: "+4" },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -402,8 +402,8 @@ function demoReverse() {
         { type: "reverse", color: "green", value: null, text: "⮂" },
         { type: "reverse", color: "blue", value: null, text: "⮂" },
         { type: "reverse", color: "wild", value: null, text: "⮂" },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -415,8 +415,8 @@ function demoSkip() {
         { type: "skip", color: "green", value: null, text: "⦸" },
         { type: "skip", color: "blue", value: null, text: "⦸" },
         { type: "skip", color: "wild", value: null, text: "⦸" },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
@@ -427,16 +427,16 @@ function demoWild() {
         { type: "draw", color: "wild", value: "4", text: "+4" },
         { type: "reverse", color: "wild", value: null, text: "⮂" },
         { type: "skip", color: "wild", value: null, text: "⦸" },
-    ].forEach((element) => {
-        generateCard(element);
+    ].forEach((card) => {
+        generateCard(card);
     });
 }
 
 function demoEntireDeck() {
     clearHand();
     // Puts the entire deck in your hand
-    deck.forEach((element) => {
-        generateCard(element);
+    deck.forEach((card) => {
+        generateCard(card);
     });
 }
 
