@@ -91,20 +91,32 @@ body {
 }
 
 #hand {
-  /* border-right: 8px solid var(--background-color-secondary); */
-  /* border-left: 8px solid var(--background-color-secondary); */
-  /* background-color: var(--background-color-secondary); */
-  border-radius: 8px;
+  /* border-right: var(--spacing) solid var(--background-color-secondary); */
+  /* border-left: var(--spacing) solid var(--background-color-secondary); */
+  /* height: 171px; */
+  /* border-bottom-left-radius: var(--spacing); */
+  /* border-bottom-right-radius: var(--spacing); */
   /* this allows for the border radius to clip the visibility of it's children */
   overflow: hidden;
 }
 
-#cards {
-  padding: 0.5em;
+#hand > div {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
+}
+
+#cards {
+  flex-grow: 1;
+  margin-top: 24px;
+  background-color: var(--background-color-secondary);
+  /* border-top-left-radius: var(--spacing); */
+  /* border-top-right-radius: var(--spacing); */
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-end;
+  gap: var(--spacing);
   /* align-items: flex-start; */
 }
