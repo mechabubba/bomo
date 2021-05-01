@@ -11,15 +11,14 @@
   --card-wild: #131313;
   --card-width: 80px;
   --card-height: 118px;
-  --card-spacing: var(--spacing);
+  --card-spacing: 8px;
   --card-border-color: rgba(255, 255, 255, 0.25);
   --card-border-width: 3px;
-  /* --card-width: 128px;
-  --card-height: 180px; */
 }
 
 .sleeve {
   user-select: none;
+  cursor: pointer;
 }
 
 .card {
@@ -32,18 +31,10 @@
   font-size: 2em;
   border-radius: 4px;
   transition: 0.2s;
-  margin-top: 25px;
-  cursor: pointer;
 }
 
 .sleeve:hover .card {
-  margin-top: 0px;
-  /* margin-bottom: 25px; */
-  transform: translateY(-25px);
-}
-
-.sleeve:not(:last-child) {
-  margin-right: var(--card-spacing);
+  transform: translateY(-24px);
 }
 
 .card.blank {

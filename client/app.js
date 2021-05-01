@@ -440,6 +440,19 @@ function demoEntireDeck() {
     });
 }
 
+/**
+ * Checks for overflow in the #cards element. This allows the cards to be centered only when we want it to be (if it weren't, the scroll bar wouldn't be able to reach all of the cards).
+ */
+function cardoverflow(mutations, observer) {
+    for (const mutation of mutations) {
+        const target = mutation.target;
+        if (target.scrollWidth > target.clientWidth && !target.style["justify-content"]) target.style["justify-content"] = "initial";
+        else if (target.scrollWidth <= target.clientWidth && target.style["justify-content"]) target.style["justify-content"] = "";
+    }
+};
+const observer = new MutationObserver(cardoverflow);
+observer.observe(document.getElementById("cards"), { childList: true });
+
 const cards = generateWeightedCards(10);
 for (let i = 0; i < cards.length; i++) {
     generateCard(cards[i]);
