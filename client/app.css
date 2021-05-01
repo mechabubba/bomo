@@ -97,6 +97,9 @@ body {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: flex-end;
+  /* align-items: flex-start; */
+  display: flex;
+  justify-content: center;
   flex-grow: 1;
   padding: var(--spacing);
   margin-top: 24px;
