@@ -449,7 +449,7 @@ function cardoverflow(mutations, observer) {
         if (target.scrollWidth > target.clientWidth && !target.style["justify-content"]) target.style["justify-content"] = "initial";
         else if (target.scrollWidth <= target.clientWidth && target.style["justify-content"]) target.style["justify-content"] = "";
     }
-};
+}
 const observer = new MutationObserver(cardoverflow);
 observer.observe(document.getElementById("cards"), { childList: true });
 
