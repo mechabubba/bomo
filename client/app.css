@@ -107,4 +107,6 @@ body {
   flex-wrap: nowrap;
   align-items: flex-end;
   /* align-items: flex-start; */
+  display: flex;
+  justify-content: center;
 }
