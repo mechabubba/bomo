@@ -26,4 +26,3 @@ const cards = {
 };
 
 const deck = {};
-
