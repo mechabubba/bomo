@@ -214,45 +214,41 @@ function weightedRandom(arr, weight) {
  * @param {number} length The amount of cards to return.
  * @returns {Array} An array of card objects.
  */
-function generateWeightedCards(length = 1) {
-    const cards = [];
-    for (let i = 0; i < length; i++) {
-        const color = weightedRandom(["red", "yellow", "green", "blue", "wild"], weights.color);
-        let _type;
+function generateCardData() {
+    const color = weightedRandom(["red", "yellow", "green", "blue", "wild"], weights.color);
+    let _type;
 
-        if (color == "wild") {
-            _type = ["wild", "wildDraw"];
-            if (settings.wildReverses) _type.push("wildReverse");
-            if (settings.wildSkips) _type.push("wildSkip");
-        } else {
-            _type = ["number", "draw", "reverse", "skip"];
-        }
-
-        let type = weightedRandom(_type, weights.type);
-        let text;
-        let value;
-
-        if (type == "number") {
-            value = weightedRandom(["zero", "regular"], weights.value);
-            if (value == "zero") value = 0;
-            else value = Math.floor(Math.random() * settings.cardCount);
-        } else if (type == "draw" || type == "wildDraw") {
-            type = "draw";
-            let values;
-            if (color == "wild") values = settings["drawValues"]["wild"];
-            else values = settings["drawValues"]["regular"];
-            value = values[Math.floor(Math.random() * values.length)];
-        } else if (type == "reverse" || type == "wildReverse") {
-            type = "reverse";
-            text = "\u2B82";
-        } else if (type == "skip" || type == "wildSkip") {
-            type = "skip";
-            text = "\u29B8";
-        }
-
-        cards.push({ color: color, type: type, value: value, text: text });
+    if (color == "wild") {
+        _type = ["wild", "wildDraw"];
+        if (settings.wildReverses) _type.push("wildReverse");
+        if (settings.wildSkips) _type.push("wildSkip");
+    } else {
+        _type = ["number", "draw", "reverse", "skip"];
     }
-    return cards;
+
+    let type = weightedRandom(_type, weights.type);
+    let text;
+    let value;
+
+    if (type == "number") {
+        value = weightedRandom(["zero", "regular"], weights.value);
+        if (value == "zero") value = 0;
+        else value = Math.floor(Math.random() * settings.cardCount);
+    } else if (type == "draw" || type == "wildDraw") {
+        type = "draw";
+        let values;
+        if (color == "wild") values = settings["drawValues"]["wild"];
+        else values = settings["drawValues"]["regular"];
+        value = values[Math.floor(Math.random() * values.length)];
+    } else if (type == "reverse" || type == "wildReverse") {
+        type = "reverse";
+        text = "\u2B82";
+    } else if (type == "skip" || type == "wildSkip") {
+        type = "skip";
+        text = "\u29B8";
+    }
+
+    return { color: color, type: type, value: value, text: text };
 }
 
 function generateCard(data) {
@@ -287,7 +283,7 @@ function generateCard(data) {
 // Draw Green6 = Red4, Red5, Yellow1, Yellow5, Green6, Blue8
 
 function drawCard() {
-    generateCard(generateWeightedCards()[0]);
+    generateCard(generateCardData());
 }
 
 function dealHand(amount = 1) {
@@ -432,7 +428,4 @@ function demoEntireDeck() {
     });
 }
 
-const cards = generateWeightedCards(10);
-for (let i = 0; i < cards.length; i++) {
-    generateCard(cards[i]);
-}
+dealHand(10);
