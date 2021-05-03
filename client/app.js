@@ -53,10 +53,10 @@ const deck = [
     { type: "number", color: "red", value: "9" },
     { type: "draw", color: "red", value: "2" },
     { type: "draw", color: "red", value: "2" },
-    { type: "skip", color: "red", value: null, text: "⦸" },
-    { type: "skip", color: "red", value: null, text: "⦸" },
-    { type: "reverse", color: "red", value: null, text: "⮂" },
-    { type: "reverse", color: "red", value: null, text: "⮂" },
+    { type: "skip", color: "red", value: null },
+    { type: "skip", color: "red", value: null },
+    { type: "reverse", color: "red", value: null },
+    { type: "reverse", color: "red", value: null },
     // Yellow
     { type: "number", color: "yellow", value: "0" },
     { type: "number", color: "yellow", value: "1" },
@@ -79,10 +79,10 @@ const deck = [
     { type: "number", color: "yellow", value: "9" },
     { type: "draw", color: "yellow", value: "2" },
     { type: "draw", color: "yellow", value: "2" },
-    { type: "skip", color: "yellow", value: null, text: "⦸" },
-    { type: "skip", color: "yellow", value: null, text: "⦸" },
-    { type: "reverse", color: "yellow", value: null, text: "⮂" },
-    { type: "reverse", color: "yellow", value: null, text: "⮂" },
+    { type: "skip", color: "yellow", value: null },
+    { type: "skip", color: "yellow", value: null },
+    { type: "reverse", color: "yellow", value: null },
+    { type: "reverse", color: "yellow", value: null },
     // Green
     { type: "number", color: "green", value: "0" },
     { type: "number", color: "green", value: "1" },
@@ -105,10 +105,10 @@ const deck = [
     { type: "number", color: "green", value: "9" },
     { type: "draw", color: "green", value: "2" },
     { type: "draw", color: "green", value: "2" },
-    { type: "skip", color: "green", value: null, text: "⦸" },
-    { type: "skip", color: "green", value: null, text: "⦸" },
-    { type: "reverse", color: "green", value: null, text: "⮂" },
-    { type: "reverse", color: "green", value: null, text: "⮂" },
+    { type: "skip", color: "green", value: null },
+    { type: "skip", color: "green", value: null },
+    { type: "reverse", color: "green", value: null },
+    { type: "reverse", color: "green", value: null },
     // Blue
     { type: "number", color: "blue", value: "0" },
     { type: "number", color: "blue", value: "1" },
@@ -131,10 +131,10 @@ const deck = [
     { type: "number", color: "blue", value: "9" },
     { type: "draw", color: "blue", value: "2" },
     { type: "draw", color: "blue", value: "2" },
-    { type: "skip", color: "blue", value: null, text: "⦸" },
-    { type: "skip", color: "blue", value: null, text: "⦸" },
-    { type: "reverse", color: "blue", value: null, text: "⮂" },
-    { type: "reverse", color: "blue", value: null, text: "⮂" },
+    { type: "skip", color: "blue", value: null },
+    { type: "skip", color: "blue", value: null },
+    { type: "reverse", color: "blue", value: null },
+    { type: "reverse", color: "blue", value: null },
     // Wild
     { type: "draw", color: "wild", value: "4" },
     { type: "draw", color: "wild", value: "4" },
@@ -145,20 +145,24 @@ const deck = [
     { type: "change", color: "wild", value: null },
     { type: "change", color: "wild", value: null },
     // These dont exist in normal uno but I like them
-    // { type: "skip", color: "wild", value: null, text: "⦸" },
-    // { type: "skip", color: "wild", value: null, text: "⦸" },
-    // { type: "skip", color: "wild", value: null, text: "⦸" },
-    // { type: "skip", color: "wild", value: null, text: "⦸" },
-    // { type: "reverse", color: "wild", value: null, text: "⮂" },
-    // { type: "reverse", color: "wild", value: null, text: "⮂" },
-    // { type: "reverse", color: "wild", value: null, text: "⮂" },
-    // { type: "reverse", color: "wild", value: null, text: "⮂" },
+    // { type: "skip", color: "wild", value: null},
+    // { type: "skip", color: "wild", value: null},
+    // { type: "skip", color: "wild", value: null},
+    // { type: "skip", color: "wild", value: null},
+    // { type: "reverse", color: "wild", value: null},
+    // { type: "reverse", color: "wild", value: null},
+    // { type: "reverse", color: "wild", value: null},
+    // { type: "reverse", color: "wild", value: null},
 ];
 
 const validColors = ["red", "green", "yellow", "blue", "wild"];
 const colors = ["red", "green", "yellow", "blue"];
 const validTypes = ["number", "change", "draw", "reverse", "skip"];
-const styled = ["reverse", "skip"];
+const styled = {
+    "draw": (value) => `+${value}`,
+    "reverse": (value) => "\u2B82",
+    "skip": (value) => "\u29B8",
+};
 
 // This section will be server code eventually, but we're just demonstrating for now.
 let weights;
@@ -169,7 +173,7 @@ function updateWeights() {
             draw: 8,
             reverse: 8,
             skip: 8,
-            wild: 4,
+            change: 4,
             wildDraw: 4,
             wildReverse: 4,
             wildSkip: 4,
@@ -219,7 +223,7 @@ function generateCardData() {
     let _type;
 
     if (color == "wild") {
-        _type = ["wild", "wildDraw"];
+        _type = ["change", "wildDraw"];
         if (settings.wildReverses) _type.push("wildReverse");
         if (settings.wildSkips) _type.push("wildSkip");
     } else {
@@ -227,7 +231,6 @@ function generateCardData() {
     }
 
     let type = weightedRandom(_type, weights.type);
-    let text;
     let value;
 
     if (type == "number") {
@@ -242,32 +245,32 @@ function generateCardData() {
         value = values[Math.floor(Math.random() * values.length)];
     } else if (type == "reverse" || type == "wildReverse") {
         type = "reverse";
-        text = "\u2B82";
     } else if (type == "skip" || type == "wildSkip") {
         type = "skip";
-        text = "\u29B8";
     }
 
-    return { color: color, type: type, value: value, text: text };
+    return { color: color, type: type, value: value };
 }
 
-function generateCard(data) {
+function generateCardElement(data) {
     // Does the element generation behind cards & adds it to your hand.
-    // NOTE: In the future, this should return the element, and then use on the page would be up to the code calling it
+    // NOTE: In the future, there should be a Card class, with the creation of the element being up to a getter
     const sleeve = document.getElementById("card-template").content.firstElementChild.cloneNode(true);
     const card = sleeve.querySelector(".card");
     card.classList.add(data.color);
     card.classList.add(data.type);
     card.classList.add("held");
+    sleeve.setAttribute("tabindex", "0");
     card.setAttribute("data-color", data.color);
     card.setAttribute("data-type", data.type);
     if (data.value) card.setAttribute("data-value", data.value);
-    if (styled.includes(data.type)) {
-        const span = document.createElement("span");
-        span.textContent = data.text ? data.text : data.value;
-        card.appendChild(span);
-    } else if (data.type === "number") {
+    if (data.type === "number") {
         card.textContent = data.value;
+    } else if (Object.prototype.hasOwnProperty.call(styled, data.type)) {
+        // The above expression checks if styled[data.type] exists
+        const span = document.createElement("span");
+        span.textContent = styled[data.type](data.value);
+        card.appendChild(span);
     }
     // insertionPoint
     document.getElementById("cards").appendChild(sleeve);
@@ -283,7 +286,7 @@ function generateCard(data) {
 // Draw Green6 = Red4, Red5, Yellow1, Yellow5, Green6, Blue8
 
 function drawCard() {
-    generateCard(generateCardData());
+    generateCardElement(generateCardData());
 }
 
 function dealHand(amount = 1) {
@@ -318,7 +321,7 @@ function demoNormal() {
         { type: "change", color: "wild", value: null },
         { type: "draw", color: "wild", value: "4" },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
@@ -331,7 +334,7 @@ function demoRandom() {
         { type: "number", color: colors[Math.floor(Math.random() * colors.length)], value: randomNumber() },
         { type: "number", color: colors[Math.floor(Math.random() * colors.length)], value: randomNumber() },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
@@ -346,7 +349,7 @@ function demoRandomFromDeck() {
         deck[Math.floor(Math.random() * deck.length)],
         deck[Math.floor(Math.random() * deck.length)],
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
@@ -365,7 +368,7 @@ function demoLotsOfCards() {
         { type: "change", color: "wild", value: null },
         { type: "draw", color: "wild", value: "4" },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
@@ -378,33 +381,33 @@ function demoDraw() {
         { type: "draw", color: "blue", value: "2" },
         { type: "draw", color: "wild", value: "4" },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
 function demoReverse() {
     clearHand();
     [
-        { type: "reverse", color: "red", value: null, text: "⮂" },
-        { type: "reverse", color: "yellow", value: null, text: "⮂" },
-        { type: "reverse", color: "green", value: null, text: "⮂" },
-        { type: "reverse", color: "blue", value: null, text: "⮂" },
-        { type: "reverse", color: "wild", value: null, text: "⮂" },
+        { type: "reverse", color: "red", value: null },
+        { type: "reverse", color: "yellow", value: null },
+        { type: "reverse", color: "green", value: null },
+        { type: "reverse", color: "blue", value: null },
+        { type: "reverse", color: "wild", value: null },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
 function demoSkip() {
     clearHand();
     [
-        { type: "skip", color: "red", value: null, text: "⦸" },
-        { type: "skip", color: "yellow", value: null, text: "⦸" },
-        { type: "skip", color: "green", value: null, text: "⦸" },
-        { type: "skip", color: "blue", value: null, text: "⦸" },
-        { type: "skip", color: "wild", value: null, text: "⦸" },
+        { type: "skip", color: "red", value: null },
+        { type: "skip", color: "yellow", value: null },
+        { type: "skip", color: "green", value: null },
+        { type: "skip", color: "blue", value: null },
+        { type: "skip", color: "wild", value: null },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
@@ -413,10 +416,10 @@ function demoWild() {
     [
         { type: "change", color: "wild", value: null },
         { type: "draw", color: "wild", value: "4" },
-        { type: "reverse", color: "wild", value: null, text: "⮂" },
-        { type: "skip", color: "wild", value: null, text: "⦸" },
+        { type: "reverse", color: "wild", value: null },
+        { type: "skip", color: "wild", value: null },
     ].forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
@@ -424,8 +427,8 @@ function demoEntireDeck() {
     clearHand();
     // Puts the entire deck in your hand
     deck.forEach((card) => {
-        generateCard(card);
+        generateCardElement(card);
     });
 }
 
-dealHand(10);
+dealHand(50);

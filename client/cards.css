@@ -88,69 +88,63 @@ Oval creation is 1px inwards from that and rotated by 35 degrees
   background-color: var(--card-blue);
 }
 
+.card.wild {
+  background-color: var(--card-wild);
+}
+
 .card.number,
 .card.reverse,
-.card.skip {
+.card.skip,
+.card.draw {
   background-image: url("assets/filled.png");
 }
+
+/* Number */
 
 .card.number[data-value="6"],
 .card.number[data-value="9"] {
   text-decoration: underline;
 }
 
+/* Skip */
+
 .card.skip > span {
   font-size: 46px;
   transform: scaleX(-1) translateY(-3px);
 }
+
+/* Reverse */
 
 .card.reverse > span {
   font-size: 34px;
   transform: rotate(-45deg) translateY(-1px) translateX(1px);
 }
 
-.card.draw[data-value="2"] {
-  background-image: url("assets/draw2.png"), url("assets/filled.png");
+/* Change */
+
+.card.change {
+  background-image: url("assets/change.png");
 }
 
-.card.draw[data-value="4"] {
-  background-image: url("assets/draw4.png"), url("assets/filled.png");
+.card.change.red {
+  background-image: url("assets/change_red.png");
 }
 
-.card.wild {
-  background-color: var(--card-wild);
-  background-image: url("assets/wild.png");
-  /* border-left: var(--card-border-width) solid var(--card-red); */
-  /* border-top: var(--card-border-width) solid var(--card-yellow); */
-  /* border-right: var(--card-border-width) solid var(--card-green); */
-  /* border-bottom: var(--card-border-width) solid var(--card-blue); */
+.card.change.yellow {
+  background-image: url("assets/change_yellow.png");
 }
 
-.card.wild.red {
-  background-image: url("assets/wild_red.png");
-  /* background-color: var(--card-red); */
-  /* border: 3px solid var(--card-red); */
+.card.change.green {
+  background-image: url("assets/change_green.png");
 }
 
-.card.wild.yellow {
-  background-image: url("assets/wild_yellow.png");
-  /* background-color: var(--card-yellow); */
-  /* border: 3px solid var(--card-yellow); */
+.card.change.blue {
+  background-image: url("assets/change_blue.png");
 }
 
-.card.wild.green {
-  background-image: url("assets/wild_green.png");
-  /* background-color: var(--card-green); */
-  /* border: 3px solid var(--card-green); */
-}
+/* Wild Draw */
 
-.card.wild.blue {
-  background-image: url("assets/wild_blue.png");
-  /* background-color: var(--card-blue); */
-  /* border: 3px solid var(--card-blue); */
-}
-
-.card.draw.wild[data-value="4"] {
+/* .card.draw.wild {
   background-image: url("assets/draw4_wild.png");
 }
 
@@ -168,11 +162,27 @@ Oval creation is 1px inwards from that and rotated by 35 degrees
 
 .card.draw.wild.blue {
   background-image: url("assets/draw4_blue.png");
+} */
+
+/* Wild Skip */
+
+.card.skip.wild {
+
 }
+
+/* Wild Reverse */
+
+.card.reverse.wild {
+
+}
+
+/* Deck */
 
 .card.deck > span {
   margin-bottom: 0.2em;
 }
+
+/* Blank */
 
 .card.blank {
   border-color: transparent;
