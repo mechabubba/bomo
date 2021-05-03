@@ -1,44 +1,75 @@
+/* Measurements
+Card including 4px border is 80x118
+Card excluding 4px border is 72x110
+Size used for filled.png is 76x112 (2 extra pixels on all sides underneath the border)
+Oval creation is 1px inwards from that and rotated by 35 degrees
+*/
+
 :root {
   /* --card-red: rgba(199, 42, 24, 0.45);
   --card-yellow: rgba(230, 202, 30, 0.6);
   --card-green: rgba(24, 168, 73, 0.45);
   --card-blue: rgba(0, 99, 179, 0.45);
   --card-wild: rgba(0, 0, 0, 0.45); */
-  --card-red: #6d261e;
+  /* --card-red: #6d261e;
   --card-yellow: #988720;
   --card-green: #1e5f34;
   --card-blue: #134064;
-  --card-wild: #131313;
+  --card-wild: #131313; */
+  --card-red: #6b2820;
+  --card-yellow: #998825;
+  --card-green: #246b3d;
+  --card-blue: #18466b;
+  --card-wild: #191919; /* rgb(25, 25, 25); */
   --card-width: 80px;
   --card-height: 118px;
   --card-spacing: 8px;
-  --card-border-color: rgba(255, 255, 255, 0.25);
-  --card-border-width: 3px;
+  --card-border-width: 4px;
 }
 
 .sleeve {
+  outline: none;
+}
+
+.sleeve:focus .card {
+  outline: 1px dashed #eee;
+}
+
+.sleeve,
+.card {
   user-select: none;
+}
+
+.sleeve,
+.sleeve .card {
   cursor: pointer;
 }
 
+.sleeve:hover .card {
+  transform: rotate(2deg);
+}
+
+.sleeve:hover .card.held {
+  transform: translateY(-24px) rotate(2deg);
+}
+
 .card {
-  border: var(--card-border-width) solid var(--card-border-color);
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: var(--card-width);
   min-height: var(--card-height);
-  font-size: 2em;
+  background-color: var(--card-wild);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: var(--card-border-width) solid var(--card-wild);
+  /* The border clipping the background is nesscary so the background color doesn't bleed through when the element is rotated as well as maintaining the illusion created by filled.png */
   border-radius: 4px;
+  /* This is necessary for both an outline-color to be used & the correct behavior when the element is unfocused */
+  outline: 1px dashed transparent;
+  font-family: "Roboto Mono", monospace;
+  font-size: 2em;
   transition: 0.2s;
-}
-
-.sleeve:hover .card {
-  transform: translateY(-24px);
-}
-
-.card.blank {
-  background-color: transparent;
 }
 
 .card.red {
@@ -57,40 +88,94 @@
   background-color: var(--card-blue);
 }
 
-.card.wild {
-  background-color: var(--card-wild);
-  border-left: var(--card-border-width) solid var(--card-red);
-  border-top: var(--card-border-width) solid var(--card-yellow);
-  border-right: var(--card-border-width) solid var(--card-green);
-  border-bottom: var(--card-border-width) solid var(--card-blue);
+.card.number,
+.card.reverse,
+.card.skip {
+  background-image: url("assets/filled.png");
 }
 
-.card.wild.red {
-  border: var(--card-border-width) solid var(--card-red);
+.card.number[data-value="6"],
+.card.number[data-value="9"] {
+  text-decoration: underline;
 }
 
-.card.wild.yellow {
-  border: var(--card-border-width) solid var(--card-yellow);
-}
-
-.card.wild.green {
-  border: var(--card-border-width) solid var(--card-green);
-}
-
-.card.wild.blue {
-  border: var(--card-border-width) solid var(--card-blue);
-}
-
-.card > .skip {
+.card.skip > span {
   font-size: 46px;
   transform: scaleX(-1) translateY(-3px);
 }
 
-.card > .reverse {
-  transform: rotate(-45deg) translateY(-2px);
+.card.reverse > span {
+  font-size: 34px;
+  transform: rotate(-45deg) translateY(-1px) translateX(1px);
 }
 
-.card[data-value="6"],
-.card[data-value="9"] {
-  text-decoration: underline;
+.card.draw[data-value="2"] {
+  background-image: url("assets/draw2.png"), url("assets/filled.png");
+}
+
+.card.draw[data-value="4"] {
+  background-image: url("assets/draw4.png"), url("assets/filled.png");
+}
+
+.card.wild {
+  background-color: var(--card-wild);
+  background-image: url("assets/wild.png");
+  /* border-left: var(--card-border-width) solid var(--card-red); */
+  /* border-top: var(--card-border-width) solid var(--card-yellow); */
+  /* border-right: var(--card-border-width) solid var(--card-green); */
+  /* border-bottom: var(--card-border-width) solid var(--card-blue); */
+}
+
+.card.wild.red {
+  background-image: url("assets/wild_red.png");
+  /* background-color: var(--card-red); */
+  /* border: 3px solid var(--card-red); */
+}
+
+.card.wild.yellow {
+  background-image: url("assets/wild_yellow.png");
+  /* background-color: var(--card-yellow); */
+  /* border: 3px solid var(--card-yellow); */
+}
+
+.card.wild.green {
+  background-image: url("assets/wild_green.png");
+  /* background-color: var(--card-green); */
+  /* border: 3px solid var(--card-green); */
+}
+
+.card.wild.blue {
+  background-image: url("assets/wild_blue.png");
+  /* background-color: var(--card-blue); */
+  /* border: 3px solid var(--card-blue); */
+}
+
+.card.draw.wild[data-value="4"] {
+  background-image: url("assets/draw4_wild.png");
+}
+
+.card.draw.wild.red {
+  background-image: url("assets/draw4_red.png");
+}
+
+.card.draw.wild.yellow {
+  background-image: url("assets/draw4_yellow.png");
+}
+
+.card.draw.wild.green {
+  background-image: url("assets/draw4_green.png");
+}
+
+.card.draw.wild.blue {
+  background-image: url("assets/draw4_blue.png");
+}
+
+.card.deck > span {
+  margin-bottom: 0.2em;
+}
+
+.card.blank {
+  border-color: transparent;
+  background-color: transparent;
+  background-image: unset;
 }
