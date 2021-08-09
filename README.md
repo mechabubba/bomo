@@ -1,5 +1,5 @@
-# uwu
-My take on the classic Mattel card game Uno, playable in your web browser. I'm sorry for naming it this way.
+# bomo
+My take on the classic Mattel card game Uno, playable in your web browser.
 
 ## Why?
 Why the hell did I spend the time making this? Let me express the deep frustration my friends and I have with Ubisoft's Uno.

@@ -1,6 +1,6 @@
 // lets get the ball rolling baby
 /*
-# tentative structure
+# Tentative Structure
 src/
     public/
         assets/
@@ -17,7 +17,9 @@ src/
         ???.js - moar????
     index.js - the start of the universe
 */
-const express = require("express");
+const { App } = require("@tinyhttp/app");
+const ejs = require("ejs");
+const sirv = require("sirv");
 const path = require("path");
 const log = require("./util/logger");
 
@@ -25,15 +27,23 @@ const PORT = 3000;
 
 log("Starting bomo...");
 
-const app = express();
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+const app = new App({
+    onError: (e, req, res) => {
+        res.status(500);
+        res.send(e.message);
+    },
+});
+app.engine("ejs", ejs.renderFile);
 
-app.get("/", function(req, res) {
-    res.render("index", {
-        node_version: process.version,
-    });
+// use() is a stack based operation; we need to define our "middleware" one route at a time.
+app.use("/", sirv(path.join(__dirname, "public"))); // Static webserver.
+
+app.get("/", (req, res, next) => res.render("index.ejs", { node_version: process.version })); // Index page; just set this to something generic for now.
+app.get("/cards/", (req, res, next) => res.render("cards.ejs", {})); // Cards page.
+
+app.use((req, res, next) => next(new Error(`404 Not Found :)`))); // 404 route.
+app.use((e, req, res, next) => {
+    res.status(404).send(e.message);
 });
 
 app.listen(PORT);
