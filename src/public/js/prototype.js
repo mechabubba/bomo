@@ -1,3 +1,8 @@
+// NOTE: Please don't mess with this file
+// NOTE: The text property of cards is unnecessary & styled could be implemented better
+// NOTE: "Card" should be a class, and the generation of the element could be a simple getter function
+// NOTE: Event emitters should be used instead of defer
+
 const generators = {
     colors: {},
     types: {},
@@ -26,4 +31,3 @@ const cards = {
 };
 
 const deck = {};
-

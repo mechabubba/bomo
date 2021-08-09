@@ -1,0 +1,171 @@
+/*
+# Measurements
+    - Card including 4px border is 80x118
+    - Card excluding 4px border is 72x110
+     - Size used for filled.png is 76x112 (2 extra pixels on all sides underneath the border)
+    - Oval creation is 1px inwards from that and rotated by 35 degrees
+*/
+
+:root {
+    /*
+    --card-red: rgba(199, 42, 24, 0.45);
+    --card-yellow: rgba(230, 202, 30, 0.6);
+    --card-green: rgba(24, 168, 73, 0.45);
+    --card-blue: rgba(0, 99, 179, 0.45);
+    --card-wild: rgba(0, 0, 0, 0.45);
+    
+    --card-red: #6d261e;
+    --card-yellow: #988720;
+    --card-green: #1e5f34;
+    --card-blue: #134064;
+    --card-wild: #131313;
+    */
+    --card-red: #6b2820;
+    --card-yellow: #998825;
+    --card-green: #246b3d;
+    --card-blue: #18466b;
+    --card-wild: #191919;
+    --card-width: 80px;
+    --card-height: 118px;
+    --card-spacing: 8px;
+    --card-border-width: 4px;
+}
+
+.sleeve {
+    outline: none;
+}
+
+.sleeve:focus .card {
+    outline: 1px dashed #eee;
+}
+
+.sleeve, .card {
+    user-select: none;
+}
+
+.sleeve, .sleeve .card {
+    cursor: pointer;
+}
+
+.sleeve:hover .card {
+    transform: rotate(2deg);
+}
+
+.sleeve:hover .card.held {
+    transform: translateY(-24px) rotate(2deg);
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: var(--card-width);
+    min-height: var(--card-height);
+    background-color: var(--card-wild);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: var(--card-border-width) solid var(--card-wild);
+    border-radius: 4px; /* The border clipping the background is nesscary so the background color doesn't bleed through when the element is rotated as well as maintaining the illusion created by filled.png */
+    outline: 1px dashed transparent; /* This is necessary for both an outline-color to be used & the correct behavior when the element is unfocused */
+    font-family: "Roboto Mono", monospace;
+    font-size: 2em;
+    transition: 0.2s;
+}
+
+.card.red {
+    background-color: var(--card-red);
+}
+
+.card.yellow {
+    background-color: var(--card-yellow);
+}
+
+.card.green {
+    background-color: var(--card-green);
+}
+
+.card.blue {
+    background-color: var(--card-blue);
+}
+
+.card.wild {
+    background-color: var(--card-wild);
+}
+
+.card.number, .card.reverse, .card.skip, .card.draw {
+    background-image: url("../assets/filled.png");
+}
+
+.card.number[data-value="6"], .card.number[data-value="9"] {
+    text-decoration: underline;
+}
+
+.card.skip > span {
+    font-size: 46px;
+    transform: scaleX(-1) translateY(-3px);
+}
+
+.card.reverse > span {
+    font-size: 34px;
+    transform: rotate(-45deg) translateY(-1px) translateX(1px);
+}
+
+.card.change {
+    background-image: url("../assets/change.png");
+}
+
+.card.change.red {
+    background-image: url("../assets/change_red.png");
+}
+
+.card.change.yellow {
+    background-image: url("../assets/change_yellow.png");
+}
+
+.card.change.green {
+    background-image: url("../assets/change_green.png");
+}
+
+.card.change.blue {
+    background-image: url("../assets/change_blue.png");
+}
+
+/*
+.card.draw.wild {
+    background-image: url("../assets/draw4_wild.png");
+}
+
+.card.draw.wild.red {
+    background-image: url("../assets/draw4_red.png");
+}
+
+.card.draw.wild.yellow {
+    background-image: url("../assets/draw4_yellow.png");
+}
+
+.card.draw.wild.green {
+    background-image: url("../assets/draw4_green.png");
+}
+
+.card.draw.wild.blue {
+    background-image: url("../assets/draw4_blue.png");
+}
+*/
+
+.card.skip.wild {
+
+}
+
+.card.reverse.wild {
+
+}
+
+.card.deck > span {
+    margin-bottom: 0.2em;
+}
+
+.card.blank {
+    border-color: transparent;
+    background-color: transparent;
+    background-image: unset;
+}
