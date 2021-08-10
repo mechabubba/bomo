@@ -16,7 +16,7 @@ body {
 }
 
 .logo {
-    color: #f2d93a;
+    color: var(--logo-color);
 }
 
 #main {
@@ -40,7 +40,7 @@ body {
 }
 
 #frame {
-    padding: var(--spacing) var(--spacing) var(--spacing) 0;
+    margin: var(--spacing) var(--spacing) var(--spacing) 0;
     width: 10px; /* this is a hack to make elements scroll properly */
 }
 

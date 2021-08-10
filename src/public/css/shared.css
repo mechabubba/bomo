@@ -5,9 +5,7 @@
     --background-color: rgb(50, 50, 50);
     --background-color-secondary: rgb(35, 35, 35);
     --background-color-tertiary: rgb(25, 25, 25);
-    --log-text: var(--text-color);
-    --log-info: yellow;
-    --log-error: red;
+    --logo-color: rgb(242, 217, 58);
     --text-color: #eee;
     --text-color-code: var(--text-color);
     --spacing: 8px;
