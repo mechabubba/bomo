@@ -62,7 +62,7 @@ Notes for when it gets written:
 - [npm](https://npmjs.com), JavaScript package manager
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
-- [cdnjs](https://cdnjs.com/), reliable content delivery network
+<!-- - [cdnjs](https://cdnjs.com/), reliable content delivery network -->
 - [discord.js](https://discord.js.org) for it's [SnowflakeUtil](https://discord.js.org/#/docs/main/stable/class/SnowflakeUtil) functions
 - [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
@@ -77,7 +77,7 @@ Dependencies
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
-- [jQuery](https://jquery.com/), feature rich client side javaScript library
+<!-- - [jQuery](https://jquery.com/), feature rich javaScript library for browsers -->
 
 Extensions
 
