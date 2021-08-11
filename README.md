@@ -61,6 +61,7 @@ Notes for when it gets written:
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
 - [cdnjs](https://cdnjs.com/), reliable content delivery network
+- [discord.js](https://discord.js.org) for it's [SnowflakeUtil](https://discord.js.org/#/docs/main/stable/class/SnowflakeUtil) functions
 - [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
