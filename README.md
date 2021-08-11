@@ -7,14 +7,20 @@ Features include a lobby browser, private lobbies, control over gameplay mechani
 
 To play, visit the public server at <url>, or setup your own.
 
-## Install
+## install
 
-## Documentation
+- Install [node.js](https://nodejs.org), [npm]() or , and [git](https://git-scm.com/downloads)
+- Download this repository from github or clone via `git clone https://github.com/mechabubba/bomo.git`
+
+- Run `npm install` in the root
+- If you want, copy & rename `template.env` to `.env` to edit whatever variables you want before starting. If you don't, it'll do this for you without changing anything
+- Run `node index.js` or `npm start`
+
+## documentation
 
 See <url> or the /docs/ folder
 -->
-
-## Credits & Attributions
+## credits & attributions
 
 - [UNO](https://www.mattelgames.com/en-us/cards/uno)® by Mattel, Inc for inspiration
 - [Silk Icons](http://www.famfamfam.com/lab/icons/silk/), an icon set by [Mark James](https://github.com/markjames/)
