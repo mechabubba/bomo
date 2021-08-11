@@ -31,7 +31,7 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 
 <!-- - `git checkout .` can be used to discard any uncommited changes you've made, like installing a keyv storage adapter. Just reinstall after running `git pull origin` -->
 
-- `git pull origin`
+- Run `git pull origin`
 
 - Manually update your `.env` file if any new variables were added in `template.env` and you're good to go
 
