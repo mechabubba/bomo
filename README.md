@@ -78,6 +78,6 @@ Dependencies
 
 Extensions
 
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) visual studio code extension by Dirk Baeumer
-- [EJS language support](https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support) visual studio code extension by DigitalBrainstem
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), visual studio code extension by Dirk Baeumer
+- [EJS language support](https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support), visual studio code extension by DigitalBrainstem
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), an opinionated code formatter (visual studio code extension)
