@@ -117,7 +117,7 @@ app.use("/", sirv(path.join(__dirname, "public")));
 
 // Webpages
 app.get("/", (req, res, next) => res.render("index.ejs", {
-    title: "bomo",
+    title: process.env.title,
     node_version: process.version,
 }));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
