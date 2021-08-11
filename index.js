@@ -141,4 +141,4 @@ app.get("/", (req, res, next) => res.render("index.ejs", {
 
 // Ground control to major tom
 app.listen(process.env.port);
-log.info(`tinyhttp started on port ${process.env.port}`);
+log.info(`${chalk.green("[READY]")} tinyhttp started on port ${process.env.port}`);
