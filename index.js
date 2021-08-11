@@ -35,7 +35,7 @@ process.on("exit", (code) => code === 0 ? log.info("Exiting peacefully") : log.w
 // First run
 const envPath = path.join(__dirname, ".env");
 const envTemplate = path.join(__dirname, "template.env");
-if (!fs.existsSync()) {
+if (!fs.existsSync(envPath)) {
     log.info("No .env file present, copying template...");
     fs.copyFileSync(envTemplate, envPath);
 }
