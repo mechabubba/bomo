@@ -43,6 +43,8 @@ Notes for when it gets written:
 
 - If you get `"message": "this.engines[options.ext] is not a function"` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
 
+- `ctrl` + `shift` + `r` forces a complete page refresh in firefox, helpful for clearing cached css
+
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
