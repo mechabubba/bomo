@@ -62,7 +62,7 @@ a:hover, a:focus, a:active {
 }
 
 code {
-	padding: 1px 3px;
+	padding: 0px 3px;
 	font-family: "Roboto Mono", monospace, sans-serif;
 	color: var(--text-color-code);
 	background-color: rgba(0, 0, 0, 0.2);
