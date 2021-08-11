@@ -42,6 +42,12 @@ See <url> or the /docs/ folder
 Notes for when it gets written:
 
 - If you get `"message": "this.engines[options.ext] is not a function"` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
+
+- Documentation
+  - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
+    - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
+  - [ejs](https://ejs.co/#docs)
+  - [keyv](https://www.npmjs.com/package/keyv#usage)
 -->
 
 ## credits & attributions
@@ -49,8 +55,11 @@ Notes for when it gets written:
 - [UNO](https://www.mattelgames.com/en-us/cards/uno)® by Mattel, Inc for inspiration
 - [Silk Icons](http://www.famfamfam.com/lab/icons/silk/), an icon set by [Mark James](https://github.com/markjames/)
 - [Node.js](https://nodejs.org)® JavaScript runtime
+- [npm](https://npmjs.com), JavaScript package manager
+- [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
-- [Pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
+- [cdnjs](https://cdnjs.com/), reliable content delivery network
+- [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine). Used on the 404 page
@@ -63,6 +72,7 @@ Dependencies
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
+- [jQuery](https://jquery.com/), feature rich client side javaScript library
 
 Extensions
 
