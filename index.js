@@ -97,7 +97,10 @@ app.use("/", sirv(path.join(__dirname, "public")));
 
 
 // Webpages
-app.get("/", (req, res, next) => res.render("index.ejs", { node_version: process.version })); // Index page; just set this to something generic for now.
+app.get("/", (req, res, next) => res.render("index.ejs", {
+    title: "bomo",
+    node_version: process.version,
+}));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
 
 // Ground control to major tom

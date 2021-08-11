@@ -1,8 +1,24 @@
-<%- include("_header_.ejs") %>
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>hello</h1>
-<p>this is the index view. poggers...</p>
-<p>server running on node.js <%= node_version %> :)</p>
-<p>see <a href="./cards/">card demo</a></p>
+<head>
+    <%- include("partials/standard_head.ejs") %>
+    <style>
+        #main {
+            padding: 1em;
+        }
+    </style>
+</head>
 
-<%- include("_footer_.ejs") %>
+<body>
+    <%- include("partials/standard_header.ejs") %>
+    <div id="main">
+        <h1>hello world :D</h1>
+        <p>this is the index view</p>
+        <p>bomo is running on node.js <%= node_version %></p>
+        <!-- <p>see <a href="./cards/">card demo</a></p> -->
+    </div>
+    <%- include("partials/standard_scripts.ejs") %>
+</body>
+
+</html>
