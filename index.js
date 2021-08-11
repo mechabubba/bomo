@@ -17,19 +17,28 @@
     index.js - the start of the universe
 */
 const path = require("path");
+const fs = require("fs");
 const log = require("./util/logger");
 log.info("Starting bomo...");
 
 // node.js process event listeners
 // See https://nodejs.org/api/process.html for more information
-process.on("uncaughtException", (error, origin) => {
-    log.fatal(`${origin},`, error);
+process.on("uncaughtException", (err, origin) => {
+    log.fatal(`${origin},`, err);
     return process.exit(1); // Always let code exit on uncaught exceptions
 });
 process.on("unhandledRejection", (reason, promise) => log.error(`unhandledRejection\n`, promise));
 process.on("rejectionHandled", (promise) => log.debug("rejectionHandled\n", promise));
 process.on("warning", (warning) => log.warn(warning));
 process.on("exit", (code) => code === 0 ? log.info("Exiting peacefully") : log.warn("Exiting abnormally with code:", code));
+
+// First run
+const envPath = path.join(__dirname, ".env");
+const envTemplate = path.join(__dirname, "template.env");
+if (!fs.existsSync()) {
+    log.info("No .env file present, copying template...");
+    fs.copyFileSync(envTemplate, envPath);
+}
 
 // Environment
 const dotenv = require("dotenv");
@@ -38,6 +47,16 @@ if (result.error) {
     log.error(result.error);
     throw result.error;
 }
+
+// Database
+const Keyv = require("keyv");
+if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
+const db = process.env.db ? new Keyv(process.env.db) : new Keyv();
+db.on("error", err => {
+    // Don't allow connection errors with database while starting
+    log.fatal("Keyv Connection Error", err);
+    return process.exit(1);
+});
 
 // Tinyhttp
 // https://tinyhttp.v1rtl.site/docs
@@ -105,4 +124,4 @@ app.get("/", (req, res, next) => res.render("index.ejs", {
 
 // Ground control to major tom
 app.listen(process.env.port);
-log(`tinyhttp started on port ${process.env.port}`);
+log.info(`tinyhttp started on port ${process.env.port}`);
