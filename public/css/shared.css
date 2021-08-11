@@ -6,7 +6,7 @@
     --background-color-secondary: rgb(35, 35, 35);
     --background-color-tertiary: rgb(25, 25, 25);
     --text-color: #eee;
-    --text-color-code: var(--text-color);
+    /* --text-color-code: var(--text-color); */
     --spacing: 8px;
 }
 
@@ -64,7 +64,7 @@ a:hover, a:focus, a:active {
 code {
 	padding: 0px 3px;
 	font-family: "Roboto Mono", monospace, sans-serif;
-	color: var(--text-color-code);
+	/* color: var(--text-color-code); */
 	background-color: rgba(0, 0, 0, 0.2);
 	border-radius: 6px;
 	white-space: nowrap;

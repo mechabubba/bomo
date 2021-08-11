@@ -49,6 +49,7 @@ if (result.error) {
 }
 
 // Database
+// https://www.npmjs.com/package/keyv#usage
 const Keyv = require("keyv");
 if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
 const db = process.env.db ? new Keyv(process.env.db) : new Keyv();
@@ -127,7 +128,8 @@ const sirv = require("sirv");
 app.use("/", sirv(path.join(__dirname, "public")));
 
 // API
-
+const { DateTime } = require("luxon");
+app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
 
 // Webpages
 app.get("/", (req, res, next) => res.render("index.ejs", {
