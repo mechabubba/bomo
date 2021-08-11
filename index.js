@@ -32,7 +32,7 @@ process.on("rejectionHandled", (promise) => log.debug("rejectionHandled\n", prom
 process.on("warning", (warning) => log.warn(warning));
 process.on("exit", (code) => code === 0 ? log.info("Exiting peacefully") : log.warn("Exiting abnormally with code:", code));
 
-// First run
+// Environment file setup
 const envPath = path.join(__dirname, ".env");
 const envTemplate = path.join(__dirname, "template.env");
 if (!fs.existsSync(envPath)) {
