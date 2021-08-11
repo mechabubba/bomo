@@ -1,6 +1,6 @@
 # bomo
 
-An open source multiplayer take on the classic Mattel card game UNO, playable via web browser.
+An open source take on the classic Mattel card game UNO, playable via web browser.
 
 <!-- Features include a lobby browser, private lobbies, control over gameplay mechanics, per game chat, login via oauth, and a documented API.
 

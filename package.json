@@ -1,7 +1,7 @@
 {
   "name": "bomo",
-  "version": "1.0.0",
-  "description": "Uno clone for the web.",
+  "version": "1.0.1",
+  "description": "An open source take on the classic Mattel card game UNO",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
