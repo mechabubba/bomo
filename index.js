@@ -38,7 +38,7 @@ app.engine("ejs", ejs.renderFile);
 app.use("/", sirv(path.join(__dirname, "public"))); // Static webserver.
 
 app.get("/", (req, res, next) => res.render("index.ejs", { node_version: process.version })); // Index page; just set this to something generic for now.
-app.get("/cards/", (req, res, next) => res.render("cards.ejs", {})); // Cards page.
+// app.get("/cards/", (req, res, next) => res.render("cards.ejs", {})); // Cards page.
 
 app.use((req, res, next) => next(new Error(`404 Not Found :)`))); // 404 route.
 app.use((e, req, res, next) => {
@@ -46,4 +46,4 @@ app.use((e, req, res, next) => {
 });
 
 app.listen(PORT);
-log(`Express started on port ${PORT}`);
+log(`tinyhttp started on port ${PORT}`);
