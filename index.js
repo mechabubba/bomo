@@ -67,7 +67,8 @@ const app = new App({
         // respond with html page
         if (req.accepts("html")) {
             res.render("404.ejs", {
-                title: process.env.title,
+                title: `${process.env.title} - 404`,
+                icon: "error.ico",
                 url: req.url,
             });
             return;
@@ -131,6 +132,7 @@ app.use("/", sirv(path.join(__dirname, "public")));
 // Webpages
 app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
+    icon: "favicon.ico",
     node_version: process.version,
 }));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
