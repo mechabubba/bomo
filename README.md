@@ -21,6 +21,7 @@ See <url> or the /docs/ folder
 - [Node.js](https://nodejs.org)® JavaScript runtime
 - [eslint](https://eslint.org/), a configurable JavaScript linter
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) visual studio code extension by Dirk Baeumer
+- [Pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
 - [ejs](https://ejs.co), embedded JavaScript templating
   - [EJS language support](https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support) visual studio code extension by DigitalBrainstem
