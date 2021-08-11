@@ -1,7 +1,6 @@
 /**
- * Modified logging module from the excellent sandplate repo.
- *
- * https://github.com/06000208/sandplate
+ * Modified logging module from sandplate
+ * https://github.com/06000208/sandplate/blob/main/modules/log.js
  */
 const chalk = require("chalk");
 const { DateTime } = require("luxon");
