@@ -1,0 +1,28 @@
+:root {
+    --logo-color: rgb(242, 217, 58);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+}
+
+#header {
+    background-color: var(--background-color-secondary);
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing);
+}
+
+.logo {
+    color: var(--logo-color);
+}
+
+#main {
+    flex-grow: 1;
+}

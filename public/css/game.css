@@ -1,0 +1,30 @@
+/* Temporarily dumped from standard.css */
+
+#field {
+    flex-grow: 1;
+}
+
+#hand {
+    overflow: hidden;
+}
+
+#hand > div {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+#cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-grow: 1;
+    gap: var(--card-spacing);
+    padding: var(--spacing);
+    margin-top: 24px;
+    /* background-color: var(--background-color-secondary); */
+    /* border-top-left-radius: var(--spacing); */
+    /* border-top-right-radius: var(--spacing); */
+}
