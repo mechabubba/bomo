@@ -125,17 +125,27 @@ app.use((req, res, next) => {
 
 // Static web server
 const sirv = require("sirv");
-app.use("/", sirv(path.join(__dirname, "public")));
+app.use("/", sirv(path.join(__dirname, "public"), {
+    maxAge: 86400, // Cached for 24 hours
+}));
 
 // API
 const { DateTime } = require("luxon");
 app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
+app.post("/time", (req, res, next) => res.json({
+    message: "yes i can here u are",
+    content: DateTime.now().toFormat("HH:mm:ss.SSS"),
+}));
 
 // Webpages
 app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
     icon: "favicon.ico",
     node_version: process.version,
+}));
+app.get("/test", (req, res, next) => res.render("test.ejs", {
+    title: `${process.env.title} - api test`,
+    icon: "favicon.ico",
 }));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
 
