@@ -17,5 +17,4 @@ npm-debug.log*
 *.7z
 *.tar
 *.exe
-
-client/sv_temp.js
+!template.env
