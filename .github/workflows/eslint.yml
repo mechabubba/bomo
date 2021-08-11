@@ -1,0 +1,2 @@
+- name: Eslint check
+  uses: Krizzu/eslint-check-action@v1.1.0
