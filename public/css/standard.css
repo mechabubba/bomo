@@ -1,5 +1,5 @@
 :root {
-    --logo-color: rgb(242, 217, 58);
+    --title-color: rgb(242, 217, 58);
 }
 
 body {
@@ -14,13 +14,17 @@ body {
 
 #header {
     background-color: var(--background-color-secondary);
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     padding: var(--spacing);
 }
 
-.logo {
-    color: var(--logo-color);
+#header span:first-child {
+    flex-grow: 1;
+}
+
+#header-title {
+    color: var(--title-color);
 }
 
 #main {
