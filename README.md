@@ -17,7 +17,7 @@ See <url> or the /docs/ folder
 ## Credits & Attributions
 
 - [UNO](https://www.mattelgames.com/en-us/cards/uno)® by Mattel, Inc for inspiration
-- [Mark James](https://github.com/markjames/)'s icon set [silk icons](http://www.famfamfam.com/lab/icons/silk/)
+- [Silk Icons](http://www.famfamfam.com/lab/icons/silk/), an icon set by [Mark James](https://github.com/markjames/)
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
