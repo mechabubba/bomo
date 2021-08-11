@@ -1,7 +1,6 @@
 // lets get the ball rolling baby
 /*
 # Tentative Structure
-src/
     public/
         assets/
         css/
