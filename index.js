@@ -13,7 +13,7 @@
     views/
         _header_, _footer_.ejs - header and footer, visible on every page
         index.ejs - home thing
-        ???.js - moar????
+        ???.js - more????
     index.js - the start of the universe
 */
 const path = require("path");
@@ -49,7 +49,7 @@ if (result.error) {
 }
 
 // Database
-// https://www.npmjs.com/package/keyv#usage
+// https://keyv.js.org
 const Keyv = require("keyv");
 if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
 const db = process.env.db ? new Keyv(process.env.db) : new Keyv();

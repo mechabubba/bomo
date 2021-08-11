@@ -2,7 +2,7 @@
 
 An open source take on the classic Mattel card game UNO, playable via web browser.
 
-<!-- Features include a lobby browser, private lobbies, control over gameplay mechanics, per game chat, login via oauth, and a documented API.
+<!-- Features include a lobby browser, private lobbies, control over gameplay mechanics, per game chat, LetsEncrypt support, login via oauth, and a documented API.
 
 To play, visit the public server at <url>, or setup your own. -->
 
@@ -25,11 +25,11 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 - Run `node index.js` or `npm start` to start the server and you're good to go
 
 - To change the port or persist data to a database, edit your `.env` file
-  - The `DB` variable is a [keyv](https://www.npmjs.com/package/keyv) connection string. Read up on usage there and make sure to install the appropriate storage adapter as a dependency
+  - The `DB` variable is a [keyv connection string](https://keyv.js.org/#/?id=storage-adapters). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
 
 ## update
 
-<!-- - `git checkout .` can be used to discard any uncommited changes you've made, like installing a keyv storage adapter. Just reinstall after running `git pull origin` -->
+<!-- - `git checkout .` can be used to discard any uncommitted changes you've made, like installing a keyv storage adapter. Just reinstall after running `git pull origin` -->
 
 - Run `git pull origin`
 
@@ -45,11 +45,13 @@ Notes for when it gets written:
 
 - `ctrl` + `shift` + `r` forces a complete page refresh in firefox, helpful for clearing cached css
 
+- .ejs files can be edited while live; static files served by sirv cannot and will break if edited
+
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
   - [ejs](https://ejs.co/#docs)
-  - [keyv](https://www.npmjs.com/package/keyv#usage)
+  - [keyv](https://keyv.js.org/)
 -->
 
 ## credits & attributions
