@@ -51,7 +51,8 @@ Notes for when it gets written:
 - [Node.js](https://nodejs.org)® JavaScript runtime
 - [eslint](https://eslint.org/), a configurable JavaScript linter
 - [Pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
-- [The Twelve-Factor App](https://12factor.net/), good guidance in these trying times
+- [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
+- [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine). Used on the 404 page
 
 Dependencies
