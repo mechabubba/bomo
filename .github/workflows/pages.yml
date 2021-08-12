@@ -20,7 +20,7 @@ jobs:
           recurse: true
           config_file: .jsdoc.conf.json
           template: boxy-jsdoc-template
-          front_page: ./docs/README.md
+          front_page: README.md
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
