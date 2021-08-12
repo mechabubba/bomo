@@ -46,8 +46,10 @@ if (!fs.existsSync(envPath)) {
 
 /**
  * Environment variables
+ * @see https://nodejs.org/docs/latest/api/process.html#process_process_env
+ * @see https://www.npmjs.com/package/dotenv
  * @type {Object}
- * @namespace process.env
+ * @name process.env
  * @global
  */
 const result = dotenv.config();
