@@ -19,5 +19,5 @@ npm-debug.log*
 *.exe
 !template.env
 docs/
-!docs/README.md
 !docs/.gitkeep
+!docs/README.md
