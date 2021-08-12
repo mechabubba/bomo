@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "generate-docs": "jsdoc --configure .jsdoc.conf.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,5 +25,8 @@
     "keyv": "^4.0.3",
     "luxon": "^2.0.2",
     "sirv": "^1.0.12"
+  },
+  "devDependencies": {
+    "minami": "^1.2.3"
   }
 }

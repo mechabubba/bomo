@@ -1,8 +1,18 @@
 {
     "source": {
         "include": ["."],
-        "exclude": ["node_modules", "views"],
+        "exclude": ["node_modules", "views", "docs", ".vscode", ".github"],
         "includePattern": ".js$"
     },
-    "plugins": ["plugins/markdown"]
+    "plugins": ["plugins/markdown"],
+    "markdown": {
+        "tags": ["todo"]
+    },
+    "opts": {
+        "destination": "./docs/",
+        "encoding": "utf8",
+        "private": true,
+        "recurse": true,
+        "template": "./node_modules/minami"
+    }
 }
