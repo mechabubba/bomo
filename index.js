@@ -1,4 +1,3 @@
-// lets get the ball rolling baby
 /*
 # Tentative Structure
     public/
@@ -7,6 +6,7 @@
         js/
             main.js - the client code
     structures/
+        Bomo.js    - internal logic
         Game.js   - game logic
         Lobby.js  - lobby class
         Player.js - a "player"
@@ -16,9 +16,13 @@
         ???.js - more????
     index.js - the start of the universe
 */
-const path = require("path");
+
 const fs = require("fs");
+const path = require("path");
+const dotenv = require("dotenv");
+const Bomo = require("./structures/Bomo");
 const log = require("./util/logger");
+const { DateTime } = require("luxon");
 log.info("Starting bomo...");
 
 // node.js process event listeners
@@ -40,115 +44,41 @@ if (!fs.existsSync(envPath)) {
     fs.copyFileSync(envTemplate, envPath);
 }
 
-// Environment
-const dotenv = require("dotenv");
+/**
+ * Environment variables
+ * @type {Object}
+ * @namespace process.env
+ * @global
+ */
 const result = dotenv.config();
 if (result.error) {
     log.error(result.error);
     throw result.error;
 }
 
-// Database
-// https://keyv.js.org
-const Keyv = require("keyv");
-if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
-const db = process.env.db ? new Keyv(process.env.db) : new Keyv();
-db.on("error", err => {
-    // Don't allow connection errors with database while starting
-    log.fatal("Keyv Connection Error", err);
-    return process.exit(1);
-});
+// Instantiate bomo
+const bomo = new Bomo();
 
-// Tinyhttp
-// https://tinyhttp.v1rtl.site/docs
-const { App } = require("@tinyhttp/app");
-const app = new App({
-    noMatchHandler: (req, res) => {
-        res.status(404);
-        // respond with html page
-        if (req.accepts("html")) {
-            res.render("404.ejs", {
-                title: `${process.env.title} - 404`,
-                icon: "error.ico",
-                url: req.url,
-            });
-            return;
-        }
-        // respond with json
-        if (req.accepts("json")) {
-            res.json({ error: "Not found" });
-            return;
-        }
-        // default to plain text
-        res.type("txt").send("Not found");
-    },
-    onError: (err, req, res) => {
-        res.status(500).send({
-            message: err.message,
-        });
-    },
-});
+// Setting engine, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
 
-// Engine
-// https://ejs.co/#docs
-const ejs = require("ejs");
-app.engine("ejs", ejs.renderFile);
-
-// Logging
-const chalk = require("chalk");
-const loggingColors = {
-    "1": chalk.gray, // Informational responses
-    "2": chalk.cyan, // Successful responses
-    "3": chalk.gray, // Redirects
-    "4": chalk.yellow, // Client errors
-    "5": chalk.magenta, // Server errors
-};
-app.use((req, res, next) => {
-    res.on("finish", () => {
-        const url = req.originalUrl || req.url;
-        const code = res.statusCode.toString();
-        const args = [];
-        args.push(req.ip);
-        args.push(req.method);
-        args.push(loggingColors[code[0]](code));
-        args.push(res.statusMessage);
-        args.push(url);
-        const message = args.join(" ").trim();
-        if (code[0] === "4" || code[0] === "5") {
-            log.debug(message);
-        } else {
-            log.trace(message);
-        }
-    });
-    next();
-});
-
-// Static web server
-const sirv = require("sirv");
-app.use("/", sirv(path.join(__dirname, "public"), {
-    maxAge: 86400, // Cached for 24 hours
-}));
-
-// API
-const { DateTime } = require("luxon");
-app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
-app.post("/time", (req, res, next) => res.json({
+// Register api routes with tinyhttp
+bomo.app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
+bomo.app.post("/time", (req, res, next) => res.json({
     message: "yes i can here u are",
     content: DateTime.now().toFormat("HH:mm:ss.SSS"),
 }));
 
-// Webpages
-app.get("/", (req, res, next) => res.render("index.ejs", {
+// Register page routes with tinyhttp
+this.app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
     icon: "favicon.ico",
     node_version: process.version,
 }));
-app.get("/test", (req, res, next) => res.render("test.ejs", {
+this.app.get("/test", (req, res, next) => res.render("test.ejs", {
     title: `${process.env.title} - api test`,
     icon: "favicon.ico",
 }));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
 
-// Ground control to major tom
-app.listen(process.env.port);
-log.info(`${chalk.green("[READY]")} tinyhttp started on port ${process.env.port}`);
+// Start
+bomo.start();
