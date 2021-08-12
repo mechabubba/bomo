@@ -25,7 +25,7 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 - Run `node index.js` or `npm start` to start the server and you're good to go
 
 - To change the port or persist data to a database, edit your `.env` file
-  - The `DB` variable is a [keyv connection string](https://keyv.js.org/#/?id=storage-adapters). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
+  - The `DB` variable is a [keyv connection string](https://www.npmjs.com/package/keyv#usage). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
 
 ## update
 
@@ -51,7 +51,7 @@ Notes for when it gets written:
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
   - [ejs](https://ejs.co/#docs)
-  - [keyv](https://keyv.js.org/)
+  - [keyv](https://www.npmjs.com/package/keyv#usage) & [keyv.js.org](https://keyv.js.org/)
   - [jsdoc](https://jsdoc.app/)
 
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
@@ -68,7 +68,6 @@ Notes for when it gets written:
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
 <!-- - [cdnjs](https://cdnjs.com/), reliable content delivery network -->
-- [discord.js](https://discord.js.org) for it's [SnowflakeUtil](https://discord.js.org/#/docs/main/stable/class/SnowflakeUtil) functions
 - [JSDoc](https://jsdoc.app/), inline JavaScript documentation & docs generation
 - [minami](https://github.com/nijikokun/minami), a clean template theme for JSDoc 3
 - [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
