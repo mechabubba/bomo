@@ -1,7 +1,11 @@
 {
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc"]
+    },
     "source": {
         "include": ["."],
-        "exclude": ["node_modules", "views", "docs", ".vscode", ".github"],
+        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "public"],
         "includePattern": ".js$"
     },
     "plugins": ["plugins/markdown"],

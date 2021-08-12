@@ -20,11 +20,10 @@ jobs:
           recurse: true
           config_file: .jsdoc.conf.json
           template: minami
-          front_page: README.md
+          front_page: ./docs/README.md
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_branch: gh-pages
-          keep_files: true
