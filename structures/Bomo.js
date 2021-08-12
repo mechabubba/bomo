@@ -107,6 +107,7 @@ class Bomo extends EventEmitter {
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
         this.app.use("/", sirv(this.public, {
+            dev: process.env.dev,
             maxAge: 86400, // Cached for 24 hours
         }));
     }
