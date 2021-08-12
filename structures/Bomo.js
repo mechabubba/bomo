@@ -124,7 +124,7 @@ class Bomo extends EventEmitter {
      * Stops bomo
      */
     stop() {
-        //
+        process.exit(0);
     }
 }
 
