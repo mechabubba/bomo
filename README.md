@@ -47,11 +47,14 @@ Notes for when it gets written:
 
 - .ejs files can be edited while live; static files served by sirv cannot and will break if edited
 
+- `jsdoc -d ./docs -c .jsdoc.conf.json`
+
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
   - [ejs](https://ejs.co/#docs)
   - [keyv](https://keyv.js.org/)
+  - [jsdoc](https://jsdoc.app/)
 
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
