@@ -10,8 +10,8 @@ const { DateTime } = require("luxon");
 const color = {
     "fatal": chalk.bgRed.black,
     "error": chalk.red,
-    "warn": chalk.yellow,
-    "info": chalk.white.bold,
+    " warn": chalk.yellow,
+    " info": chalk.white.bold,
     "http": chalk.blue,
     "debug": chalk.green,
     "trace": chalk.gray,
@@ -33,7 +33,7 @@ module.exports.timestamp = timestamp;
  * @private
  */
 const print = function(level, ...args) {
-    const prefix = `${chalk.gray(DateTime.now().toFormat(timestamp))} ${color[level](level.padEnd(Math.max(...(Object.keys(color).map(el => el.length))), " ").toUpperCase())}`; // https://stackoverflow.com/a/43304999
+    const prefix = `${chalk.gray(DateTime.now().toFormat(timestamp))} ${color[level](level)}`;
     return errors.includes(level) ? console.error(prefix, ...args) : console.log(prefix, ...args);
 };
 
@@ -52,10 +52,10 @@ const print = function(level, ...args) {
  * log.debug("example");
  * log.trace("example");
  */
-module.exports = (...args) => print("info", ...args);
+module.exports = (...args) => print(" info", ...args);
 module.exports.fatal = (...args) => print("fatal", ...args);
 module.exports.error = (...args) => print("error", ...args);
-module.exports.warn = (...args) => print("warn", ...args);
-module.exports.info = (...args) => print("info", ...args);
+module.exports.warn = (...args) => print(" warn", ...args);
+module.exports.info = (...args) => print(" info", ...args);
 module.exports.debug = (...args) => print("debug", ...args);
 module.exports.trace = (...args) => print("trace", ...args);
