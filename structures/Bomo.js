@@ -27,6 +27,11 @@ class Bomo extends EventEmitter {
         super();
 
         /**
+         * A map of keys to Lobby's.
+         */
+        this.lobbies = {};
+
+        /**
          * Path of the publicly served folder. Used with sirv.
          */
         this.public = path.join(__dirname, "../public");
@@ -120,6 +125,13 @@ class Bomo extends EventEmitter {
      */
     stop() {
         process.exit(0);
+    }
+
+    /**
+     * Creates a lobby.
+     */
+    createLobby() {
+        // :I
     }
 }
 
