@@ -84,14 +84,8 @@ class Bomo extends EventEmitter {
         // Logging middleware via ./util/logger
         this.app.use((req, res, next) => {
             res.on("finish", () => {
-                const url = req.originalUrl || req.url;
                 const code = res.statusCode.toString();
-                const args = [];
-                args.push(req.ip);
-                args.push(req.method);
-                args.push(loggingColors[code[0]](code));
-                args.push(res.statusMessage);
-                args.push(url);
+                const args = [req.ip, req.method, loggingColors[code[0]](code), res.statusMessage, req.originalUrl || req.url];
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
@@ -107,6 +101,7 @@ class Bomo extends EventEmitter {
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
         this.app.use("/", sirv(this.public, {
+            dev: process.env.dev,
             maxAge: 86400, // Cached for 24 hours
         }));
     }
