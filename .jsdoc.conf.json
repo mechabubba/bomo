@@ -3,5 +3,6 @@
         "include": ["."],
         "exclude": ["node_modules", "views"],
         "includePattern": ".js$"
-    }
+    },
+    "plugins": ["plugins/markdown"]
 }
