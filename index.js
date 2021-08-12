@@ -71,12 +71,12 @@ bomo.app.post("/time", (req, res, next) => res.json({
 }));
 
 // Register page routes with tinyhttp
-this.app.get("/", (req, res, next) => res.render("index.ejs", {
+bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
     icon: "favicon.ico",
     node_version: process.version,
 }));
-this.app.get("/test", (req, res, next) => res.render("test.ejs", {
+bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
     title: `${process.env.title} - api test`,
     icon: "favicon.ico",
 }));
