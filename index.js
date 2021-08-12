@@ -45,13 +45,20 @@ if (!fs.existsSync(envPath)) {
 }
 
 /**
+ * Information and control over the current Node.js process
+ * @external process
+ * @see https://nodejs.org/docs/latest/api/process.html
+ */
+
+/**
  * Environment variables
  * @see https://nodejs.org/docs/latest/api/process.html#process_process_env
  * @see https://www.npmjs.com/package/dotenv
+ * @name env
  * @type {Object}
- * @name process.env
- * @global
+ * @memberof external:process
  */
+
 const result = dotenv.config();
 if (result.error) {
     log.error(result.error);
