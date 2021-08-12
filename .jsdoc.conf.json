@@ -17,7 +17,7 @@
         "encoding": "utf8",
         "private": true,
         "recurse": true,
-        "template": "./node_modules/minami",
+        "template": "./node_modules/boxy-jsdoc-template",
         "readme": "./docs/README.md"
     }
 }

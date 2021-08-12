@@ -19,7 +19,7 @@ jobs:
           output_dir: ./docs
           recurse: true
           config_file: .jsdoc.conf.json
-          template: minami
+          template: boxy-jsdoc-template
           front_page: ./docs/README.md
 
       - name: Deploy

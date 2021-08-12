@@ -24,9 +24,10 @@
     "ejs": "^3.1.6",
     "keyv": "^4.0.3",
     "luxon": "^2.0.2",
-    "sirv": "^1.0.12"
+    "sirv": "^1.0.12",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "minami": "^1.2.3"
+    "boxy-jsdoc-template": "^2.0.2"
   }
 }
