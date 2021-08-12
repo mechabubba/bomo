@@ -67,7 +67,6 @@ Notes for when it gets written:
 - [npm](https://npmjs.com), JavaScript package manager
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
-<!-- - [cdnjs](https://cdnjs.com/), reliable content delivery network -->
 - [JSDoc](https://jsdoc.app/), inline JavaScript documentation & docs generation
 - [minami](https://github.com/nijikokun/minami), a clean template theme for JSDoc 3
 - [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
@@ -75,7 +74,6 @@ Notes for when it gets written:
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [stackoverflow.blog's Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/), good article on rest apis
 - [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine). Used on the 404 page
-
 
 Dependencies
 
@@ -86,6 +84,7 @@ Dependencies
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
 <!-- - [jQuery](https://jquery.com/), feature rich javaScript library for browsers -->
+<!-- - [cdnjs](https://cdnjs.com/), reliable content delivery network -->
 
 Extensions
 
