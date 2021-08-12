@@ -4,8 +4,16 @@
 <head>
     <%- include("partials/standard_head.ejs") %>
     <style>
-        #main {
+        #main, #login {
             padding: 1em;
+        }
+        #main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .input-row:not(:last-child) {
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -13,12 +21,43 @@
 <body>
     <%- include("partials/standard_header.ejs") %>
     <div id="main">
-        <h1>hello world :D</h1>
-        <p>this is the index view</p>
-        <p>bomo is running on node.js <%= node_version %></p>
-        <!-- <p>see <a href="./cards/">card demo</a></p> -->
+        <div id="login">
+            <h1>welcome to bomo</h1>
+            <!-- this would be easy if inputs and buttons weren't inline elements -->
+            <div class="input-row">
+                <input id="name-input" placeholder="enter your name">
+            </div>
+            <div class="input-row">
+                <button id="create-lobby">create lobby</button> or...
+            </div>
+            <div class="input-row">
+                <input id="lobby-input" placeholder="enter lobby code">
+                <button id="join-lobby">join</button>
+            </div>
+        </div>
     </div>
     <%- include("partials/standard_scripts.ejs") %>
+    <script>
+        let name_input = document.getElementById("name-input");
+        let lobby_input = document.getElementById("lobby-input");
+        let create_lobby = document.getElementById("create-lobby");
+        let join_lobby = document.getElementById("join-lobby");
+
+        function fieldCheck() {
+            if (!name_input.value.length > 0) {
+                lobby_input.disabled = true;
+                create_lobby.disabled = true;
+                join_lobby.disabled = true;
+            } else {
+                lobby_input.disabled = false;
+                create_lobby.disabled = false;
+                join_lobby.disabled = false;
+            }
+        }
+
+        fieldCheck();
+        name_input.onchange = (e) => fieldCheck();
+    </script>
 </body>
 
 </html>

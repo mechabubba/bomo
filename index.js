@@ -77,6 +77,17 @@ bomo.app.post("/time", (req, res, next) => res.json({
     content: DateTime.now().toFormat("HH:mm:ss.SSS"),
 }));
 
+// Lobby API Endpoints
+bomo.app.post("/api/lobby/create", (req, res, next) => {
+    // params: name, some sort of browser/session id
+    // returns: success, lobby code
+});
+
+bomo.app.post("/api/lobby/join", (rep, res, next) => {
+    // params: name, some sort of browser/session id, lobby code
+    // returns: success
+});
+
 // Register page routes with tinyhttp
 bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
