@@ -1,0 +1,22 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc"]
+    },
+    "source": {
+        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "public"],
+        "includePattern": "\\.js$"
+    },
+    "plugins": ["plugins/markdown"],
+    "markdown": {
+        "tags": ["todo"]
+    },
+    "opts": {
+        "destination": "./docs/",
+        "encoding": "utf8",
+        "private": true,
+        "recurse": true,
+        "template": "./node_modules/boxy-jsdoc-template",
+        "readme": "./docs/README.md"
+    }
+}

@@ -1,0 +1,62 @@
+/* Temporarily dumped from standard.css */
+
+#chat {
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-log {
+    flex-grow: 1;
+}
+
+#chat {
+    border-radius: var(--spacing);
+    margin: var(--spacing);
+    width: 260px;
+    overflow: auto; /* this allows for the border radius to clip the visibility of it's children */
+}
+
+#chat-input {
+    width: 260px;
+    padding: var(--spacing);
+    margin: unset;
+    background-color: var(--background-color-tertiary);
+    color: var(--text-color);
+    outline: none;
+    word-wrap: break-word;
+}
+
+#chat-message:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+/* Prepends logs with a given string. */
+/*
+#chat-message[data-type]::before {
+    content: "[" attr(data-type) "] ";
+    text-transform: uppercase;
+}
+*/
+
+#chat-message[data-type="warn"]::before {
+    /* padding: 0 2px 0 0; */
+    content: url(../assets/silkicons/_warn.png);
+    vertical-align: middle;
+}
+
+#chat-message[data-type="error"]::before {
+    /* padding: 0 2px 0 0; */
+    content: url(../assets/silkicons/_error.png);
+    vertical-align: middle;
+}
+
+#chat-log {
+    width: 260px;
+    height: 10px; /* this is a hack to make elements scroll properly */
+    padding: var(--spacing);
+    overflow-y: scroll;
+    background-color: var(--background-color-secondary);
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    word-wrap: break-word;
+}

@@ -1,0 +1,32 @@
+:root {
+    --title-color: rgb(242, 217, 58);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+}
+
+#header {
+    background-color: var(--background-color-secondary);
+    justify-content: left;
+    align-items: center;
+    padding: var(--spacing);
+}
+
+#header span:first-child {
+    flex-grow: 1;
+}
+
+#header-title {
+    color: var(--title-color);
+}
+
+#main {
+    flex-grow: 1;
+}

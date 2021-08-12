@@ -3,10 +3,11 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "jquery": true
   },
   "parserOptions": {
-    "ecmaVersion": 2019
+    "ecmaVersion": 2020
   },
   "rules": {
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],

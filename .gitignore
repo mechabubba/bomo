@@ -16,5 +16,8 @@ npm-debug.log*
 *.zip
 *.7z
 *.tar
-
-client/sv_temp.js
+*.exe
+!template.env
+docs/
+!docs/.gitkeep
+!docs/README.md

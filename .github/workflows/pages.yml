@@ -1,0 +1,30 @@
+# https://github.com/marketplace/actions/jsdoc-action
+# https://github.com/marketplace/actions/github-pages-action
+name: Pages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./
+          output_dir: ./docs
+          recurse: true
+          config_file: .jsdoc.conf.json
+          template: boxy-jsdoc-template
+          front_page: README.md
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs
+          publish_branch: gh-pages

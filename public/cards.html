@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>bomo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/shared.css">
+    <link rel="stylesheet" href="./css/standard.css">
+    <link rel="stylesheet" href="./css/cards.css">
+    <style>        
+        #main {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            align-content: flex-start;
+            flex-wrap: wrap;
+            gap: var(--card-spacing);
+        } 
+
+        .header {
+            flex-basis: 100%;
+            background-color: rgb(45, 45, 45);
+        }
+
+        .header:not(:empty) {
+            padding: var(--spacing);
+        }
+
+        .header:empty {
+            height: 2px;
+        }
+
+        .spacer {
+            flex-basis: 100%;
+            height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <span><span class="logo">bomo</span> - the classic card game</span>
+        <span>about</span>
+    </div>
+    <div id="main">
+        <!--
+            This is used to demo card designs with the bare
+            minimum amount of html, classes, and attributes.
+            It showcases most possible cards.
+        -->
+        <!-- Blank cards are transparent, while cards with no classes have the border rules and background color set by default. The "deck" card is what the back of every card might look like, and would as the draw pile. -->
+        <div class="header">Blank cards are transparent, while cards with no classes have the border rules and
+            background color set by default. The "deck" card is what the back of every card might look like, and would
+            as the draw pile.</div>
+        <div class="card blank">?</div>
+        <div class="card">?</div>
+        <div class="sleeve" tabindex="0">
+            <div class="card held deck"><span>uwu</span></div>
+        </div>
+
+        <!-- Number Cards -->
+        <div class="header">Number Cards</div>
+        <div class="card red number">1</div>
+        <div class="card yellow number">2</div>
+        <div class="card green number">3</div>
+        <div class="card blue number">4</div>
+
+        <!-- 6s and 9s have an underline. -->
+        <div class="header">6s and 9s have an underline.</div>
+        <div class="card red number" data-value="6">6</div>
+        <div class="card yellow number" data-value="9">9</div>
+        <div class="card green number" data-value="6">6</div>
+        <div class="card blue number" data-value="9">9</div>
+
+        <!-- Sleeves provide cards with containers for interaction and hover behavior. Rudimentary keyboard navigation is supported. Cards which are held have additional upwards movement. -->
+        <div class="header">Sleeves provide cards with containers for interaction and hover behavior. Rudimentary
+            keyboard navigation is supported. Cards which are held have additional upwards movement.</div>
+        <div class="spacer"></div>
+        <div class="sleeve" tabindex="0">
+            <div class="card held red number">1</div>
+        </div>
+        <div class="sleeve" tabindex="0">
+            <div class="card held yellow number">1</div>
+        </div>
+        <div class="sleeve" tabindex="0">
+            <div class="card held green number">2</div>
+        </div>
+        <div class="sleeve" tabindex="0">
+            <div class="card held blue number">2</div>
+        </div>
+
+        <!-- Reverse, Skip, Draw +2, and Draw +4 of each color. -->
+        <div class="header">Reverse, Skip, Draw +2, and Draw +4 of each color.</div>
+        <div class="card red reverse"><span>⮂</span></div>
+        <div class="card red skip"><span>⦸</span></div>
+        <div class="card red draw">+2</div>
+        <div class="card red draw">+4</div>
+        <div class="header"></div>
+        <div class="card yellow reverse"><span>⮂</span></div>
+        <div class="card yellow skip"><span>⦸</span></div>
+        <div class="card yellow draw">+2</div>
+        <div class="card yellow draw">+4</div>
+        <div class="header"></div>
+        <div class="card green reverse"><span>⮂</span></div>
+        <div class="card green skip"><span>⦸</span></div>
+        <div class="card green draw">+2</div>
+        <div class="card green draw">+4</div>
+        <div class="header"></div>
+        <div class="card blue reverse"><span>⮂</span></div>
+        <div class="card blue skip"><span>⦸</span></div>
+        <div class="card blue draw">+2</div>
+        <div class="card blue draw">+4</div>
+
+        <!-- Wild -->
+        <div class="header">Wild</div>
+        <div class="card change wild"></div>
+        <div class="card change wild red"></div>
+        <div class="card change wild yellow"></div>
+        <div class="card change wild green"></div>
+        <div class="card change wild blue"></div>
+
+        <!-- Wild Draw +4 -->
+        <div class="header">Wild Draw +4</div>
+        <div class="card wild draw">+4</div>
+        <div class="card wild red draw">+4</div>
+        <div class="card wild yellow draw">+4</div>
+        <div class="card wild green draw">+4</div>
+        <div class="card wild blue draw">+4</div>
+
+        <!-- Wild Reverse -->
+        <div class="header">Wild Reverse</div>
+        <div class="card wild reverse"><span>⮂</span></div>
+        <div class="card wild red reverse"><span>⮂</span></div>
+        <div class="card wild yellow reverse"><span>⮂</span></div>
+        <div class="card wild green reverse"><span>⮂</span></div>
+        <div class="card wild blue reverse"><span>⮂</span></div>
+
+        <!-- Wild Skip -->
+        <div class="header">Wild Skip</div>
+        <div class="card wild skip"><span>⦸</span></div>
+        <div class="card wild red skip"><span>⦸</span></div>
+        <div class="card wild yellow skip"><span>⦸</span></div>
+        <div class="card wild green skip"><span>⦸</span></div>
+        <div class="card wild blue skip"><span>⦸</span></div>
+    </div>
+    <script>
+        // Prevent elements automatically scrolling to the position they were prior to reload
+        history.scrollRestoration = "manual"
+    </script>
+    <!-- <script src="./js/app.js"></script> -->
+    <template id="card-template">
+        <div class="sleeve">
+            <div class="card"></div>
+        </div>
+    </template>
+</body>
+
+</html>

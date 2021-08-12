@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+:root {
+    --background-color: rgb(50, 50, 50);
+    --background-color-secondary: rgb(35, 35, 35);
+    --background-color-tertiary: rgb(25, 25, 25);
+    --text-color: #eee;
+    /* --text-color-code: var(--text-color); */
+    --spacing: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+* > :first-child {
+    margin-top: 0;
+}
+
+* > :last-child {
+    margin-bottom: 0;
+}
+
+[hidden] { /* Fix the hidden attribute being overrode by any display rule */
+    display: none !important;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: var(--background-color);
+}
+
+body {
+    min-height: 100vh;
+    /* max-height: 100vh; */
+    /* min-width: 100vw; */
+    /* max-width: 100vh; */
+    color: var(--text-color);
+}
+
+body, textarea, input {
+    font-size: 16px;
+    font-family: "Roboto", sans-serif;
+    /* line-height: 1.2; */
+}
+
+a {
+    color: rgb(102, 156, 255);
+    border: solid 1px transparent;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+a:hover, a:focus, a:active {
+    color: rgb(153, 189, 255);
+    text-decoration: underline;
+}
+
+code {
+	padding: 0px 3px;
+	font-family: "Roboto Mono", monospace, sans-serif;
+	/* color: var(--text-color-code); */
+	background-color: rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	white-space: nowrap;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 16px 0;
+}
