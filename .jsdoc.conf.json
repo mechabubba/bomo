@@ -4,7 +4,6 @@
         "dictionaries": ["jsdoc"]
     },
     "source": {
-        "include": ["."],
         "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "public"],
         "includePattern": "\\.js$"
     },
