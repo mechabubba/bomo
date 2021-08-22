@@ -20,9 +20,33 @@
         <p>client: <span id="clientMessage">...</span></p>
         <p>server: <span id="serverMessage">...</span></p>
         <p>POST <code>/time</code> Timestamp: <span id="timePost">...</span></p>
+        <h1>Element Demo</h1>
+        <p>Code <code>sphinx of black quartz, judge my vow</code></p>
+        <p><button>Button</button> <button disabled>Disabled Button</button></p>
+        <p><input placeholder="Input" autocomplete="off"></input> <input placeholder="Disabled Input" autocomplete="off" disabled></input></p>
+        <p><textarea placeholder="Textarea" autocomplete="off"></textarea> <textarea placeholder="Disabled Textarea" autocomplete="off" disabled></textarea></p>
+        <p>
+            Select
+            <select autocomplete="off">
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+            </select>
+            Disabled
+            <select autocomplete="off" disabled>
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+            </select>
+        </p>
+        <p>
+            Checkbox
+            <input type="checkbox" autocomplete="off">
+            <input type="checkbox" autocomplete="off" checked>
+            <input type="checkbox" autocomplete="off" disabled>
+            <input type="checkbox" autocomplete="off" checked disabled>
+        </p>
     </div>
     <%- include("partials/standard_scripts.ejs") %>
-    <script src="./js/time.js"></script>
+    <script src="/js/time.js"></script>
 </body>
 
 </html>
