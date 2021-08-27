@@ -174,7 +174,7 @@ class Bomo extends EventEmitter {
     createLobby() {
         const id = this._generateRandomID();
         if (id !== false) {
-            this.lobbies[id] = new Lobby(this._generateRandomID());
+            this.lobbies[id] = new Lobby(id);
         }
     }
 }
