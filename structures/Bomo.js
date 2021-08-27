@@ -14,6 +14,8 @@ const loggingColors = {
     "4": chalk.yellow, // Client errors
     "5": chalk.magenta, // Server errors
 };
+const { WebSocketServer } = require("ws");
+const { WSASERVICE_NOT_FOUND } = require("constants");
 
 /**
  * Bomo's core class. Named Bomo rather than app to differentiate from tinyhttp's App
@@ -115,6 +117,32 @@ class Bomo extends EventEmitter {
      * Starts bomo (just `this.app.listen()` for now)
      */
     start() {
+        this.wss = new WebSocketServer({ port: 777 });
+        this.wss.on("connection", (ws) => {
+            ws.on("message", (message) => {
+                /*
+                we should anticipate all messages (encryption/https aside) will be in json formatting as the following;
+                {
+                    "type": "some_type_thing",
+                    "data": {} // anything
+                }
+                */
+                let data;
+                try {
+                    data = JSON.parse(message);
+                } catch (e) {
+                    // should probably do something if we get garbage but rn i've got nothin so bad programming practices ahoy
+                }
+
+                switch(data.type) {
+                    case "":
+                    default:
+                        break; // ¯\_(ツ)_/¯ :yea:
+                }
+            });
+        });
+        log.info(`${chalk.green("[READY]")} WebSocket server started on port ${process.env.port}`);
+
         // Ground control to major tom
         this.app.listen(process.env.port);
         log.info(`${chalk.green("[READY]")} tinyhttp started on port ${process.env.port}`);
