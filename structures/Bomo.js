@@ -1,12 +1,15 @@
 const EventEmitter = require("events");
-
-const log = require("../util/logger");
+const { randomBytes } = require("crypto");
 const path = require("path");
+const log = require("../util/logger");
+const Lobby = require("./Lobby");
 const Keyv = require("keyv");
 const { App } = require("@tinyhttp/app");
+const chalk = require("chalk");
 const ejs = require("ejs");
 const sirv = require("sirv");
-const chalk = require("chalk");
+const { WebSocketServer } = require("ws");
+
 const loggingColors = {
     "1": chalk.gray, // Informational responses
     "2": chalk.cyan, // Successful responses
@@ -14,8 +17,6 @@ const loggingColors = {
     "4": chalk.yellow, // Client errors
     "5": chalk.magenta, // Server errors
 };
-const { WebSocketServer } = require("ws");
-const { WSASERVICE_NOT_FOUND } = require("constants");
 
 /**
  * Bomo's core class. Named Bomo rather than app to differentiate from tinyhttp's App
@@ -72,11 +73,11 @@ class Bomo extends EventEmitter {
                 }
                 // respond with json
                 if (req.accepts("json")) {
-                    res.json({ error: "Not found" });
+                    res.json({ error: "404 Not Found" });
                     return;
                 }
                 // default to plain text
-                res.type("txt").send("Not found");
+                res.type("txt").send("404 Not Found");
             },
             onError: (err, req, res) => {
                 res.status(500).send({
@@ -143,8 +144,7 @@ class Bomo extends EventEmitter {
         });
         log.info(`${chalk.green("[READY]")} WebSocket server started on port ${process.env.wssport}`);
 
-        // Ground control to major tom
-        this.app.listen(process.env.port);
+        this.app.listen(process.env.port); // Ground control to major tom
         log.info(`${chalk.green("[READY]")} tinyhttp started on port ${process.env.port}`);
     }
 
@@ -156,10 +156,26 @@ class Bomo extends EventEmitter {
     }
 
     /**
+     * Generates a small, random id for lobbies. Due to its tiny nature (2 bytes == 65536 possible ids), it is prone to collisions. Therefore, we must make sure its unique.
+     * @returns {(string|boolean)} - the ID for the lobby, passed into the Lobby constructor; false if it could not generate a unique ID.
+     */
+    _generateRandomID() {
+        if (Object.keys(this.lobbies).length >= 65536) return false;
+        const id = randomBytes(2).toString("hex");
+        for (const key in this.lobbies) {
+            if (key === id) return this._generateRandomID();
+        }
+        return id;
+    }
+
+    /**
      * Creates a lobby.
      */
     createLobby() {
-        // :I
+        const id = this._generateRandomID();
+        if (id !== false) {
+            this.lobbies[id] = new Lobby(this._generateRandomID());
+        }
     }
 }
 

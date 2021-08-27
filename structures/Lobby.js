@@ -1,4 +1,3 @@
-const { randomBytes } = require("crypto");
 const Member = require("./Member");
 
 /**
@@ -6,8 +5,8 @@ const Member = require("./Member");
  * @class
  */
 class Lobby {
-    constructor(leader, id) {
-        this.id = randomBytes(2).toString("hex");
+    constructor(id, leader) {
+        this.id = id;
         this.members = {
             [leader.id]: leader, // cool syntax here
         };

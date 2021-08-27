@@ -19,10 +19,11 @@
 
 const fs = require("fs");
 const path = require("path");
-const dotenv = require("dotenv");
 const Bomo = require("./structures/Bomo");
 const log = require("./util/logger");
+const dotenv = require("dotenv");
 const { DateTime } = require("luxon");
+
 log.info("Starting bomo...");
 
 // node.js process event listeners
