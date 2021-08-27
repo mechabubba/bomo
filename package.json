@@ -25,7 +25,8 @@
     "keyv": "^4.0.3",
     "luxon": "^2.0.2",
     "sirv": "^1.0.12",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "ws": "^8.2.0"
   },
   "devDependencies": {
     "boxy-jsdoc-template": "^2.0.2"
