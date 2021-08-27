@@ -117,7 +117,7 @@ class Bomo extends EventEmitter {
      * Starts bomo (just `this.app.listen()` for now)
      */
     start() {
-        this.wss = new WebSocketServer({ port: 777 });
+        this.wss = new WebSocketServer({ port: process.env.wssport });
         this.wss.on("connection", (ws) => {
             ws.on("message", (message) => {
                 /*
@@ -141,7 +141,7 @@ class Bomo extends EventEmitter {
                 }
             });
         });
-        log.info(`${chalk.green("[READY]")} WebSocket server started on port ${process.env.port}`);
+        log.info(`${chalk.green("[READY]")} WebSocket server started on port ${process.env.wssport}`);
 
         // Ground control to major tom
         this.app.listen(process.env.port);
