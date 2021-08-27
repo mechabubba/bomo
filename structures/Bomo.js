@@ -134,7 +134,7 @@ class Bomo extends EventEmitter {
                     // should probably do something if we get garbage but rn i've got nothin so bad programming practices ahoy
                 }
 
-                switch(data.type) {
+                switch (data.type) {
                     case "":
                     default:
                         break; // ¯\_(ツ)_/¯ :yea:
