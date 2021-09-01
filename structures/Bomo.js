@@ -1,13 +1,13 @@
 const EventEmitter = require("events");
 const { randomBytes } = require("crypto");
 const path = require("path");
-const log = require("../util/logger");
 const Lobby = require("./Lobby");
-const Keyv = require("keyv");
-const { App } = require("@tinyhttp/app");
+const log = require("../util/logger");
 const chalk = require("chalk");
 const ejs = require("ejs");
+const Keyv = require("keyv");
 const sirv = require("sirv");
+const { App } = require("@tinyhttp/app");
 const { WebSocketServer } = require("ws");
 
 const loggingColors = {
@@ -133,10 +133,17 @@ class Bomo extends EventEmitter {
                     data = JSON.parse(message);
                 } catch (e) {
                     // should probably do something if we get garbage but rn i've got nothin so bad programming practices ahoy
+                    return;
                 }
 
+
                 switch (data.type) {
-                    case "":
+                    case "update_state":
+
+                        break;
+                    case "message_create":
+
+                        break;
                     default:
                         break; // ¯\_(ツ)_/¯ :yea:
                 }
@@ -157,10 +164,10 @@ class Bomo extends EventEmitter {
 
     /**
      * Generates a small, random id for lobbies. Due to its tiny nature (2 bytes == 65536 possible ids), it is prone to collisions. Therefore, we must make sure its unique.
-     * @returns {(string|boolean)} - the ID for the lobby, passed into the Lobby constructor; false if it could not generate a unique ID.
+     * @returns {(string|boolean)} - the ID for the lobby, passed into the Lobby constructor; false if it could not create a unique ID.
      */
     _generateRandomID() {
-        if (Object.keys(this.lobbies).length >= 65536) return false;
+        if (Object.keys(this.lobbies).length >= 2 ** 16) return false;
         const id = randomBytes(2).toString("hex");
         for (const key in this.lobbies) {
             if (key === id) return this._generateRandomID();
@@ -170,12 +177,14 @@ class Bomo extends EventEmitter {
 
     /**
      * Creates a lobby.
+     * @returns {(string|boolean)} - The ID of the lobby, or false if one could not be created.
      */
     createLobby() {
         const id = this._generateRandomID();
         if (id !== false) {
             this.lobbies[id] = new Lobby(id);
         }
+        return id;
     }
 }
 
