@@ -1,12 +1,8 @@
 const Member = require("./Member");
 
 /**
-<<<<<<< HEAD
  * A lobby, which manages a group of members.
  * @class
-=======
- * Lobby
->>>>>>> d908052ed0bf47efb5edf95b4e9b184206204904
  */
 class Lobby {
     constructor(id, leader) {
