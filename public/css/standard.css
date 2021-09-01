@@ -30,3 +30,26 @@ body {
 #main {
     flex-grow: 1;
 }
+
+#about {
+    position: absolute;
+    width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--background-color-secondary);
+}
+
+#about > #close-about {
+    position: absolute;
+    padding: 6px 10px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
