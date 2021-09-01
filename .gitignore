@@ -21,4 +21,6 @@ npm-debug.log*
 docs/
 !docs/.gitkeep
 public/oldjs/
+public/old.html
+public/oldy.html
 views/old-index.ejs
