@@ -10,31 +10,6 @@ bomo.chat = {
     input: document.getElementById("chat-input"),
 };
 
-// The following two functions are based on the [npm uuid module](https://github.com/uuidjs/uuid).
-/**
- * Generates a UUID.
- * @returns {string}
- */
-const generateUUID = () => { // v4
-    const rnds = new Uint8Array(16);
-    crypto.getRandomValues(rnds);
-
-    rnds[6] = (rnds[6] & 0x0f) | 0x40;
-    rnds[8] = (rnds[8] & 0x3f) | 0x80;
-
-    const hex = [];
-    for(let i = 0; i < rnds.length; i++) { hex.push(rnds[i].toString(16).padStart(2, "0")); }
-
-    return hex[0] + hex[1] + hex[2] + hex[3] + "-" + hex[4] + hex[5] + "-" + hex[6] + hex[7] + "-" + hex[8] + hex[9] + "-" + hex[10] + hex[11] + hex[12] + hex[13] + hex[14] + hex[15]; 
-}
-
-/**
- * Validates a UUID.
- * @param {string} uuid 
- * @returns {boolean}
- */
-const validateUUID = (uuid) => /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(uuid);
-
 /**
  * A simple color class.
  */
