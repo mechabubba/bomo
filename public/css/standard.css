@@ -10,7 +10,7 @@ body {
     padding: var(--spacing);
 }
 
-#main {
+#page {
     flex-grow: 1;
 }
 
