@@ -10,8 +10,8 @@ const { DateTime } = require("luxon");
 const color = {
     "fatal": chalk.bgRed.black,
     "error": chalk.red,
-    "warn": chalk.yellow,
-    "info": chalk.white.bold,
+    " warn": chalk.yellow,
+    " info": chalk.white.bold,
     "http": chalk.blue,
     "debug": chalk.green,
     "trace": chalk.gray,
@@ -33,49 +33,29 @@ module.exports.timestamp = timestamp;
  * @private
  */
 const print = function(level, ...args) {
-    const prefix = `${chalk.gray(DateTime.now().toFormat(timestamp))} ${color[level](level.padEnd(Math.max(...(Object.keys(color).map(el => el.length))), " ").toUpperCase())}`; // https://stackoverflow.com/a/43304999
+    const prefix = `${chalk.gray(DateTime.now().toFormat(timestamp))} ${color[level](level)}`;
     return errors.includes(level) ? console.error(prefix, ...args) : console.log(prefix, ...args);
 };
 
 /**
- * Default exported logging function, alias to `log.info()`
+ * Default exported logging function
+ *
+ * Using `log()` by itself is an alias to `log.info()`
  * @param  {...any} args
  * @function log
+ * @example
+ * log("example")
+ * log.fatal("example");
+ * log.error("example");
+ * log.warn("example");
+ * log.info("example");
+ * log.debug("example");
+ * log.trace("example");
  */
-module.exports = (...args) => print("info", ...args);
-/**
- * Logs a fatal error to the console
- * @param  {...any} args
- * @alias log.fatal
- */
+module.exports = (...args) => print(" info", ...args);
 module.exports.fatal = (...args) => print("fatal", ...args);
-/**
- * Logs an error to the console
- * @param  {...any} args
- * @alias log.error
- */
 module.exports.error = (...args) => print("error", ...args);
-/**
- * Logs a warning to the console
- * @param  {...any} args
- * @alias log.warn
- */
-module.exports.warn = (...args) => print("warn", ...args);
-/**
- * Logs an info message to the console
- * @param  {...any} args
- * @alias log.info
- */
-module.exports.info = (...args) => print("info", ...args);
-/**
- * Logs debug information to the console
- * @param  {...any} args
- * @alias log.debug
- */
+module.exports.warn = (...args) => print(" warn", ...args);
+module.exports.info = (...args) => print(" info", ...args);
 module.exports.debug = (...args) => print("debug", ...args);
-/**
- * Logs fine-grained information to the console
- * @param  {...any} args
- * @alias log.trace
- */
 module.exports.trace = (...args) => print("trace", ...args);

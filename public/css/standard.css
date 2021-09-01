@@ -1,34 +1,35 @@
-:root {
-    --title-color: rgb(242, 217, 58);
-}
+/* --title-color: rgb(242, 217, 58); */
 
 body {
     display: flex;
     flex-direction: column;
 }
 
-#header {
-    display: flex;
-    flex-direction: row;
-}
-
-#header {
-    background-color: var(--background-color-secondary);
-    justify-content: left;
-    align-items: center;
+#page-header {
+    background-color: var(--shade-two);
     padding: var(--spacing);
 }
 
-#header span:first-child {
+#page {
     flex-grow: 1;
 }
 
-#header-title {
-    color: var(--title-color);
+/* Components */
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 1em;
 }
 
-#main {
+.header :first-child {
     flex-grow: 1;
+}
+
+.header > * {
+    margin: unset;
 }
 
 #about {

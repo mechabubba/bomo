@@ -18,7 +18,7 @@ jobs:
           source_dir: ./
           output_dir: ./docs
           recurse: true
-          config_file: .jsdoc.conf.json
+          config_file: .jsdoc.pages.conf.json
           template: boxy-jsdoc-template
           front_page: README.md
 

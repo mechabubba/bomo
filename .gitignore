@@ -20,4 +20,7 @@ npm-debug.log*
 !template.env
 docs/
 !docs/.gitkeep
-!docs/README.md
+public/oldjs/
+public/old.html
+public/oldy.html
+views/old-index.ejs
