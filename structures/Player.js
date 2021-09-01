@@ -1,3 +1,6 @@
+/**
+ * Player
+ */
 class Player {
 
 }

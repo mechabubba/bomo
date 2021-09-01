@@ -1,3 +1,6 @@
+/**
+ * Game
+ */
 class Game {
 
 }

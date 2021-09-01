@@ -1,5 +1,8 @@
 const { randomBytes } = require("crypto");
 
+/**
+ * Lobby
+ */
 class Lobby {
     constructor() {
         this.id = randomBytes(2).toString("hex");
