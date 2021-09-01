@@ -56,6 +56,7 @@ if (!fs.existsSync(envPath)) {
  * @see https://www.npmjs.com/package/dotenv
  * @name env
  * @type {Object}
+ * @readonly
  * @memberof external:process
  */
 
@@ -91,12 +92,16 @@ bomo.app.post("/api/lobby/join", (rep, res, next) => {
 // Register page routes with tinyhttp
 bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
-    icon: "favicon.ico",
+    icon: "/favicon.ico",
     node_version: process.version,
+}));
+bomo.app.get("/browser", (req, res, next) => res.render("browser.ejs", {
+    title: process.env.title,
+    icon: "/favicon.ico",
 }));
 bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
     title: `${process.env.title} - api test`,
-    icon: "favicon.ico",
+    icon: "/favicon.ico",
 }));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
 
