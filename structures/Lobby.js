@@ -6,11 +6,12 @@ const Member = require("./Member");
  */
 class Lobby {
     constructor(id, leader) {
+        if (!id || !leader) throw new Error("Missing lobby ID or leader");
         this.id = id;
         this.members = {
             [leader.id]: leader, // cool syntax here
         };
-        this.leader = leader;
+        this.leaderID = leader.id;
         this.name = `Lobby ${this.id.toUpperCase()}`;
         this.game = null;
     }
