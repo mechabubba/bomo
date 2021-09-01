@@ -1,10 +1,39 @@
 /**
  * # BOMO CLIENT CODE
- * The clientside JavaScript code for bomo.
- * 
- * https://github.com/mechabubba/bomo
+ * The clientside JavaScript code for [bomo](https://github.com/mechabubba/bomo).
  */
 const bomo = {}; // bomo is born.
+
+bomo.ws = new WebSocket();
+bomo.chat = {
+    log: document.getElementById("chat-log"),
+    input: document.getElementById("chat-input"),
+};
+
+// The following two functions are based on the [npm uuid module](https://github.com/uuidjs/uuid).
+/**
+ * Generates a UUID.
+ * @returns {string}
+ */
+const generateUUID = () => { // v4
+    const rnds = new Uint8Array(16);
+    crypto.getRandomValues(rnds);
+
+    rnds[6] = (rnds[6] & 0x0f) | 0x40;
+    rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+    const hex = [];
+    for(let i = 0; i < rnds.length; i++) { hex.push(rnds[i].toString(16).padStart(2, "0")); }
+
+    return hex[0] + hex[1] + hex[2] + hex[3] + "-" + hex[4] + hex[5] + "-" + hex[6] + hex[7] + "-" + hex[8] + hex[9] + "-" + hex[10] + hex[11] + hex[12] + hex[13] + hex[14] + hex[15]; 
+}
+
+/**
+ * Validates a UUID.
+ * @param {string} uuid 
+ * @returns {boolean}
+ */
+const validateUUID = (uuid) => /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i.test(uuid);
 
 /**
  * A simple color class.
@@ -37,11 +66,10 @@ class Color {
     static NONE = new this(0, 0, 0, 0);
 }
 
-/**
- * The following two functions are modified from https://stackoverflow.com/a/39077686.
- * 
- * They shouldn't be used by themselves; use the Color class instead.
- */
+/*
+The following two functions are modified from https://stackoverflow.com/a/39077686.
+They shouldn't be used by themselves; use the Color class instead.
+*/
 const h2rgb = (hex) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex);
     return result ? [
@@ -53,16 +81,10 @@ const h2rgb = (hex) => {
 };
 const rgb2h = (rgb) => [rgb[0], rgb[1], rgb[2], rgb[3]].map((x) => x.toString(16).padStart(2, "0")).join("").toUpperCase();
 
-bomo.chat = {
-    log: document.getElementById("chat-log"),
-    input: document.getElementById("chat-input"),
-};
-
-/**
- * The master logging function. This shouldn't be used directly; use `bomo.log`, or the helper `bomo.info` or `bomo.error` functions instead.
- * 
- * Acts similarly to MsgC() in the Garry's Mod API; takes an array of strings and Colors, and styles the text accordingly.
- */
+/*
+The master logging function. This shouldn't be used directly; use `bomo.log`, or the helper `bomo.info` or `bomo.error` functions instead.
+Acts similarly to MsgC() in the Garry's Mod API; takes an array of strings and Colors, and styles the text accordingly.
+*/
 bomo._log = (content, type = "") => {
     if (!content) return;
 
