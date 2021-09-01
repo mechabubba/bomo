@@ -15,17 +15,13 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 ## install
 
 - Install [node.js](https://nodejs.org), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) or [pnpm](https://pnpm.io/installation), and [git](https://git-scm.com/downloads)
-
 - Clone via `git clone https://github.com/mechabubba/bomo.git`
-
 - Run `npm install` or `pnpm install` in the root to install dependencies
-
 - If you want, copy & rename `template.env` to `.env` to edit whatever variables you want before starting. If you don't, it'll do this for you without changing anything
-
 - Run `node index.js` or `npm start` to start the server and you're good to go
-
 - To change the port or persist data to a database, edit your `.env` file
   - The `DB` variable is a [keyv connection string](https://www.npmjs.com/package/keyv#usage). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
+- environment variables are strings, not json. so DEV=false wouldn't work and Boolean("false") is true, but DEV= and Boolean(process.env.dev) is false, simple solution is use process.env.dev === "true" which will be true if true and false if anything else
 
 ## update
 
@@ -45,7 +41,7 @@ Notes for when it gets written:
 
 - `ctrl` + `shift` + `r` forces a complete page refresh in firefox, helpful for clearing cached css
 
-- .ejs files can be edited while live; static files served by sirv cannot and will break if edited
+- set DEV to true in your environment to have sirv files served fresh
 
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
@@ -58,6 +54,10 @@ Notes for when it gets written:
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [stackoverflow.blog's Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/), good article on rest apis
 -->
+
+## disclaimer
+
+This project is not associated with UNO, Mattel, or Ubisoft in any way.
 
 ## credits & attributions
 
