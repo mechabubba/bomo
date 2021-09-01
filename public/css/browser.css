@@ -1,0 +1,53 @@
+#page {
+    display: flex;
+    flex-direction: row;
+}
+
+#browser {
+    flex: 2 0 0;
+    overflow-y: scroll;
+}
+
+#browser > .header {
+    margin: 16px;
+}
+
+#lobbies {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.lobby {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    background-color: var(--shade-two);
+    border-radius: 4px;
+    padding: 0.5em;
+    gap: 1em;
+}
+
+.lobby img {
+    padding: 3px;
+}
+
+.lobby .name {
+    flex-grow: 1;
+}
+
+#side {
+    flex: 1 0 0;
+    /* background-color: var(--shade-two); */
+}
+
+@media only screen and (max-width: 700px) {
+    #browser {
+        flex: 1 0 0;
+    }
+    #browser > .header {
+        flex-direction: column;
+    }
+}

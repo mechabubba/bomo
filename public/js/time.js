@@ -1,10 +1,10 @@
-addEventListener("DOMContentLoaded", async function(event) {
+document.addEventListener("appReady", async function(event) {
     const response = await fetch("/time");
     const json = await response.json();
     console.log("fetch GET /time", json);
     document.querySelector("#timeGet").textContent = json.content;
 });
-addEventListener("DOMContentLoaded", async function(event) {
+document.addEventListener("appReady", async function(event) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     // assuming this route used a method other than GET,

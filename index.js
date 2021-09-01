@@ -46,13 +46,21 @@ if (!fs.existsSync(envPath)) {
 }
 
 /**
+ * Information and control over the current Node.js process
+ * @external process
+ * @see https://nodejs.org/docs/latest/api/process.html
+ */
+
+/**
  * Environment variables
  * @see https://nodejs.org/docs/latest/api/process.html#process_process_env
  * @see https://www.npmjs.com/package/dotenv
+ * @name env
  * @type {Object}
- * @name process.env
- * @global
+ * @readonly
+ * @memberof external:process
  */
+
 const result = dotenv.config();
 if (result.error) {
     log.error(result.error);
@@ -85,12 +93,16 @@ bomo.app.post("/api/lobby/join", (rep, res, next) => {
 // Register page routes with tinyhttp
 bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
     title: process.env.title,
-    icon: "favicon.ico",
+    icon: "/favicon.ico",
     node_version: process.version,
+}));
+bomo.app.get("/browser", (req, res, next) => res.render("browser.ejs", {
+    title: process.env.title,
+    icon: "/favicon.ico",
 }));
 bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
     title: `${process.env.title} - api test`,
-    icon: "favicon.ico",
+    icon: "/favicon.ico",
 }));
 // app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
 

@@ -43,7 +43,7 @@ class Bomo extends EventEmitter {
         if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
         /**
          * Keyv Database
-         * @see {@link https://www.npmjs.com/package/keyv#usage}
+         * @see https://www.npmjs.com/package/keyv#usage
          * @type {Keyv}
          */
         this.db = process.env.db ? new Keyv(process.env.db) : new Keyv();
@@ -55,8 +55,8 @@ class Bomo extends EventEmitter {
 
         /**
          * Tinyhttp App w/ ejs templating engine
-         * @see {@link https://tinyhttp.v1rtl.site/docs#application}
-         * @see {@link https://ejs.co/#docs}
+         * @see https://tinyhttp.v1rtl.site/docs#application
+         * @see https://ejs.co/#docs
          * @type {App}
          */
         this.app = new App({
@@ -66,7 +66,7 @@ class Bomo extends EventEmitter {
                 if (req.accepts("html")) {
                     res.render("404.ejs", {
                         title: `${process.env.title} - 404`,
-                        icon: "error.ico",
+                        icon: "/error.ico",
                         url: req.url,
                     });
                     return;
@@ -97,8 +97,6 @@ class Bomo extends EventEmitter {
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
-                    log.trace(req);
-                    log.trace(res);
                 } else {
                     log.trace(message);
                 }
@@ -109,7 +107,7 @@ class Bomo extends EventEmitter {
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
         this.app.use("/", sirv(this.public, {
-            dev: process.env.dev,
+            dev: process.env.dev === "true",
             maxAge: 86400, // Cached for 24 hours
         }));
     }
