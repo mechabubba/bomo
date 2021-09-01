@@ -4,7 +4,7 @@
         "dictionaries": ["jsdoc"]
     },
     "source": {
-        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "public"],
+        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "public/oldjs"],
         "includePattern": "\\.js$"
     },
     "plugins": ["plugins/markdown"],
