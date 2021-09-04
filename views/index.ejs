@@ -22,35 +22,37 @@
         <%- include("partials/about_modal.ejs") %>
     </div>
     <%- include("partials/standard_scripts.ejs") %>
+    <!-- @todo I'm going to redo the about modal, so this wont stay like this -->
     <script>
-        let name_input = document.getElementById("name-input");
-        let lobby_input = document.getElementById("lobby-input");
-        let create_lobby = document.getElementById("create-lobby");
-        let join_lobby = document.getElementById("join-lobby");
+        // let name_input = document.getElementById("name-input");
+        // let lobby_input = document.getElementById("lobby-input");
+        // let create_lobby = document.getElementById("create-lobby");
+        // let join_lobby = document.getElementById("join-lobby");
 
-        function fieldCheck() {
-            if (!name_input.value.length > 0) {
-                lobby_input.disabled = true;
-                create_lobby.disabled = true;
-                join_lobby.disabled = true;
-            } else {
-                lobby_input.disabled = false;
-                create_lobby.disabled = false;
-                join_lobby.disabled = false;
+        // function fieldCheck() {
+        //     if (!name_input.value.length > 0) {
+        //         lobby_input.disabled = true;
+        //         create_lobby.disabled = true;
+        //         join_lobby.disabled = true;
+        //     } else {
+        //         lobby_input.disabled = false;
+        //         create_lobby.disabled = false;
+        //         join_lobby.disabled = false;
+        //     }
+        // }
+
+        // fieldCheck();
+        // name_input.onchange = (e) => fieldCheck();
+        document.addEventListener("appReady", async function (event) {
+            const about = document.getElementById("about");
+            function toggleAbout() {
+                if (about.hidden) {
+                    about.hidden = false;
+                } else {
+                    about.hidden = true;
+                }
             }
-        }
-
-        fieldCheck();
-        name_input.onchange = (e) => fieldCheck();
-
-        let about = document.getElementById("about");
-        function toggleAbout() {
-            if(about.hidden) {
-                about.hidden = false;
-            } else {
-                about.hidden = true;
-            }
-        }
+        });
     </script>
 </body>
 

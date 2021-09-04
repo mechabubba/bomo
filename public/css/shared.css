@@ -107,6 +107,8 @@ main {
     display: block;
 }
 
+/* @todo Write css for lists and tables */
+
 /* Interface Components */
 
 ::placeholder {
@@ -148,10 +150,6 @@ textarea {
     cursor: text;
 }
 
-th, td {
-    padding: 4px;
-    border-bottom: 3px solid var(--text-color-secondary);
-}
 button,
 input,
 textarea {
