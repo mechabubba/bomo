@@ -33,9 +33,9 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 
 <!-- ## documentation
 
-See <url> or the /docs/ folder 
-
 Notes for when it gets written:
+
+- I make use of `@todo` to leave notes and tasks awaiting completion/resolution
 
 - If you get `"message": "this.engines[options.ext] is not a function"` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
 
