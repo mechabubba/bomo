@@ -161,21 +161,6 @@ class Bomo extends EventEmitter {
     }
 
     /**
-     * Generates a small, random id for lobbies. Due to its tiny nature (2 bytes == 65536 possible ids), it is prone to collisions. Therefore, we must make sure its unique.
-     * @returns {(string|boolean)} - the ID for the lobby, passed into the Lobby constructor; false if it could not create a unique ID.
-     */
-    _generateRandomID() {
-        if (Object.keys(this.lobbies).length >= 2 ** 16) return false;
-        const id = randomBytes(2).toString("hex");
-        for (const key in this.lobbies) {
-            if (key === id) return this._generateRandomID();
-        }
-        return id;
-    }
-
-    /**
-     * Creates a lobby.
-     * @returns {(string|boolean)} - The ID of the lobby, or false if one could not be created.
      */
     createLobby() {
         const id = this._generateRandomID();
