@@ -20,7 +20,7 @@
 const fs = require("fs");
 const path = require("path");
 const Bomo = require("./structures/Bomo");
-const log = require("./util/logger");
+const log = require("./util/log");
 const dotenv = require("dotenv");
 const { DateTime } = require("luxon");
 

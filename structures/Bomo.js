@@ -1,8 +1,8 @@
+const log = require("../util/log");
 const EventEmitter = require("events");
 const { randomBytes } = require("crypto");
 const path = require("path");
 const Lobby = require("./Lobby");
-const log = require("../util/logger");
 const chalk = require("chalk");
 const ejs = require("ejs");
 const Keyv = require("keyv");

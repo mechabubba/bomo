@@ -1,8 +1,8 @@
 /**
  * Modified logging module from sandplate. [Original source code](https://github.com/06000208/sandplate/blob/main/modules/log.js)
- * @module logger
+ * @module log
  * @example
- * const log = require("./util/logger");
+ * const log = require("./util/log");
  */
 
 const chalk = require("chalk");
@@ -20,9 +20,9 @@ const errors = ["fatal", "error"];
 const timestamp = "HH:mm:ss.SSS";
 
 /**
- * Logger's timestamp format
+ * Logging timestamp format
  * @readonly
- * @todo If it was possible to store this in `.env` that would be nice
+ * @todo If it was possible to store this via environment variable that would be nice
  */
 module.exports.timestamp = timestamp;
 
