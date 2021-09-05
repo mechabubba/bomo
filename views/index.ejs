@@ -21,7 +21,8 @@
         </div>
         <%- include("partials/about_modal.ejs") %>
     </div>
-    <%- include("partials/standard_scripts.ejs") %>
+    <!-- Scripts -->
+    <script type="module" src="/modules/index.js"></script>
     <!-- @todo I'm going to redo the about modal, so this wont stay like this -->
     <script>
         // let name_input = document.getElementById("name-input");
@@ -54,6 +55,7 @@
             }
         });
     </script>
+    <%- include("partials/standard_scripts.ejs") %>
 </body>
 
 </html>
