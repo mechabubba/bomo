@@ -1,4 +1,4 @@
-import Chat from "./Chat";
+import Chat from "./Chat.js";
 
 /**
  * Central clientside object responsible for websocket connection, user identification, etc
