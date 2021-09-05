@@ -119,33 +119,52 @@ class Bomo extends EventEmitter {
             maxAge: 86400, // Cached for 24 hours
         }));
 
-        // Check if the websocket port environment variable is valid, this is nesscary because ws throws a confusing error for invalid ports
-        // if (!process.env.wssport) throw new TypeError("WSSPORT environment variable must be a valid number");
+        /**
+         * The http.Server returned by tinyhttp's App.listen()
+         *
+         * This will be null until Bomo.start() is called
+         * @see https://github.com/tinyhttp/tinyhttp/blob/a9e00dcaa93f2e38f7a68e3301f7cd97dea69270/packages/app/src/app.ts#L354
+         * @see https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener
+         * @type {?http.Server}
+         */
+        this.server = null;
 
         /**
          * Websocket server using ws
          *
-         * This is an implementation of a real websocket library, so the preferred equivalent client side is the browser's own WebSocket implementation
+         * Notes:
          *
-         * Note that I couldn't find documentation for CommonJS usage of ws, but destructuring Server as WebSocketServer works fine
-         * @todo We might want to consider using noServer mode? Path and port should be fine for now
+         * - This is an implementation of a real websocket library, so the preferred equivalent client side is the browser's own WebSocket implementation
+         * - I couldn't find documentation for CommonJS usage of ws, but destructuring Server as WebSocketServer works fine
+         * - This will be null until created by Bomo.start() in order to use the same internal http server as tinyhttp
          * @see https://github.com/websockets/ws/blob/HEAD/doc/ws.md
          * @see https://www.npmjs.com/package/ws
          * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
-         * @type {WebSocketServer}
+         * @type {?WebSocketServer}
          */
-        this.wss = new WebSocketServer({
-            clientTracking: true,
-            path: "/ws",
-            // Note that Number() would coerce an empty string to 0, but an empty string is also falsy and we're validating against that earlier
-            // port: Math.trunc(Number(process.env.wssport)),
-        });
+        this.wss = null;
     }
 
     /**
      * Starts bomo
      */
     start() {
+        // Create http server & make tinyhttp listen
+        this.server = this.app.listen(Number(process.env.port), () => {
+            // callback after server starts listening
+            log.info(`${chalk.green("[READY]")} tinyhttp listening on port ${process.env.port}`);
+        });
+
+        log.debug(this.server);
+
+        // Create websocket server using pre-existing http server
+        this.wss = new WebSocketServer({
+            clientTracking: true,
+            path: "/ws",
+            server: this.server,
+        });
+
+        // Add websocket server events
         this.wss.on("connection", (ws) => {
             ws.on("message", (message) => {
                 /*
@@ -169,9 +188,7 @@ class Bomo extends EventEmitter {
                 // }
             });
         });
-        log.info(`${chalk.green("[READY]")} Websocket server listening on port ${process.env.wssport}`);
-        this.app.listen(process.env.port); // Ground control to major tom
-        log.info(`${chalk.green("[READY]")} tinyhttp listening on port ${process.env.port}`);
+        log.info(`${chalk.green("[READY]")} Websocket server ready to upgrade connections`);
     }
 
     /**
