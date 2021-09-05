@@ -1,5 +1,5 @@
 const initialize = async function() {
-    window.dispatchEvent(new CustomEvent("appReady", {
+    document.dispatchEvent(new CustomEvent("appReady", {
         detail: {},
     }));
 };
