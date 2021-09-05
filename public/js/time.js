@@ -7,8 +7,7 @@ document.addEventListener("appReady", async function(event) {
 document.addEventListener("appReady", async function(event) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    // assuming this route used a method other than GET,
-    // like POST, so plain fetch() won't work
+    // assuming this route used a method other than GET, like POST, so plain fetch() won't work
     const myInit = { method: "POST",
         headers: myHeaders,
         mode: "cors",

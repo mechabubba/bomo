@@ -73,7 +73,7 @@ This project is not associated with UNO, Mattel, or Ubisoft in any way.
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [stackoverflow.blog's Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/), good article on rest apis
-- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine). Used on the 404 page
+- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
 
 Dependencies
 
@@ -83,8 +83,7 @@ Dependencies
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
-<!-- - [jQuery](https://jquery.com/), feature rich javaScript library for browsers -->
-<!-- - [cdnjs](https://cdnjs.com/), reliable content delivery network -->
+- [Google Fonts](https://fonts.google.com/), an open font cdn
 
 Extensions
 
