@@ -98,10 +98,10 @@ class Bomo extends EventEmitter {
         this.app.engine("ejs", ejs.renderFile);
 
         // Logging middleware via ./util/log
-        this.app.use((req, res, next) => {
-            res.on("finish", () => {
-                const code = res.statusCode.toString();
-                const args = [req.ip, req.method, loggingColors[code[0]](code), res.statusMessage, req.originalUrl || req.url];
+        this.app.use((request, response, next) => {
+            response.on("finish", () => {
+                const code = response.statusCode.toString();
+                const args = [request.ip || request.socket.remoteAddress, request.method, loggingColors[code[0]](code), response.statusMessage, request.originalUrl || request.url];
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
