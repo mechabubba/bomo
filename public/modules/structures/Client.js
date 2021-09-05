@@ -9,7 +9,17 @@ import Chat from "./Chat.js";
 class Client extends EventTarget {
     constructor() {
         super();
-        this.ws = new WebSocket();
+        /**
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/Location
+         */
+        this.ws = new WebSocket(`ws://${document.location.host}/ws`);
+
+        // Handle websocket messages
+        this.ws.addEventListener("message", function(event) {
+            console.log("Message from server ", event.data);
+        });
+
         this.chat = new Chat();
     }
 }
