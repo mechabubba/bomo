@@ -3,4 +3,5 @@ import Client from "./structures/Client.js";
 
 document.addEventListener("DOMContentLoaded", async function(event) {
     const client = new Client();
+    console.log(client);
 });

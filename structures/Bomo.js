@@ -155,8 +155,6 @@ class Bomo extends EventEmitter {
             log.info(`${chalk.green("[READY]")} tinyhttp listening on port ${process.env.port}`);
         });
 
-        log.debug(this.server);
-
         // Create websocket server using pre-existing http server
         this.wss = new WebSocketServer({
             clientTracking: true,
