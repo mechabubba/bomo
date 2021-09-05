@@ -4,7 +4,6 @@ const generateRandomHex = require("../util/generateRandomHex");
 
 /**
  * A room, which manages a group of members, game settings, and the games themselves
- * @class
  */
 class Room extends Base {
     /**

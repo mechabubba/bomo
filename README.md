@@ -68,7 +68,7 @@ This project is not associated with UNO, Mattel, or Ubisoft in any way.
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
 - [JSDoc](https://jsdoc.app/), inline JavaScript documentation & docs generation
-- [minami](https://github.com/nijikokun/minami), a clean template theme for JSDoc 3
+- [boxy-jsdoc-template](https://github.com/grafluxe/boxy-jsdoc-template), a clean template theme for JSDoc 3
 - [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
@@ -80,8 +80,9 @@ Dependencies
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
 - [ejs](https://ejs.co), embedded JavaScript templating
 - [keyv](https://www.npmjs.com/package/keyv), simple key-value storage with support for multiple backends
-- [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
+- [cookie-parser](https://www.npmjs.com/package/cookie-parser), cookie header parsing
+- [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
 - [Google Fonts](https://fonts.google.com/), an open font cdn
 
@@ -89,4 +90,4 @@ Extensions
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), visual studio code extension by Dirk Baeumer
 - [EJS language support](https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support), visual studio code extension by DigitalBrainstem
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), an opinionated code formatter (visual studio code extension)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), an opinionated code formatter for visual studio code
