@@ -6,6 +6,7 @@ const chalk = require("chalk");
 const ejs = require("ejs");
 const Keyv = require("keyv");
 const sirv = require("sirv");
+const cookieParser = require("cookie-parser");
 const { App } = require("@tinyhttp/app");
 const { Server: WebSocketServer } = require("ws");
 
@@ -97,11 +98,16 @@ class Bomo extends EventEmitter {
         // Engine
         this.app.engine("ejs", ejs.renderFile);
 
-        // Logging middleware via ./util/log
+        // Parse cookie headers via cookie-parser
+        this.app.use(cookieParser());
+
+        // Logging middleware via /util/log
         this.app.use((request, response, next) => {
             response.on("finish", () => {
                 const code = response.statusCode.toString();
-                const args = [request.ip || request.socket.remoteAddress, request.method, loggingColors[code[0]](code), response.statusMessage, request.originalUrl || request.url];
+                const url = request.originalUrl || request.url;
+                const args = [request.ip || request.socket.remoteAddress, request.method, loggingColors[code[0]](code), response.statusMessage, url];
+                if (url === "/") args.push(JSON.stringify(request.cookies));
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
