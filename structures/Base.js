@@ -9,9 +9,9 @@ class Base {
      */
     constructor(id = null) {
         /**
-          * A version 4 uuid or a custom id string
-          * @type {string}
-          */
+         * A version 4 uuid or a custom id string
+         * @type {string}
+         */
         this.id = id || uuidv4();
     }
 

@@ -4,9 +4,9 @@ const Base = require("./Base");
  * @todo Needs jsdoc documentation
  */
 class User extends Base {
-    constructor() {
+    constructor(key = null) {
         super();
-        this.ips = [];
+        this.key = key;
         this.ws = null;
         this.leading = [];
         this.rooms = [];

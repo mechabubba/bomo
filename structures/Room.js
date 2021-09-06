@@ -7,21 +7,21 @@ const generateRandomHex = require("../util/generateRandomHex");
  */
 class Room extends Base {
     /**
-      * @param {Bomo} bomo - Reference to the Bomo instantiating this Room
-      * @param {User} creator - The initial user who created of a room, assigned ownership over it
-      * @param {?string} [name] - The room's name, will fallback to the room's id if not supplied
-      */
+     * @param {Bomo} bomo - Reference to the Bomo instantiating this Room
+     * @param {User} creator - The initial user who created of a room, assigned ownership over it
+     * @param {?string} [name] - The room's name, will fallback to the room's id if not supplied
+     */
     constructor(bomo = null, creator = null, name = null) {
         if (!bomo) throw new TypeError("Room instantiated without reference to parent");
         if (!creator) throw new TypeError("Room instantiated without creator");
         super(generateRandomHex(bomo.rooms));
 
         /**
-          * Reference to the instance of Bomo which instantiated this Room
-          * @type {Bomo}
-          * @name Room#bomo
-          * @readonly
-          */
+         * Reference to the instance of Bomo which instantiated this Room
+         * @type {Bomo}
+         * @name Room#bomo
+         * @readonly
+         */
         Object.defineProperty(this, "bomo", { value: bomo });
 
         /**
