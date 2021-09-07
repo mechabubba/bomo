@@ -40,6 +40,12 @@ class Bomo extends EventEmitter {
          */
         this.rooms = new Map();
 
+        /**
+         * Users mapped to their ids
+         * @type {Map<string, Room>}
+         */
+        this.users = new Map();
+
         // Inform user of whether keyv will be using database or memory
         if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
 
@@ -169,29 +175,9 @@ class Bomo extends EventEmitter {
         });
 
         // Add websocket server events
-        this.wss.on("connection", (ws) => {
-            ws.on("message", (message) => {
-                /*
-                we should anticipate all messages (encryption/https aside) will be in json formatting as the following;
-                { "type": "some_type_thing", data": {} // anything }
-                */
-                // let data;
-                // try {
-                //     data = JSON.parse(message);
-                // } catch (e) {
-                //     // should probably do something if we get garbage but rn i've got nothin so bad programming practices ahoy
-                //     return;
-                // }
-                // switch (data.type) {
-                //     case "update_state":
-                //         break;
-                //     case "message_create":
-                //         break;
-                //     default:
-                //         break; // ¯\_(ツ)_/¯ :yea:
-                // }
-            });
-        });
+        this.wss.on("connection", WebSocketEvents.serverOnConnection.bind(null, this));
+
+        /** @todo Possibly move this to the wss listening event? */
         log.info(`${chalk.green("[READY]")} Websocket server ready to upgrade connections`);
     }
 
