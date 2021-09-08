@@ -33,9 +33,13 @@
 const fs = require("fs");
 const path = require("path");
 const Bomo = require("./structures/Bomo");
+const User = require("./structures/User");
+const API = require("./structures/API");
 const log = require("./util/log");
 const dotenv = require("dotenv");
 const { DateTime } = require("luxon");
+const { v4: uuidv4 } = require("uuid");
+const { createHash } = require("crypto");
 
 log.info("Starting bomo...");
 
@@ -80,44 +84,117 @@ if (result.error) {
     throw result.error;
 }
 
-// Instantiate bomo
-const bomo = new Bomo();
+const initialize = async function() {
+    // ES Modules in CommonJS via dynamic import
+    const { rateLimit } = await import("@tinyhttp/rate-limit");
 
-// Setting engine, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
+    // Instantiate bomo
+    const bomo = new Bomo();
 
-// Register api routes with tinyhttp
-bomo.app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
-bomo.app.post("/time", (req, res, next) => res.json({
-    message: "yes i can here u are",
-    content: DateTime.now().toFormat("HH:mm:ss.SSS"),
-}));
+    // Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
 
-// Lobby API Endpoints
-bomo.app.post("/api/lobby/create", (req, res, next) => {
-    // params: name, some sort of browser/session id
-    // returns: success, lobby code
-});
+    // Register api routes with tinyhttp
+    // bomo.app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
+    // bomo.app.post("/time", (req, res, next) => res.json({
+    //     message: "yes i can here u are",
+    //     content: DateTime.now().toFormat("HH:mm:ss.SSS"),
+    // }));
 
-bomo.app.post("/api/lobby/join", (rep, res, next) => {
-    // params: name, some sort of browser/session id, lobby code
-    // returns: success
-});
+    console.debug(bomo.auth.generate);
 
-// Register page routes with tinyhttp
-bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
-    title: process.env.title,
-    icon: "/favicon.ico",
-    node_version: process.version,
-}));
-bomo.app.get("/browser", (req, res, next) => res.render("browser.ejs", {
-    title: process.env.title,
-    icon: "/favicon.ico",
-}));
-bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
-    title: `${process.env.title} - api test`,
-    icon: "/favicon.ico",
-}));
-// app.get("/cards/", (req, res, next) => res.render("cards.ejs", {}));
+    /**
+     * Creates a new session for authentication
+     */
+    bomo.app.post("/api/sessions",
+        rateLimit({ max: 16, windowMs: 86400000 /* 24 hours */ }),
+        /** @todo For whatever reason, using the generate method as a handler directly causes a 500 internal server error, with nothing apparently wrong. ive spent the past several hours debugging it to no avail, so you have the solution you see before you, which just works? why?? have i ever?? */
+        // bomo.auth.generate,
+        // bomo.auth.generate.bind(bomo.auth),
+        async (req, res, next) => {
+            try {
+                const session = await bomo.auth.generate(req, res);
+                console.log(session);
+                res.status(201).json({ content: session });
+            } catch (error) {
+                log.error(error);
+                throw error;
+            }
+        },
+    );
 
-// Start
-bomo.start();
+    /**
+     * Route to return the validity of a particular session
+     *
+     * Username and password refers to the v4 uuids used as the first and second portion of the Basic authentication header
+     * @see https://tinyhttp.v1rtl.site/docs#reqparams
+     * @todo This would likely make bomo.auth.db.has() calls and return content: true or content: false
+     */
+    bomo.app.get("/api/sessions/:username/:password", (req, res, next) => {
+        // req.params.id
+        // req.params.key
+    });
+
+    /**
+     * Route that provides the caller with self identifying information
+     */
+    bomo.app.get("/api/test/identify",
+        rateLimit({ max: 3, windowMs: 300000 /* 5 minutes */ }),
+        (req, res, next) => res.status(200).json({
+            content: {
+                ip: createHash("sha256").update(req.ip || req.socket.remoteAddress).digest("hex"),
+                userAgent: req.get("User-Agent"),
+            },
+        }),
+    );
+
+    /**
+     * Route that will always return 200 OK content: true
+     */
+    bomo.app.get("/api/test/true",
+        (req, res, next) => res.status(200).json({ content: true }),
+    );
+
+    /**
+     * Route to test rate limiting
+     */
+    bomo.app.get("/api/test/limit",
+        rateLimit({ max: 10, windowMs: 300000 /* 5 minutes */ }),
+        (req, res, next) => res.status(200).json({ content: true }),
+    );
+
+    /**
+     * Route to test authentication
+     */
+    bomo.app.get("/api/test/auth",
+        rateLimit({ max: 3, windowMs: 300000 /* 5 minutes */ }),
+        bomo.auth.validate,
+        (req, res, next) => res.status(200).json({ content: true }),
+    );
+
+    // // Lobby API Endpoints
+    // bomo.app.post("/api/lobby/create", (req, res, next) => {
+    //     // params: name, some sort of browser/session id
+    //     // returns: success, lobby code
+    // });
+
+    // bomo.app.post("/api/lobby/join", (req, res, next) => {
+    //     // params: name, some sort of browser/session id, lobby code
+    //     // returns: success
+    // });
+
+    // Register page routes with tinyhttp
+    bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
+        title: process.env.title,
+        icon: "/favicon.ico",
+        node_version: process.version,
+    }));
+    // bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
+    //     title: `${process.env.title} - api test`,
+    //     icon: "/favicon.ico",
+    // }));
+
+    // Start
+    bomo.start();
+};
+
+initialize();
