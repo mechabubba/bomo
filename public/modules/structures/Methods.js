@@ -16,7 +16,7 @@ class Methods extends null {
             ...options,
         };
         for (const header of headers) init.headers.append(...header);
-        const response = await fetch(new Request("/api/key", init));
+        const response = await fetch(new Request(route, init));
         return json ? await response.json() : response;
     }
     static async get(route = null, options = {}, headers = [], json = true) {
