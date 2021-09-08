@@ -1,5 +1,7 @@
-const Room = require("./Room");
 const log = require("../util/log");
+const Auth = require("./Auth");
+const Room = require("./Room");
+const WebSocketEvents = require("./WebSocketEvents");
 const EventEmitter = require("events");
 const path = require("path");
 const chalk = require("chalk");
@@ -24,7 +26,7 @@ const loggingColors = {
  */
 class Bomo extends EventEmitter {
     /**
-     * Setting engine, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
+     * Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
      */
     constructor() {
         super();
@@ -50,7 +52,7 @@ class Bomo extends EventEmitter {
         if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
 
         /**
-         * Keyv Database
+         * Generic database via Keyv, uses the default "keyv" namespace
          * @see https://www.npmjs.com/package/keyv#usage
          * @type {Keyv}
          */
@@ -61,7 +63,13 @@ class Bomo extends EventEmitter {
             return process.exit(1);
         });
 
+        /**
+         * Functions dealing with authentication
+         */
+        this.auth = new Auth(this);
+
         // Check if the port environment variable is valid
+        /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */
         if (!process.env.port) throw new TypeError("PORT environment variable must be a valid number");
 
         /**
@@ -108,12 +116,12 @@ class Bomo extends EventEmitter {
         this.app.use(cookieParser());
 
         // Logging middleware via /util/log
-        this.app.use((request, response, next) => {
-            response.on("finish", () => {
-                const code = response.statusCode.toString();
-                const url = request.originalUrl || request.url;
-                const args = [request.ip || request.socket.remoteAddress, request.method, loggingColors[code[0]](code), response.statusMessage, url];
-                if (url === "/") args.push(JSON.stringify(request.cookies));
+        this.app.use((req, res, next) => {
+            res.on("finish", () => {
+                const code = res.statusCode.toString();
+                const url = req.originalUrl || req.url;
+                const args = [req.ip || req.socket.remoteAddress, req.method, loggingColors[code[0]](code), res.statusMessage, url];
+                if (url === "/") args.push(JSON.stringify(req.cookies));
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
