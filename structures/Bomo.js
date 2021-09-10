@@ -104,8 +104,11 @@ class Bomo extends EventEmitter {
                 res.type("txt").send("404 Not Found");
             },
             onError: (err, req, res) => {
-                res.status(500).send({
-                    message: err.message,
+                log.error(req.ip || req.socket.remoteAddress, req.method, req.originalUrl || req.url, err);
+                res.status(500).json({
+                    "code": 500,
+                    "error": "500 Internal Server Error",
+                    "message": err.message,
                 });
             },
         });
@@ -129,7 +132,9 @@ class Bomo extends EventEmitter {
                 const code = res.statusCode.toString();
                 const url = req.originalUrl || req.url;
                 const args = [req.ip || req.socket.remoteAddress, req.method, loggingColors[code[0]](code), res.statusMessage, url];
-                if (url === "/") args.push(JSON.stringify(req.cookies));
+                /** @todo Some homework would be figuring out how to args.push() the JSON body of requests and responses if present on either */
+                // Not currently using cookies anywhere
+                // if (url === "/") args.push("Cookies:", JSON.stringify(req.cookies));
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
