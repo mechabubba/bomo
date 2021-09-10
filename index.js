@@ -39,7 +39,6 @@ const log = require("./util/log");
 const dotenv = require("dotenv");
 const { DateTime } = require("luxon");
 const { v4: uuidv4 } = require("uuid");
-const { createHash } = require("crypto");
 
 log.info("Starting bomo...");
 
@@ -89,9 +88,26 @@ const initialize = async function() {
     const { rateLimit } = await import("@tinyhttp/rate-limit");
 
     // Instantiate bomo
+    // Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
     const bomo = new Bomo();
 
-    // Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
+    /**
+     * Authorization header validation
+     * @param {*} req - Request
+     * @param {*} res - Response
+     * @param {function} next - Next function
+     * @returns {boolean}
+     * @todo not sure where this should go, simplest would be right here
+     * @todo Would return a boolean
+     * @todo Check bomo.auth.has() with the authorization header
+     * @todo Return 403 forbidden for requests with invalid authorization headers
+     * @todo Would be nice to handle 401 unauthorized and send it with the proper WWW-Authenticate header https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+     */
+    const validate = async function(req, res, next) {
+        const authorization = Buffer.from(req.get("Authorization"), "base64").toString("utf8");
+        log.trace("Validating authorization header from", req.addressHash);
+        next();
+    };
 
     // Register api routes with tinyhttp
     // bomo.app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
@@ -100,74 +116,61 @@ const initialize = async function() {
     //     content: DateTime.now().toFormat("HH:mm:ss.SSS"),
     // }));
 
-    console.debug(bomo.auth.generate);
-
     /**
-     * Creates a new session for authentication
+     * Creates a new user with authorization details
      */
-    bomo.app.post("/api/sessions",
-        rateLimit({ max: 16, windowMs: 86400000 /* 24 hours */ }),
-        /** @todo For whatever reason, using the generate method as a handler directly causes a 500 internal server error, with nothing apparently wrong. ive spent the past several hours debugging it to no avail, so you have the solution you see before you, which just works? why?? have i ever?? */
-        // bomo.auth.generate,
-        // bomo.auth.generate.bind(bomo.auth),
-        async (req, res, next) => {
-            try {
-                const session = await bomo.auth.generate(req, res);
-                console.log(session);
-                res.status(201).json({ content: session });
-            } catch (error) {
-                log.error(error);
-                throw error;
-            }
+    bomo.app.post("/api/users",
+        /** @todo Couldn't decide on a good rate limit */
+        // rateLimit({ max: 8, windowMs: 10000 /* 10 seconds */ }),
+        (req, res, next) => {
+            const user = new User(bomo, req.addressHash);
+            console.log(bomo.auth.size, user);
+            res.status(201).json({
+                content: {
+                    id: user.id,
+                    authorization: user.auth.encoded,
+                },
+            });
         },
     );
 
     /**
-     * Route to return the validity of a particular session
-     *
-     * Username and password refers to the v4 uuids used as the first and second portion of the Basic authentication header
-     * @see https://tinyhttp.v1rtl.site/docs#reqparams
-     * @todo This would likely make bomo.auth.db.has() calls and return content: true or content: false
+     * Retrieves user info
      */
-    bomo.app.get("/api/sessions/:username/:password", (req, res, next) => {
-        // req.params.id
-        // req.params.key
-    });
-
-    /**
-     * Route that provides the caller with self identifying information
-     */
-    bomo.app.get("/api/test/identify",
-        rateLimit({ max: 3, windowMs: 300000 /* 5 minutes */ }),
-        (req, res, next) => res.status(200).json({
-            content: {
-                ip: createHash("sha256").update(req.ip || req.socket.remoteAddress).digest("hex"),
-                userAgent: req.get("User-Agent"),
-            },
-        }),
+    bomo.app.get("/api/users/:id",
+        /** @todo Couldn't decide on a good rate limit */
+        async (req, res, next) => {
+            const user = new User(bomo, req.addressHash);
+            await user.authorize();
+            console.log(user);
+            res.status(201).json({
+                content: {
+                    id: user.id,
+                    authorization: user.auth.encoded,
+                },
+            });
+        },
     );
 
     /**
      * Route that will always return 200 OK content: true
      */
-    bomo.app.get("/api/test/true",
-        (req, res, next) => res.status(200).json({ content: true }),
-    );
+    bomo.app.get("/api/test/true", (req, res, next) => res.status(200).json({ content: true }));
 
     /**
      * Route to test rate limiting
      */
     bomo.app.get("/api/test/limit",
-        rateLimit({ max: 10, windowMs: 300000 /* 5 minutes */ }),
+        rateLimit({ max: 10, windowMs: 60000 /* 1 minute */ }),
         (req, res, next) => res.status(200).json({ content: true }),
     );
 
     /**
      * Route to test authentication
+     * @todo No validation middleware yet
      */
     bomo.app.get("/api/test/auth",
-        rateLimit({ max: 3, windowMs: 300000 /* 5 minutes */ }),
-        bomo.auth.validate,
+        // Validation middleware
         (req, res, next) => res.status(200).json({ content: true }),
     );
 

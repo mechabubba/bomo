@@ -12,7 +12,7 @@ class Room extends Base {
      * @param {?string} [name] - The room's name, will fallback to the room's id if not supplied
      */
     constructor(bomo = null, creator = null, name = null) {
-        if (!bomo) throw new TypeError("Room instantiated without reference to parent");
+        if (!bomo) throw new TypeError("Class instantiated without reference to bomo");
         if (!creator) throw new TypeError("Room instantiated without creator");
         super(generateRandomHex(bomo.rooms));
 

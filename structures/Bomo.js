@@ -1,5 +1,4 @@
 const log = require("../util/log");
-const Auth = require("./Auth");
 const Room = require("./Room");
 const WebSocketEvents = require("./WebSocketEvents");
 const EventEmitter = require("events");
@@ -65,9 +64,10 @@ class Bomo extends EventEmitter {
         });
 
         /**
-         * Functions dealing with authentication
+         * Valid base64 encoded authorization strings mapped to user ids
+         * @type {Map<string, string>}
          */
-        this.auth = new Auth(this);
+        this.auth = new Map();
 
         // Check if the port environment variable is valid
         /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */

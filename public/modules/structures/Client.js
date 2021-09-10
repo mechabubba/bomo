@@ -22,22 +22,36 @@ class Client extends EventTarget {
         this.chat = new Chat();
 
         /**
-         * Session object used with authentication
-         * @property {string} username
-         * @property {string} password
-         * @property {string} encoded
-         * @property {number} expires
+         * The server side User's id
+         * @type {?string}
          */
-        this.session = {};
+        this.id = null;
+
+        /**
+         * Authorization string encoded in base64
+         * @type {?string}
+         */
+        this.authorization = null;
+
+        /**
+         * Latest expiration timestamp for the server side User's credentials
+         * @type {?number}
+         */
+        this.expires = null;
     }
 
     /**
-     * Registers a unique session with the server
+     * Registers a User with the server
      * @param {boolean} cache Whether cached data may be reused
+     * @todo Save/retrieve data using window.localStorage
      */
     async register(cache = true) {
-        const response = await Methods.post("/api/sessions");
-        if (response.parsed && response.ok) this.session = response.parsed.content;s
+        const response = await Methods.post("/api/users");
+        if (response.parsed && response.ok) {
+            this.id = response.parsed.content.id;
+            this.authorization = response.parsed.content.authorization;
+            this.expires = response.parsed.content.expires;
+        }
     }
 
     /**
