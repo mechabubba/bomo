@@ -11,6 +11,7 @@ const sirv = require("sirv");
 const cookieParser = require("cookie-parser");
 const { App } = require("@tinyhttp/app");
 const { Server: WebSocketServer } = require("ws");
+const { createHash } = require("crypto");
 
 const loggingColors = {
     "1": chalk.gray, // Informational responses
@@ -114,6 +115,13 @@ class Bomo extends EventEmitter {
 
         // Parse cookie headers via cookie-parser
         this.app.use(cookieParser());
+
+        // Provide hashed ip address on all requests
+        this.app.use((req, res, next) => {
+            /** @todo Should support X-Forwarded-For header but only while actually behind a proxy, as otherwise its vulnerable to spoofing */
+            req.addressHash = createHash("sha256").update(req.ip || req.socket.remoteAddress).digest("hex");
+            next();
+        });
 
         // Logging middleware via /util/log
         this.app.use((req, res, next) => {
