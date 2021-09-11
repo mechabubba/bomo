@@ -10,7 +10,9 @@ To play, visit the public server at <url>, or setup your own. -->
 
 See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature requests, bug reports, etc.
 
-<!-- If you want to contribute yourself,  -->
+If you want to contribute yourself, let us know on an issue or contact us in our discord:
+
+<a href="https://discord.gg/xSSYc62ZRx">![discord.gg/xSSYc62ZRx](https://discordapp.com/api/guilds/525773944351883304/widget.png?style=shield)</a>
 
 ## install
 
@@ -34,6 +36,8 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 <!-- ## documentation
 
 Notes for when it gets written:
+
+- @todo check if the above updating instruction with git checkout . is needed or not
 
 - I make use of `@todo` to leave notes and tasks awaiting completion/resolution
 
@@ -74,6 +78,7 @@ This project is not associated with UNO, Mattel, or Ubisoft in any way.
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [stackoverflow.blog's Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/), good article on rest apis
 - [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
+- [discord.js](https://discord.js.org/), for coding practices and educational value
 
 Dependencies
 
