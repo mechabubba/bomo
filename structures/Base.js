@@ -1,22 +1,71 @@
 const { v4: uuidv4 } = require("uuid");
+const { DateTime } = require("luxon");
 
 /**
  * @abstract
  */
 class Base {
     /**
-     * @param {?string} [id] An optional pre-existing id, mainly used for reinstantiation where necessary
+     * @param {Bomo} bomo - Reference to the Bomo instantiating this
+     * @param {?string} [id] An optional pre-existing id, used for custom ids
      */
-    constructor(id = null) {
+    constructor(bomo, id = null) {
+        if (!bomo) throw new TypeError("Class instantiated without reference to bomo");
+
+        /**
+         * Reference to the instance of Bomo which instantiated this
+         * @name Base#bomo
+         * @type {Bomo}
+         * @readonly
+         */
+        Object.defineProperty(this, "bomo", { value: bomo });
+
         /**
          * A version 4 uuid or a custom id string
          * @type {string}
          */
         this.id = id || uuidv4();
+
+        /**
+         * DateTime instance for when this was instantiated
+         * @type {DateTime}
+         */
+        this.createdAt = DateTime.now();
     }
 
-    toJSON(whitespace = 0) {
-        return JSON.stringify(this, null, whitespace);
+    /**
+     * A unix timestamp in milliseconds for when this was instantiated
+     * @type {number}
+     * @readonly
+     */
+    get createdTimestamp() {
+        return this.createdAt.toMillis();
+    }
+
+    /**
+     * Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)
+     * @param  {...object} objects
+     */
+    toObject(...objects) {
+        const data = {
+            "id": this.id,
+            "createdTimestamp": this.createdTimestamp,
+        };
+        if (objects.length) {
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals
+            return objects.reduce((previousObject, currentObject) => ({ ...previousObject, ...currentObject }), data);
+        } else {
+            return data;
+        }
+    }
+
+    /**
+     * Simple shortcut to JSON.stringify on this.toObject()
+     * @param  {...any} objects
+     */
+    toJSON(...objects) {
+        return JSON.stringify(this.toObject(...objects), null, 0); // No whitespace
     }
 
     valueOf() {

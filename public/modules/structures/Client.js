@@ -47,10 +47,15 @@ class Client extends EventTarget {
      */
     async register(cache = true) {
         const response = await Methods.post("/api/users");
-        if (response.parsed && response.ok) {
+        if (response.parsed && response.parsed.content) {
+            console.log(response.parsed);
             this.id = response.parsed.content.id;
             this.authorization = response.parsed.content.authorization;
-            this.expires = response.parsed.content.expires;
+        }
+        if (!this.id || !this.authorization) {
+            console.error("Failed registration");
+        } else {
+            console.log(this);
         }
     }
 

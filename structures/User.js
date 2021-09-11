@@ -10,25 +10,22 @@ const { createHash } = require("crypto");
 class User extends Base {
     /**
      * @param {Bomo} bomo - Reference to the Bomo instantiating this User
-     * @param {?ip} ip - Hashed ip address, middleware in the Bomo class adds the addressHash property to requests
+     * @param {?ip} ip - Ip address
      */
     constructor(bomo = null, ip = null) {
-        super();
-        if (!bomo) throw new TypeError("Class instantiated without reference to bomo");
-
-        /**
-         * Reference to the instance of Bomo which instantiated this User
-         * @type {Bomo}
-         * @name Room#bomo
-         * @readonly
-         */
-        Object.defineProperty(this, "bomo", { value: bomo });
+        super(bomo);
 
         this.username = null;
         this.ip = ip;
         this.ws = null;
         this.leading = [];
         this.rooms = [];
+
+        /**
+         * The last moment the User was considered online
+         * @type {?DateTime}
+         */
+        this.lastOnline = null; // DateTime.now();
 
         /**
          * @type {object}
@@ -39,6 +36,9 @@ class User extends Base {
         this.auth = {
             username: createHash("sha256").update(`${this.ip}:${this.id}`).digest("hex"),
             password: uuidv4(),
+            encoded: null,
+            // For some reason I thought you could do this, but it throws an error
+            // encoded: Buffer.from(`${this.auth.username}:${this.auth.password}`).toString("base64"),
         };
         this.auth.encoded = Buffer.from(`${this.auth.username}:${this.auth.password}`).toString("base64");
         this.bomo.auth.set(this.auth.encoded, this.id);
@@ -50,6 +50,21 @@ class User extends Base {
 
     get online() {
         return Boolean(this.ws);
+    }
+
+    /**
+     * Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)
+     * @param  {...object} objects
+     */
+    toObject(...objects) {
+        return super.toObject({
+            "username": this.username,
+            "online": this.online,
+            "leader": this.leader,
+            "leading": this.leading,
+            "rooms": this.rooms,
+            "authorization": this.auth.encoded,
+        }, ...objects);
     }
 }
 
