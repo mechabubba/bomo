@@ -146,17 +146,11 @@ const initialize = async function() {
                 return;
             }
             const user = bomo.users.get(req.params.id);
-            if (user.auth.encoded !== req.get("Authorization")) {
-                // Keep user ids secret
-                res.status(404).json({
-                    "code": 404,
-                    "status": "404 Not Found",
-                    "message": `User "${req.params.id}" not found`,
-                });
-                return;
-            }
+            const data = user.toObject();
+            // Important to strip certain details from the object if the user shouldn't have them
+            if (user.auth.encoded !== req.get("Authorization")) delete data.authorization;
             res.status(200).json({
-                content: user.toObject(),
+                content: data,
             });
         },
     );
