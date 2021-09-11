@@ -133,15 +133,30 @@ const initialize = async function() {
      */
     bomo.app.get("/api/users/:id",
         /** @todo Couldn't decide on a good rate limit */
+        /** @todo Needs to use the authorization middleware */
+        /** @todo Are the returns after Response.json() nesscary? */
+        /** @todo Returning 404 is arguably dumb, and different stack overflow questions have completely different answers debating it, but 204 No Content can't have a body (?) */
         async (req, res, next) => {
-            const user = new User(bomo, req.addressHash);
-            await user.authorize();
-            console.log(user);
-            res.status(201).json({
-                content: {
-                    id: user.id,
-                    authorization: user.auth.encoded,
-                },
+            if (!req.params.id || !bomo.users.has(req.params.id)) {
+                res.status(404).json({
+                    "code": 404,
+                    "status": "404 Not Found",
+                    "message": `User "${req.params.id}" not found`,
+                });
+                return;
+            }
+            const user = bomo.users.get(req.params.id);
+            if (user.auth.encoded !== req.get("Authorization")) {
+                // Keep user ids secret
+                res.status(404).json({
+                    "code": 404,
+                    "status": "404 Not Found",
+                    "message": `User "${req.params.id}" not found`,
+                });
+                return;
+            }
+            res.status(200).json({
+                content: user.toObject(),
             });
         },
     );
