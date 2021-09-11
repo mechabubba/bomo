@@ -120,11 +120,11 @@ class Bomo extends EventEmitter {
         this.app.use(cookieParser());
 
         // Provide hashed ip address on all requests
-        this.app.use((req, res, next) => {
-            /** @todo Should support X-Forwarded-For header but only while actually behind a proxy, as otherwise its vulnerable to spoofing */
-            req.addressHash = createHash("sha256").update(req.ip || req.socket.remoteAddress).digest("hex");
-            next();
-        });
+        // this.app.use((req, res, next) => {
+        //     /** @todo Should support X-Forwarded-For header but only while actually behind a proxy, as otherwise its vulnerable to spoofing */
+        //     req.addressHash = createHash("sha256").update(req.ip || req.socket.remoteAddress).digest("hex");
+        //     next();
+        // });
 
         // Logging middleware via /util/log
         this.app.use((req, res, next) => {

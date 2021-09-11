@@ -38,7 +38,6 @@ const API = require("./structures/API");
 const log = require("./util/log");
 const dotenv = require("dotenv");
 const { DateTime } = require("luxon");
-const { v4: uuidv4 } = require("uuid");
 
 log.info("Starting bomo...");
 
@@ -96,16 +95,15 @@ const initialize = async function() {
      * @param {*} req - Request
      * @param {*} res - Response
      * @param {function} next - Next function
-     * @returns {boolean}
      * @todo not sure where this should go, simplest would be right here
-     * @todo Would return a boolean
      * @todo Check bomo.auth.has() with the authorization header
      * @todo Return 403 forbidden for requests with invalid authorization headers
      * @todo Would be nice to handle 401 unauthorized and send it with the proper WWW-Authenticate header https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
      */
     const validate = async function(req, res, next) {
-        const authorization = Buffer.from(req.get("Authorization"), "base64").toString("utf8");
-        log.trace("Validating authorization header from", req.addressHash);
+        // if (!req.get("Authorization")) {}
+        // const authorization = Buffer.from(req.get("Authorization"), "base64").toString("utf8");
+        log.trace("Validating authorization header from", req.ip || req.socket.remoteAddress);
         next();
     };
 
@@ -123,7 +121,7 @@ const initialize = async function() {
         /** @todo Couldn't decide on a good rate limit */
         // rateLimit({ max: 8, windowMs: 10000 /* 10 seconds */ }),
         (req, res, next) => {
-            const user = new User(bomo, req.addressHash);
+            const user = new User(bomo, req.ip || req.socket.remoteAddress);
             console.log(bomo.auth.size, user);
             res.status(201).json({
                 content: {

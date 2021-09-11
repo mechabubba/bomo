@@ -1,7 +1,7 @@
 const log = require("../util/log");
 
 const print = function(websocket, req, ...messages) {
-    const args = [req.addressHash, ...messages];
+    const args = [req.ip || req.socket.remoteAddress, ...messages];
     const message = args.join(" ").trim();
     log.trace(message);
 };

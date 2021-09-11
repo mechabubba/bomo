@@ -2,6 +2,7 @@ const Base = require("./Base");
 const { v4: uuidv4 } = require("uuid");
 const { DateTime } = require("luxon");
 const { createHash } = require("crypto");
+// const generateRandomHex = require("../util/generateRandomHex");
 
 /**
  * @todo Needs jsdoc documentation
@@ -31,6 +32,9 @@ class User extends Base {
 
         /**
          * @type {object}
+         * @property {string} username - sha256 hash of the user's ip address + user's id separated by a colon
+         * @property {string} password - A uuid v4 id. Note that passwords in authorization strings aren't salted
+         * @property {string} encoded - Base64 encoded authorization string, username + password separated by a colon
          */
         this.auth = {
             username: createHash("sha256").update(`${this.ip}:${this.id}`).digest("hex"),
