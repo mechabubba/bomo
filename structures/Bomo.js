@@ -95,7 +95,7 @@ class Bomo extends EventEmitter {
                 if (req.accepts("json")) {
                     res.json({
                         "code": 404,
-                        "error": "404 Not Found",
+                        "status": "404 Not Found",
                         "message": `The requested resource "${req.url}" was not found`,
                     });
                     return;
@@ -107,7 +107,7 @@ class Bomo extends EventEmitter {
                 log.error(req.ip || req.socket.remoteAddress, req.method, req.originalUrl || req.url, err);
                 res.status(500).json({
                     "code": 500,
-                    "error": "500 Internal Server Error",
+                    "status": "500 Internal Server Error",
                     "message": err.message,
                 });
             },

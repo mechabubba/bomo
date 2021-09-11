@@ -122,12 +122,8 @@ const initialize = async function() {
         // rateLimit({ max: 8, windowMs: 10000 /* 10 seconds */ }),
         (req, res, next) => {
             const user = new User(bomo, req.ip || req.socket.remoteAddress);
-            console.log(bomo.auth.size, user);
             res.status(201).json({
-                content: {
-                    id: user.id,
-                    authorization: user.auth.encoded,
-                },
+                content: user.toObject(),
             });
         },
     );
