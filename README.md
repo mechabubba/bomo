@@ -23,7 +23,6 @@ If you want to contribute yourself, let us know on an issue or contact us in our
 - Run `node index.js` or `npm start` to start the server and you're good to go
 - To change the port or persist data to a database, edit your `.env` file
   - The `DB` variable is a [keyv connection string](https://www.npmjs.com/package/keyv#usage). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
-- environment variables are strings, not json. so DEV=false wouldn't work and Boolean("false") is true, but DEV= and Boolean(process.env.dev) is false, simple solution is use process.env.dev === "true" which will be true if true and false if anything else
 
 ## update
 
@@ -46,6 +45,8 @@ Notes for when it gets written:
 - `ctrl` + `shift` + `r` forces a complete page refresh in firefox, helpful for clearing cached css
 
 - set DEV to true in your environment to have sirv files served fresh
+
+- environment variables are strings, not json. so DEV=false wouldn't work and Boolean("false") is true, but DEV= and Boolean(process.env.dev) is false, simple solution is use process.env.dev === "true" which will be true if true and false if anything else
 
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
