@@ -1,30 +1,28 @@
 /**
- * Modified logging module from sandplate. [Original source code](https://github.com/06000208/sandplate/blob/main/modules/log.js)
+ * Modified logging module from [sandplate](https://github.com/06000208/sandplate)
  * @module log
- * @example
- * const log = require("./util/log");
  */
 
-const chalk = require("chalk");
-const { DateTime } = require("luxon");
+import chalk from "chalk";
+import { DateTime } from "luxon";
+
 const color = {
     "fatal": chalk.bgRed.black,
     "error": chalk.red,
-    " warn": chalk.yellow,
-    " info": chalk.white.bold,
+    "warn": chalk.yellow,
+    "info": chalk.white.bold,
     "http": chalk.blue,
     "debug": chalk.green,
     "trace": chalk.gray,
 };
 const errors = ["fatal", "error"];
-const timestamp = "HH:mm:ss.SSS";
 
 /**
  * Logging timestamp format
  * @readonly
  * @todo If it was possible to store this via environment variable that would be nice
  */
-module.exports.timestamp = timestamp;
+const timestamp = "HH:mm:ss.SSS";
 
 /**
  * Internal function used for logging
@@ -52,10 +50,13 @@ const print = function(level, ...args) {
  * log.debug("example");
  * log.trace("example");
  */
-module.exports = (...args) => print(" info", ...args);
-module.exports.fatal = (...args) => print("fatal", ...args);
-module.exports.error = (...args) => print("error", ...args);
-module.exports.warn = (...args) => print(" warn", ...args);
-module.exports.info = (...args) => print(" info", ...args);
-module.exports.debug = (...args) => print("debug", ...args);
-module.exports.trace = (...args) => print("trace", ...args);
+const log = (...args) => print(" info", ...args);
+log.fatal = (...args) => print("fatal", ...args);
+log.error = (...args) => print("error", ...args);
+log.warn = (...args) => print("warn", ...args);
+log.info = (...args) => print("info", ...args);
+log.debug = (...args) => print("debug", ...args);
+log.trace = (...args) => print("trace", ...args);
+
+export { log };
+

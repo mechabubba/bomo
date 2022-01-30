@@ -1,15 +1,16 @@
-const log = require("../util/log");
-const Room = require("./Room");
-const WebSocketEvents = require("./WebSocketEvents");
-const EventEmitter = require("events");
-const path = require("path");
-const chalk = require("chalk");
-const ejs = require("ejs");
-const sirv = require("sirv");
-const cookieParser = require("cookie-parser");
-const { App } = require("@tinyhttp/app");
-const { Server: WebSocketServer } = require("ws");
-const { createHash } = require("crypto");
+import { log } from "../util/log.js";
+import { Room } from "./Room.js";
+import { WebSocketEvents } from "./WebSocketEvents.js";
+import EventEmitter from "node:events";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import chalk from "chalk";
+import ejs from "ejs";
+import sirv from "sirv";
+import { cookieParser } from "@tinyhttp/cookie-parser";
+import { App } from "@tinyhttp/app";
+import { WebSocketServer } from "ws";
+import { createHash } from "node:crypto";
 
 const loggingColors = {
     "1": chalk.gray, // Informational responses
@@ -33,7 +34,7 @@ class Bomo extends EventEmitter {
         /**
          * Path of the publicly served folder. Used with sirv.
          */
-        this.public = path.join(__dirname, "../public");
+        this.public = join(dirname(fileURLToPath(import.meta.url)), "../public");
 
         /**
          * Currently available rooms mapped to their ids
@@ -204,4 +205,4 @@ class Bomo extends EventEmitter {
     // }
 }
 
-module.exports = Bomo;
+export { Bomo };

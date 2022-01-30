@@ -82,7 +82,7 @@ Dependencies
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
 - [ejs](https://ejs.co), embedded JavaScript templating
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
-- [cookie-parser](https://www.npmjs.com/package/cookie-parser), cookie header parsing
+- [@tinyhttp/cookie-parser](https://www.npmjs.com/package/@tinyhttp/cookie-parser), cookie parsing
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
 - [Google Fonts](https://fonts.google.com/), an open font cdn

@@ -1,4 +1,4 @@
-const log = require("../util/log");
+import { log } from "../util/log.js";
 
 const print = function(websocket, req, ...messages) {
     const args = [req.ip || req.socket.remoteAddress, ...messages];
@@ -54,4 +54,4 @@ class WebSocketEvents extends null {
     }
 }
 
-module.exports = WebSocketEvents;
+export { WebSocketEvents };

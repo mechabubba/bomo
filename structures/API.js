@@ -10,4 +10,4 @@ class API extends null {
     }
 }
 
-module.exports = API;
+export { API };

@@ -1,7 +1,8 @@
-const Base = require("./Base");
-const { v4: uuidv4 } = require("uuid");
-const { DateTime } = require("luxon");
-const { createHash } = require("crypto");
+import { v4 as uuidv4 } from "uuid";
+import { DateTime } from "luxon";
+import { createHash } from "node:crypto";
+import { Base } from "./Base.js";
+
 // const generateRandomHex = require("../util/generateRandomHex");
 
 /**
@@ -68,4 +69,4 @@ class User extends Base {
     }
 }
 
-module.exports = User;
+export { User };

@@ -1,8 +1,9 @@
 {
   "root": true,
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:import/recommended"],
   "parserOptions": {
-    "ecmaVersion": 2021
+    "ecmaVersion": 2021,
+    "sourceType": "module"
   },
   "env": {
     "es2021": true,
@@ -46,6 +47,9 @@
     "space-infix-ops": "error",
     "space-unary-ops": "error",
     "spaced-comment": "error",
-    "yoda": "error"
+    "yoda": "error",
+    "import/no-unresolved": "off",
+    "import/no-commonjs": 2,
+    "import/extensions": [2, "ignorePackages"]
   }
 }

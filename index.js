@@ -30,14 +30,20 @@
     index.js
 */
 
-const fs = require("fs");
-const path = require("path");
-const Bomo = require("./structures/Bomo");
-const User = require("./structures/User");
-const API = require("./structures/API");
-const log = require("./util/log");
-const dotenv = require("dotenv");
-const { DateTime } = require("luxon");
+// const fs = require("fs");
+// const path = require("path");
+// const Bomo = require("./structures/Bomo");
+// const User = require("./structures/User");
+// const API = require("./structures/API");
+// const log = require("./util/log");
+
+import fs from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { rateLimit } from "@tinyhttp/rate-limit";
+import { log } from "./util/log.js";
+import { User } from "./structures/User.js";
+import { Bomo } from "./structures/Bomo.js";
 
 log.info("Starting bomo...");
 
@@ -53,8 +59,8 @@ process.on("warning", (warning) => log.warn(warning));
 process.on("exit", (code) => code === 0 ? log.info("Exiting peacefully") : log.warn("Exiting abnormally with code:", code));
 
 // Environment file setup
-const envPath = path.join(__dirname, ".env");
-const envTemplate = path.join(__dirname, "template.env");
+const envPath = join(dirname(fileURLToPath(import.meta.url)), ".env");
+const envTemplate = join(dirname(fileURLToPath(import.meta.url)), "template.env");
 if (!fs.existsSync(envPath)) {
     log.info("No .env file present, copying template...");
     fs.copyFileSync(envTemplate, envPath);
@@ -76,15 +82,11 @@ if (!fs.existsSync(envPath)) {
  * @memberof external:process
  */
 
-const result = dotenv.config();
-if (result.error) {
-    log.error(result.error);
-    throw result.error;
-}
-
 const initialize = async function() {
-    // ES Modules in CommonJS via dynamic import
-    const { rateLimit } = await import("@tinyhttp/rate-limit");
+    // Populate environment variables
+    await import("./util/env.js");
+
+    // const { rateLimit } = await import("@tinyhttp/rate-limit");
 
     // Instantiate bomo
     // Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor

@@ -1,5 +1,5 @@
-const { v4: uuidv4 } = require("uuid");
-const { DateTime } = require("luxon");
+import { v4 as uuidv4 } from "uuid";
+import { DateTime } from "luxon";
 
 /**
  * @abstract
@@ -77,4 +77,4 @@ class Base {
     }
 }
 
-module.exports = Base;
+export { Base };
