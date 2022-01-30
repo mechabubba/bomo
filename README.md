@@ -21,12 +21,9 @@ If you want to contribute yourself, let us know on an issue or contact us in our
 - Run `npm install` or `pnpm install` in the root to install dependencies
 - If you want, copy & rename `template.env` to `.env` to edit whatever variables you want before starting. If you don't, it'll do this for you without changing anything
 - Run `node index.js` or `npm start` to start the server and you're good to go
-- To change the port or persist data to a database, edit your `.env` file
-  - The `DB` variable is a [keyv connection string](https://www.npmjs.com/package/keyv#usage). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
+  - To change the port, edit your `.env` file and restart
 
 ## update
-
-<!-- - `git checkout .` can be used to discard any uncommitted changes you've made, like installing a keyv storage adapter. Just reinstall after running `git pull origin` -->
 
 - Run `git pull origin`
 
@@ -52,7 +49,6 @@ Notes for when it gets written:
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
   - [ejs](https://ejs.co/#docs)
-  - [keyv](https://www.npmjs.com/package/keyv#usage) & [keyv.js.org](https://keyv.js.org/)
   - [jsdoc](https://jsdoc.app/)
 
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
@@ -85,7 +81,6 @@ Dependencies
 
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
 - [ejs](https://ejs.co), embedded JavaScript templating
-- [keyv](https://www.npmjs.com/package/keyv), simple key-value storage with support for multiple backends
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
 - [cookie-parser](https://www.npmjs.com/package/cookie-parser), cookie header parsing
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times

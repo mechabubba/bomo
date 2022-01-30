@@ -5,7 +5,6 @@ const EventEmitter = require("events");
 const path = require("path");
 const chalk = require("chalk");
 const ejs = require("ejs");
-const Keyv = require("keyv");
 const sirv = require("sirv");
 const cookieParser = require("cookie-parser");
 const { App } = require("@tinyhttp/app");
@@ -47,21 +46,6 @@ class Bomo extends EventEmitter {
          * @type {Map<string, Room>}
          */
         this.users = new Map();
-
-        // Inform user of whether keyv will be using database or memory
-        if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
-
-        /**
-         * Generic database via Keyv, uses the default "keyv" namespace
-         * @see https://www.npmjs.com/package/keyv#usage
-         * @type {Keyv}
-         */
-        this.db = process.env.db ? new Keyv(process.env.db) : new Keyv();
-        this.db.on("error", err => {
-            // Don't allow connection errors with database while starting
-            log.fatal("Keyv Connection Error", err);
-            return process.exit(1);
-        });
 
         /**
          * Valid base64 encoded authorization strings mapped to user ids
