@@ -1,8 +1,9 @@
 {
-    // Documentation for extensions.json http://go.microsoft.com/fwlink/?LinkId=827846
+    // Documentation for extensions.json: https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions
     "recommendations": [
-      "dbaeumer.vscode-eslint",
-      "esbenp.prettier-vscode",
-      "DigitalBrainstem.javascript-ejs-support",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "DigitalBrainstem.javascript-ejs-support",
+        "mikestead.dotenv",
     ]
-  }
+}

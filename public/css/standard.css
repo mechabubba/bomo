@@ -1,5 +1,31 @@
 /* --title-color: rgb(242, 217, 58); */
 
+/* Classes */
+
+.content > :first-child {
+    margin-top: 0;
+}
+
+.content > :last-child {
+    margin-bottom: 0;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 1em;
+}
+
+.grow {
+    flex-grow: 1;
+}
+
+/* @todo Write classes for styling tables */
+
+/* Layout */
+
 body {
     display: flex;
     flex-direction: column;
@@ -14,30 +40,26 @@ body {
     flex-grow: 1;
 }
 
-/* Components */
-
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    gap: 1em;
-}
-
-.header :first-child {
-    flex-grow: 1;
-}
-
 .header > * {
     margin: unset;
 }
 
+#open-about-modal {
+    cursor: pointer;
+}
+
 #about {
     position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0; 
+    right: 0; 
+    margin: auto;
+    height: 400px;
     width: 400px;
     padding: 20px;
-    border-radius: 20px;
-    background-color: var(--background-color-secondary);
+    border-radius: 1em;
+    background-color: var(--shade-two);
 }
 
 #about > #close-about {
@@ -46,11 +68,4 @@ body {
     top: 0;
     right: 0;
     cursor: pointer;
-}
-
-.avatar {
-    height: 40px;
-    width: 40px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
 }

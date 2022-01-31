@@ -5,7 +5,7 @@
     },
     "source": {
         "include": ["."],
-        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "public/oldjs"],
+        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "junk"],
         "includePattern": "\\.js$"
     },
     "plugins": ["plugins/markdown"],
@@ -13,11 +13,10 @@
         "tags": ["todo"]
     },
     "opts": {
-        "destination": "./docs/",
+        "destination": "./docs/site/",
         "encoding": "utf8",
         "private": true,
         "recurse": true,
-        "template": "./node_modules/boxy-jsdoc-template",
         "readme": "README.md"
     }
 }

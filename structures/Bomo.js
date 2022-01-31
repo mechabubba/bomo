@@ -1,14 +1,16 @@
-const EventEmitter = require("events");
-const { randomBytes } = require("crypto");
-const path = require("path");
-const Lobby = require("./Lobby");
-const log = require("../util/logger");
-const chalk = require("chalk");
-const ejs = require("ejs");
-const Keyv = require("keyv");
-const sirv = require("sirv");
-const { App } = require("@tinyhttp/app");
-const { WebSocketServer } = require("ws");
+import { log } from "../util/log.js";
+import { Room } from "./Room.js";
+import { WebSocketEvents } from "./WebSocketEvents.js";
+import EventEmitter from "node:events";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import chalk from "chalk";
+import ejs from "ejs";
+import sirv from "sirv";
+import { cookieParser } from "@tinyhttp/cookie-parser";
+import { App } from "@tinyhttp/app";
+import { WebSocketServer } from "ws";
+import { createHash } from "node:crypto";
 
 const loggingColors = {
     "1": chalk.gray, // Informational responses
@@ -24,34 +26,37 @@ const loggingColors = {
  */
 class Bomo extends EventEmitter {
     /**
-     * Setting engine, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
+     * Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
      */
     constructor() {
         super();
 
         /**
-         * A map of keys to Lobby's.
-         */
-        this.lobbies = {};
-
-        /**
          * Path of the publicly served folder. Used with sirv.
          */
-        this.public = path.join(__dirname, "../public");
+        this.public = join(dirname(fileURLToPath(import.meta.url)), "../public");
 
-        // Database
-        if (!process.env.db) log.info("No database present, using memory. Data will not be persisted");
         /**
-         * Keyv Database
-         * @see https://www.npmjs.com/package/keyv#usage
-         * @type {Keyv}
+         * Currently available rooms mapped to their ids
+         * @type {Map<string, Room>}
          */
-        this.db = process.env.db ? new Keyv(process.env.db) : new Keyv();
-        this.db.on("error", err => {
-            // Don't allow connection errors with database while starting
-            log.fatal("Keyv Connection Error", err);
-            return process.exit(1);
-        });
+        this.rooms = new Map();
+
+        /**
+         * Users mapped to their ids
+         * @type {Map<string, Room>}
+         */
+        this.users = new Map();
+
+        /**
+         * Valid base64 encoded authorization strings mapped to user ids
+         * @type {Map<string, string>}
+         */
+        this.auth = new Map();
+
+        // Check if the port environment variable is valid
+        /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */
+        if (!process.env.port) throw new TypeError("PORT environment variable must be a valid number");
 
         /**
          * Tinyhttp App w/ ejs templating engine
@@ -73,15 +78,22 @@ class Bomo extends EventEmitter {
                 }
                 // respond with json
                 if (req.accepts("json")) {
-                    res.json({ error: "404 Not Found" });
+                    res.json({
+                        "code": 404,
+                        "status": "404 Not Found",
+                        "message": `The requested resource "${req.url}" was not found`,
+                    });
                     return;
                 }
                 // default to plain text
                 res.type("txt").send("404 Not Found");
             },
             onError: (err, req, res) => {
-                res.status(500).send({
-                    message: err.message,
+                log.error(req.ip || req.socket.remoteAddress, req.method, req.originalUrl || req.url, err);
+                res.status(500).json({
+                    "code": 500,
+                    "status": "500 Internal Server Error",
+                    "message": err.message,
                 });
             },
         });
@@ -89,11 +101,25 @@ class Bomo extends EventEmitter {
         // Engine
         this.app.engine("ejs", ejs.renderFile);
 
-        // Logging middleware via ./util/logger
+        // Parse cookie headers via cookie-parser
+        this.app.use(cookieParser());
+
+        // Provide hashed ip address on all requests
+        // this.app.use((req, res, next) => {
+        //     /** @todo Should support X-Forwarded-For header but only while actually behind a proxy, as otherwise its vulnerable to spoofing */
+        //     req.addressHash = createHash("sha256").update(req.ip || req.socket.remoteAddress).digest("hex");
+        //     next();
+        // });
+
+        // Logging middleware via /util/log
         this.app.use((req, res, next) => {
             res.on("finish", () => {
                 const code = res.statusCode.toString();
-                const args = [req.ip, req.method, loggingColors[code[0]](code), res.statusMessage, req.originalUrl || req.url];
+                const url = req.originalUrl || req.url;
+                const args = [req.ip || req.socket.remoteAddress, req.method, loggingColors[code[0]](code), res.statusMessage, url];
+                /** @todo Some homework would be figuring out how to args.push() the JSON body of requests and responses if present on either */
+                // Not currently using cookies anywhere
+                // if (url === "/") args.push("Cookies:", JSON.stringify(req.cookies));
                 const message = args.join(" ").trim();
                 if (code[0] === "4" || code[0] === "5") {
                     log.debug(message);
@@ -110,80 +136,73 @@ class Bomo extends EventEmitter {
             dev: process.env.dev === "true",
             maxAge: 86400, // Cached for 24 hours
         }));
+
+        /**
+         * The http.Server returned by tinyhttp's App.listen()
+         *
+         * This will be null until Bomo.start() is called
+         * @see https://github.com/tinyhttp/tinyhttp/blob/a9e00dcaa93f2e38f7a68e3301f7cd97dea69270/packages/app/src/app.ts#L354
+         * @see https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener
+         * @type {?http.Server}
+         */
+        this.server = null;
+
+        /**
+         * Websocket server using ws
+         *
+         * Notes:
+         *
+         * - This is an implementation of a real websocket library, so the preferred equivalent client side is the browser's own WebSocket implementation
+         * - I couldn't find documentation for CommonJS usage of ws, but destructuring Server as WebSocketServer works fine
+         * - This will be null until created by Bomo.start() in order to use the same internal http server as tinyhttp
+         * @see https://github.com/websockets/ws/blob/HEAD/doc/ws.md
+         * @see https://www.npmjs.com/package/ws
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
+         * @type {?WebSocketServer}
+         */
+        this.wss = null;
     }
 
     /**
-     * Starts bomo (just `this.app.listen()` for now)
+     * Starts bomo
      */
     start() {
-        this.wss = new WebSocketServer({ port: process.env.wssport });
-        this.wss.on("connection", (ws) => {
-            ws.on("message", (message) => {
-                /*
-                we should anticipate all messages (encryption/https aside) will be in json formatting as the following;
-                {
-                    "type": "some_type_thing",
-                    "data": {} // anything
-                }
-                */
-                let data;
-                try {
-                    data = JSON.parse(message);
-                } catch (e) {
-                    // should probably do something if we get garbage but rn i've got nothin so bad programming practices ahoy
-                    return;
-                }
-
-
-                switch (data.type) {
-                    case "update_state":
-
-                        break;
-                    case "message_create":
-
-                        break;
-                    default:
-                        break; // ¯\_(ツ)_/¯ :yea:
-                }
-            });
+        // Create http server & make tinyhttp listen
+        this.server = this.app.listen(Number(process.env.port), () => {
+            // callback after server starts listening
+            log.info(`${chalk.green("[READY]")} tinyhttp listening on port ${process.env.port}`);
         });
-        log.info(`${chalk.green("[READY]")} WebSocket server started on port ${process.env.wssport}`);
 
-        this.app.listen(process.env.port); // Ground control to major tom
-        log.info(`${chalk.green("[READY]")} tinyhttp started on port ${process.env.port}`);
+        // Create websocket server using pre-existing http server
+        this.wss = new WebSocketServer({
+            clientTracking: true,
+            path: "/ws",
+            server: this.server,
+        });
+
+        // Add websocket server events
+        this.wss.on("connection", WebSocketEvents.serverOnConnection.bind(null, this));
+
+        /** @todo Possibly move this to the wss listening event? */
+        log.info(`${chalk.green("[READY]")} Websocket server ready to upgrade connections`);
     }
 
     /**
      * Stops bomo
+     * @todo Reading the ws documentation, it doesn't look like this could easily await wss.close()
      */
     stop() {
+        // this.wss.close();
         process.exit(0);
     }
 
-    /**
-     * Generates a small, random id for lobbies. Due to its tiny nature (2 bytes == 65536 possible ids), it is prone to collisions. Therefore, we must make sure its unique.
-     * @returns {(string|boolean)} - the ID for the lobby, passed into the Lobby constructor; false if it could not create a unique ID.
-     */
-    _generateRandomID() {
-        if (Object.keys(this.lobbies).length >= 2 ** 16) return false;
-        const id = randomBytes(2).toString("hex");
-        for (const key in this.lobbies) {
-            if (key === id) return this._generateRandomID();
-        }
-        return id;
-    }
-
-    /**
-     * Creates a lobby.
-     * @returns {(string|boolean)} - The ID of the lobby, or false if one could not be created.
-     */
-    createLobby() {
-        const id = this._generateRandomID();
-        if (id !== false) {
-            this.lobbies[id] = new Lobby(id);
-        }
-        return id;
-    }
+    // /**
+    //  * Creates a room
+    //  * @returns {Room} - Returns the room created
+    //  */
+    // createRoom() {
+    //     return new Room(this);
+    // }
 }
 
-module.exports = Bomo;
+export { Bomo };

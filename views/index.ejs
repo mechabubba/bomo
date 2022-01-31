@@ -21,37 +21,19 @@
         </div>
         <%- include("partials/about_modal.ejs") %>
     </div>
-    <%- include("partials/standard_scripts.ejs") %>
+    <!-- Scripts -->
+    <script type="module" src="/modules/index.js"></script>
+    <!-- @todo I'm going to redo the about modal, so this wont stay like this -->
     <script>
-        let name_input = document.getElementById("name-input");
-        let lobby_input = document.getElementById("lobby-input");
-        let create_lobby = document.getElementById("create-lobby");
-        let join_lobby = document.getElementById("join-lobby");
-
-        function fieldCheck() {
-            if (!name_input.value.length > 0) {
-                lobby_input.disabled = true;
-                create_lobby.disabled = true;
-                join_lobby.disabled = true;
-            } else {
-                lobby_input.disabled = false;
-                create_lobby.disabled = false;
-                join_lobby.disabled = false;
-            }
-        }
-
-        fieldCheck();
-        name_input.onchange = (e) => fieldCheck();
-
-        let about = document.getElementById("about");
-        function toggleAbout() {
-            if(about.hidden) {
-                about.hidden = false;
-            } else {
-                about.hidden = true;
-            }
-        }
+        document.addEventListener("DOMContentLoaded", async function (event) {
+            const about = document.getElementById("about");
+            about.hidden = true;
+            document.getElementById("open-about-modal").addEventListener("click", () => {
+                about.hidden = !about.hidden;
+            });
+        });
     </script>
+    <%- include("partials/standard_scripts.ejs") %>
 </body>
 
 </html>

@@ -10,7 +10,9 @@ To play, visit the public server at <url>, or setup your own. -->
 
 See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature requests, bug reports, etc.
 
-<!-- If you want to contribute yourself,  -->
+If you want to contribute yourself, let us know on an issue or contact us in our discord:
+
+<a href="https://discord.gg/xSSYc62ZRx">![discord.gg/xSSYc62ZRx](https://discordapp.com/api/guilds/525773944351883304/widget.png?style=shield)</a>
 
 ## install
 
@@ -19,13 +21,9 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 - Run `npm install` or `pnpm install` in the root to install dependencies
 - If you want, copy & rename `template.env` to `.env` to edit whatever variables you want before starting. If you don't, it'll do this for you without changing anything
 - Run `node index.js` or `npm start` to start the server and you're good to go
-- To change the port or persist data to a database, edit your `.env` file
-  - The `DB` variable is a [keyv connection string](https://www.npmjs.com/package/keyv#usage). Read up on usage there and make sure to install the appropriate storage adapter as a dependency
-- environment variables are strings, not json. so DEV=false wouldn't work and Boolean("false") is true, but DEV= and Boolean(process.env.dev) is false, simple solution is use process.env.dev === "true" which will be true if true and false if anything else
+  - To change the port, edit your `.env` file and restart
 
 ## update
-
-<!-- - `git checkout .` can be used to discard any uncommitted changes you've made, like installing a keyv storage adapter. Just reinstall after running `git pull origin` -->
 
 - Run `git pull origin`
 
@@ -33,9 +31,11 @@ See our [issue tracker](https://github.com/mechabubba/bomo/issues) for feature r
 
 <!-- ## documentation
 
-See <url> or the /docs/ folder 
-
 Notes for when it gets written:
+
+- @todo check if the above updating instruction with git checkout . is needed or not
+
+- I make use of `@todo` to leave notes and tasks awaiting completion/resolution
 
 - If you get `"message": "this.engines[options.ext] is not a function"` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
 
@@ -43,11 +43,12 @@ Notes for when it gets written:
 
 - set DEV to true in your environment to have sirv files served fresh
 
+- environment variables are strings, not json. so DEV=false wouldn't work and Boolean("false") is true, but DEV= and Boolean(process.env.dev) is false, simple solution is use process.env.dev === "true" which will be true if true and false if anything else
+
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
   - [ejs](https://ejs.co/#docs)
-  - [keyv](https://www.npmjs.com/package/keyv#usage) & [keyv.js.org](https://keyv.js.org/)
   - [jsdoc](https://jsdoc.app/)
 
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
@@ -68,26 +69,26 @@ This project is not associated with UNO, Mattel, or Ubisoft in any way.
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
 - [JSDoc](https://jsdoc.app/), inline JavaScript documentation & docs generation
-- [minami](https://github.com/nijikokun/minami), a clean template theme for JSDoc 3
+- [boxy-jsdoc-template](https://github.com/grafluxe/boxy-jsdoc-template), a clean template theme for JSDoc 3
 - [pngcrush](https://pmt.sourceforge.io/pngcrush/), an optimizer for PNG files
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [stackoverflow.blog's Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/), good article on rest apis
-- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine). Used on the 404 page
+- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
+- [discord.js](https://discord.js.org/), for coding practices and educational value
 
 Dependencies
 
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
 - [ejs](https://ejs.co), embedded JavaScript templating
-- [keyv](https://www.npmjs.com/package/keyv), simple key-value storage with support for multiple backends
-- [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
+- [@tinyhttp/cookie-parser](https://www.npmjs.com/package/@tinyhttp/cookie-parser), cookie parsing
+- [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
-<!-- - [jQuery](https://jquery.com/), feature rich javaScript library for browsers -->
-<!-- - [cdnjs](https://cdnjs.com/), reliable content delivery network -->
+- [Google Fonts](https://fonts.google.com/), an open font cdn
 
 Extensions
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), visual studio code extension by Dirk Baeumer
 - [EJS language support](https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support), visual studio code extension by DigitalBrainstem
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), an opinionated code formatter (visual studio code extension)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), an opinionated code formatter for visual studio code
