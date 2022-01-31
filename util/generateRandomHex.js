@@ -1,3 +1,8 @@
+/**
+ * Small utility for generating random hexadecimal strings
+ * @module generateRandomHex
+ */
+
 import { randomBytes } from "node:crypto";
 
 /**

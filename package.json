@@ -5,8 +5,8 @@
   "exports": "./index.js",
   "scripts": {
     "start": "node index.js",
-    "generate-docs": "jsdoc --configure .jsdoc.conf.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc --template \"node_modules/boxy-jsdoc-template\" --configure .jsdoc.conf.json"
   },
   "repository": {
     "type": "git",

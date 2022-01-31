@@ -38,6 +38,5 @@ Thumbs.db
 *.env
 *.env.test
 !template.env
-docs/
-!docs/.gitkeep
+docs/site/
 junk/
