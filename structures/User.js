@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 import { createHash } from "node:crypto";
 import { Base } from "./Base.js";
 
-// const generateRandomHex = require("../util/generateRandomHex");
+// const generateRandomHex = require("../modules/generateRandomHex");
 
 /**
  * @todo Needs jsdoc documentation

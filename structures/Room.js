@@ -1,6 +1,6 @@
 import { User } from "./User.js";
 import { Base } from "./Base.js";
-import { generateRandomHex } from "../util/generateRandomHex.js";
+import { generateRandomHex } from "../modules/generateRandomHex.js";
 
 /**
  * A room, which manages a group of members, game settings, and the games themselves
