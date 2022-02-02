@@ -3,7 +3,7 @@
  * @module constants
  */
 
-import chalk, { ChalkFunction } from "chalk";
+import chalk from "chalk";
 
 /**
   * Chalk function used for the timestamp, otherwise null for no styling

@@ -16,8 +16,8 @@ import dotenv from "dotenv";
 import { log } from "./log.js";
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
-const envPath = join(moduleDirectory, ".env");
-const envTemplate = join(moduleDirectory, "template.env");
+const envPath = join(moduleDirectory, "..", ".env");
+const envTemplate = join(moduleDirectory, "..", "template.env");
 
 if (!existsSync(envPath)) {
     log.info("No .env file present, copying template...");

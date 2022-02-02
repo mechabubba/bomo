@@ -19,7 +19,7 @@ import { timestampStyle, timestampFormat, loggingStyles } from "./constants.js";
  * @private
  */
 const print = function(level, ...args) {
-    const prefix = timestampStyle(DateTime.now().toFormat(timestampFormat)) + "" + loggingStyles[level](level);
+    const prefix = timestampStyle(DateTime.now().toFormat(timestampFormat)) + " " + loggingStyles[level](level);
     return level == "error" || level == "fatal" ? console.error(prefix, ...args) : console.log(prefix, ...args);
 };
 
