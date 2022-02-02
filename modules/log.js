@@ -7,6 +7,8 @@
  * - Control over the logging level
  * - Logging to file, though you may pipe your console output to a file
  * - The value substitution feature of console.log
+ *
+ * @module log
  */
 
 import { DateTime } from "luxon";

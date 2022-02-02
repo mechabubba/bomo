@@ -6,8 +6,14 @@
 import chalk from "chalk";
 
 /**
+ * Array of valid environment variables
+ * @type {string[]}
+ */
+const environmentVariables = ["title", "dev", "port"];
+
+/**
   * Chalk function used for the timestamp, otherwise null for no styling
-  * @type {?ChalkFunction}
+  * @type {import("chalk").ChalkInstance}
   */
 const timestampStyle = chalk.gray;
 
@@ -24,7 +30,7 @@ const timestampFormat = "HH:mm:ss.SSS";
 
 /**
   * Chalk functions used for styling logging level labels
-  * @type {Object.<string, ChalkFunction>}
+  * @type {Object.<string, import("chalk").ChalkInstance>}
   */
 const loggingStyles = {
     fatal: chalk.bgRed.black,
@@ -38,7 +44,7 @@ const loggingStyles = {
 
 /**
  * Chalk functions used for styling http logging level labels
- * @type {Object.<string, ChalkFunction>}
+ * @type {Object.<string, import("chalk").ChalkInstance>}
  */
 const httpLoggingStyles = {
     "1": chalk.gray, // Informational responses
@@ -48,4 +54,10 @@ const httpLoggingStyles = {
     "5": chalk.magenta, // Server errors
 };
 
-export { timestampStyle, timestampFormat, loggingStyles, httpLoggingStyles };
+export {
+    environmentVariables,
+    timestampStyle,
+    timestampFormat,
+    loggingStyles,
+    httpLoggingStyles,
+};

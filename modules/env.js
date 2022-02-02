@@ -9,27 +9,35 @@
  * @module scripts/env
  */
 
-import { join, dirname } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync, copyFileSync } from "node:fs";
+import { env } from "node:process";
 import dotenv from "dotenv";
 import { log } from "./log.js";
+import { environmentVariables } from "./constants.js";
 
 const moduleDirectory = dirname(fileURLToPath(import.meta.url));
 const envPath = join(moduleDirectory, "..", ".env");
 const envTemplate = join(moduleDirectory, "..", "template.env");
 
-if (!existsSync(envPath)) {
-    log.info("No .env file present, copying template...");
-    copyFileSync(envTemplate, envPath);
+const variablesPresentExternally = environmentVariables.filter(variable => Object.prototype.hasOwnProperty.call(env, variable));
+
+log.info("Environment variables present externally:", variablesPresentExternally);
+
+if (variablesPresentExternally.length < environmentVariables.length) {
+    if (!existsSync(envPath)) {
+        log.info("No .env file present, copying template...");
+        copyFileSync(envTemplate, envPath);
+    }
+
+    const result = dotenv.config({
+        override: false, // Will not override environment variables from the machine
+        path: envPath,
+    });
+
+    if (result.parsed) log.info("Loaded remaining environment variables from file:", Object.keys(result.parsed).map(variable => variable.toLowerCase()).filter(variable => !variablesPresentExternally.includes(variable)));
 }
-
-const result = dotenv.config({
-    override: false, // Will not override environment variables from the machine
-    path: envPath,
-});
-
-if (result.parsed) log.info("Loaded environment variables:", Object.keys(result.parsed));
 
 /**
  * Information and control over the current Node.js process
