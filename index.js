@@ -1,4 +1,4 @@
-/** @todo This is gradually going to become outdated, right? Maybe we aught get rid of it */
+/** @todo This is gradually going to become outdated, right? Maybe we aught to get rid of it */
 /*
 # Tentative Structure
     /public/ (Files served static accessible to browsers/client)
@@ -30,62 +30,17 @@
     index.js
 */
 
-// const fs = require("fs");
-// const path = require("path");
-// const Bomo = require("./structures/Bomo");
-// const User = require("./structures/User");
-// const API = require("./structures/API");
-// const log = require("./util/log");
+// ES modules are loaded asynchronously, the order of these statements
+// matters to all code loaded later that uses process and process.env
+import "./modules/env.js"; // Populates environment variables
 
-import fs from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { log } from "./modules/log.js";
 import { rateLimit } from "@tinyhttp/rate-limit";
-import { log } from "./util/log.js";
 import { User } from "./structures/User.js";
 import { Bomo } from "./structures/Bomo.js";
 
-log.info("Starting bomo...");
-
-// node.js process event listeners
-// See https://nodejs.org/api/process.html for more information
-process.on("uncaughtException", (err, origin) => {
-    log.fatal(`${origin},`, err);
-    return process.exit(1); // Always let code exit on uncaught exceptions
-});
-process.on("unhandledRejection", (reason, promise) => log.error(`unhandledRejection\n`, promise));
-process.on("rejectionHandled", (promise) => log.debug("rejectionHandled\n", promise));
-process.on("warning", (warning) => log.warn(warning));
-process.on("exit", (code) => code === 0 ? log.info("Exiting peacefully") : log.warn("Exiting abnormally with code:", code));
-
-// Environment file setup
-const envPath = join(dirname(fileURLToPath(import.meta.url)), ".env");
-const envTemplate = join(dirname(fileURLToPath(import.meta.url)), "template.env");
-if (!fs.existsSync(envPath)) {
-    log.info("No .env file present, copying template...");
-    fs.copyFileSync(envTemplate, envPath);
-}
-
-/**
- * Information and control over the current Node.js process
- * @external process
- * @see https://nodejs.org/docs/latest/api/process.html
- */
-
-/**
- * Environment variables
- * @see https://nodejs.org/docs/latest/api/process.html#process_process_env
- * @see https://www.npmjs.com/package/dotenv
- * @name env
- * @type {Object}
- * @readonly
- * @memberof external:process
- */
-
 const initialize = async function() {
-    // Populate environment variables
-    await import("./util/env.js");
-
+    log.info("Starting bomo...");
     // const { rateLimit } = await import("@tinyhttp/rate-limit");
 
     // Instantiate bomo
