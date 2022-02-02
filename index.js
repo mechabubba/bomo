@@ -32,6 +32,7 @@
 
 // ES modules are loaded asynchronously, the order of these statements
 // matters to all code loaded later that uses process and process.env
+import "./modules/processEvents.js"; // Node.js process events
 import "./modules/env.js"; // Populates environment variables
 
 import { log } from "./modules/log.js";
