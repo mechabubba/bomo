@@ -1,24 +1,17 @@
-import { log } from "../util/log.js";
-import { Room } from "./Room.js";
-import { WebSocketEvents } from "./WebSocketEvents.js";
 import EventEmitter from "node:events";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import chalk from "chalk";
 import ejs from "ejs";
 import sirv from "sirv";
 import { cookieParser } from "@tinyhttp/cookie-parser";
 import { App } from "@tinyhttp/app";
 import { WebSocketServer } from "ws";
-import { createHash } from "node:crypto";
-
-const loggingColors = {
-    "1": chalk.gray, // Informational responses
-    "2": chalk.cyan, // Successful responses
-    "3": chalk.gray, // Redirects
-    "4": chalk.yellow, // Client errors
-    "5": chalk.magenta, // Server errors
-};
+import { log } from "../modules/log.js";
+import { httpLoggingStyles } from "../modules/constants.js";
+import { WebSocketEvents } from "./WebSocketEvents.js";
+import { Room } from "./Room.js";
 
 /**
  * Bomo's core class. Named Bomo rather than app to differentiate from tinyhttp's App
@@ -111,12 +104,12 @@ class Bomo extends EventEmitter {
         //     next();
         // });
 
-        // Logging middleware via /util/log
+        // Logging middleware via /modules/log
         this.app.use((req, res, next) => {
             res.on("finish", () => {
                 const code = res.statusCode.toString();
                 const url = req.originalUrl || req.url;
-                const args = [req.ip || req.socket.remoteAddress, req.method, loggingColors[code[0]](code), res.statusMessage, url];
+                const args = [req.ip || req.socket.remoteAddress, req.method, httpLoggingStyles[code[0]](code), res.statusMessage, url];
                 /** @todo Some homework would be figuring out how to args.push() the JSON body of requests and responses if present on either */
                 // Not currently using cookies anywhere
                 // if (url === "/") args.push("Cookies:", JSON.stringify(req.cookies));

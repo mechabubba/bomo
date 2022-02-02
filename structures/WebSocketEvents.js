@@ -1,4 +1,4 @@
-import { log } from "../util/log.js";
+import { log } from "../modules/log.js";
 
 const print = function(websocket, req, ...messages) {
     const args = [req.ip || req.socket.remoteAddress, ...messages];
