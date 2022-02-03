@@ -33,8 +33,8 @@ class RoomManager {
      * @returns {bool} - Whether the room exists or not.
      */
     exists(id) {
-        for(const _id in rooms) {
-            if (_id === id) return true; 
+        for (const _id in rooms) {
+            if (_id === id) return true;
         }
         return false;
     }
@@ -55,8 +55,8 @@ class RoomManager {
      * @returns {Room[]} - An array of rooms.
      */
     getRooms(includePrivate = false) {
-        let arr = [];
-        for(const room of this.rooms) {
+        const arr = [];
+        for (const room of this.rooms) {
             if (room.options.isPrivate) arr.push(room);
         }
         return arr;
