@@ -114,6 +114,17 @@ const initialize = async function() {
     );
 
     /**
+     * Gets room information.
+     * @todo we should control what information gets sent from this api (it will send all users and their information lmao, bad idea). for now this is fine...
+     */
+    bomo.app.get("/api/rooms",
+        async (req, res, next) => {
+            let rooms = bomo.rooms.getRooms();
+            res.status(200).json(rooms);
+        }
+    );
+
+    /**
      * Route that will always return 200 OK content: true
      */
     bomo.app.get("/api/test/true", (req, res, next) => res.status(200).json({ content: true }));
