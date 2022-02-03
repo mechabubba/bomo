@@ -1,29 +1,29 @@
-import EventEmitter from "node:events";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
+
 import chalk from "chalk";
 import ejs from "ejs";
 import sirv from "sirv";
 import { cookieParser } from "@tinyhttp/cookie-parser";
 import { App } from "@tinyhttp/app";
 import { WebSocketServer } from "ws";
+
 import { log } from "../modules/log.js";
-import { httpLoggingStyles } from "../modules/constants.js";
+import { brandTitle, httpLoggingStyles } from "../modules/constants.js";
 import { WebSocketEvents } from "./WebSocketEvents.js";
 import { Room } from "./Room.js";
 import { RoomManager } from "./RoomManager.js";
 
 /**
- * Bomo's core class. Named Bomo rather than app to differentiate from tinyhttp's App
- * @extends {EventEmitter}
+ * Main server-side class
+ * @note Named Backend rather than app to differentiate from tinyhttp's App
  */
-class Bomo extends EventEmitter {
+class AppManager {
     /**
      * Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
      */
     constructor() {
-        super();
 
         /**
          * Path of the publicly served folder. Used with sirv.
@@ -64,7 +64,7 @@ class Bomo extends EventEmitter {
                 // respond with html page
                 if (req.accepts("html")) {
                     res.render("404.ejs", {
-                        title: `${process.env.title} - 404`,
+                        title: `${brandTitle} - 404`,
                         icon: "/error.ico",
                         url: req.url,
                     });
@@ -199,4 +199,4 @@ class Bomo extends EventEmitter {
     // }
 }
 
-export { Bomo };
+export { AppManager };
