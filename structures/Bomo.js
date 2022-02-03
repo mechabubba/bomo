@@ -12,6 +12,7 @@ import { log } from "../modules/log.js";
 import { httpLoggingStyles } from "../modules/constants.js";
 import { WebSocketEvents } from "./WebSocketEvents.js";
 import { Room } from "./Room.js";
+import { RoomManager } from "./RoomManager.js";
 
 /**
  * Bomo's core class. Named Bomo rather than app to differentiate from tinyhttp's App

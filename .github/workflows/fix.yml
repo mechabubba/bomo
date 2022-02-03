@@ -1,0 +1,35 @@
+name: Apply Eslint Fixes
+
+on:
+  workflow_dispatch:
+#  workflow_run:
+#    workflows: [Lint]
+#    types: [completed]
+
+jobs:
+  fix:
+    name: Apply Eslint Fixes
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install node.js v16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run fix
+        continue-on-error: true
+
+      - name: Commit fixes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -am "Eslint Fixes" --author="github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          git push
