@@ -5,7 +5,7 @@
     },
     "source": {
         "include": ["."],
-        "exclude": ["node_modules", "views", "docs", ".vscode", ".github", "junk"],
+        "exclude": ["node_modules", "docs", ".vscode", ".github", "views", "junk"],
         "includePattern": "\\.js$"
     },
     "plugins": ["plugins/markdown"],
