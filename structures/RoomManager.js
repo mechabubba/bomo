@@ -6,7 +6,7 @@ import { Room } from "./Room.js";
 class RoomManager {
     constructor(bomo) {
         if (!bomo) throw new TypeError("RoomManager instantiated without reference to bomo");
-        Object.defineProperty(this, "bomo", { value: bomo }); // feel free to just extend this to the base class, didnt feel like it needed such properties other than the "bomo" property but its probably just easier
+        Object.defineProperty(this, "bomo", { value: bomo }); // feel free to just extend this to the base class, didn't feel like it needed such properties other than the "bomo" property but its probably just easier
 
         /**
          * All currently created rooms.
@@ -23,7 +23,7 @@ class RoomManager {
      * @returns {Room?}
      */
     create(creator, name = null, options = {}) {
-        const room = new Room(bomo, creator, name, options);
+        const room = new Room(this.bomo, creator, name, options);
         this.rooms.set(room.id, room);
         return room;
     }
@@ -33,7 +33,7 @@ class RoomManager {
      * @returns {bool} - Whether the room exists or not.
      */
     exists(id) {
-        for (const _id in rooms) {
+        for (const _id in this.rooms) {
             if (_id === id) return true;
         }
         return false;
@@ -42,11 +42,11 @@ class RoomManager {
     /**
      * Gets a room by its ID.
      * @returns {?Room} - Returns a room if it exists; otherwise, returns `null`.
-     * @todo implementation aside, there should probably be some protection to private rooms here to avoid bruteforcing or something
+     * @todo https://github.com/mechabubba/bomo/projects/1#card-77107543
      */
     getRoom(room_id) {
-        if (!exists(id)) return null;
-        return this.rooms.get(id);
+        if (!this.exists(room_id)) return null;
+        return this.rooms.get(room_id);
     }
 
     /**
