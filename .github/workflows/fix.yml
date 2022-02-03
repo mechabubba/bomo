@@ -25,6 +25,7 @@ jobs:
 
       - name: Run ESLint
         run: npm run fix
+        continue-on-error: true
 
       - name: Commit fixes
         run: |
