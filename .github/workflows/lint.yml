@@ -3,7 +3,8 @@ name: Lint
 on: [push, pull_request]
 
 jobs:
-  deploy:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
