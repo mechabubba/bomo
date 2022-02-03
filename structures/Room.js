@@ -3,6 +3,12 @@ import { Base } from "./Base.js";
 import { generateRandomHex } from "../modules/generateRandomHex.js";
 
 /**
+ * Specific room options.
+ * @typedef {Object} RoomOptions
+ * @property {bool} isPrivate - Whether the specific room is private or not.
+ */
+
+/**
  * A room, which manages a group of members, game settings, and the games themselves
  */
 class Room extends Base {
@@ -10,11 +16,12 @@ class Room extends Base {
      * @param {Bomo} bomo - Reference to the Bomo instantiating this Room
      * @param {User} creator - The initial user who created of a room who will be assigned initial leadership over it
      * @param {?string} [name] - The room's name, will fallback to the room's id if not supplied
+     * @param {?RoomOptions} options - Room options.
      */
-    constructor(bomo = null, creator = null, name = null) {
+    constructor(bomo = null, creator = null, name = null, options = {}) {
         if (!bomo) throw new TypeError("Room instantiated without reference to bomo"); // Have to check here, otherwise bomo.rooms could throw a type error
         if (!creator) throw new TypeError("Room instantiated without creator");
-        super(bomo, generateRandomHex(bomo.rooms));
+        super(bomo, generateRandomHex(bomo.rooms._rooms));
 
         /**
          * The room's name, will fallback to the room's id if not supplied
@@ -33,6 +40,12 @@ class Room extends Base {
          * The room's current leaders
          */
         this.leaders = [creator];
+
+        /**
+         * Room options.
+         * @todo in the future, all non-null room data (id, members, etc) should be properties of `this`; all optional/variable data (privacy, any custom room name, etc) should be in this object
+         */
+        this.options = options;
 
         // this.name = `Room ${this.id.toUpperCase()}`;
         // this.game = null;

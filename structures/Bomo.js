@@ -33,7 +33,7 @@ class Bomo extends EventEmitter {
          * Currently available rooms mapped to their ids
          * @type {Map<string, Room>}
          */
-        this.rooms = new Map();
+        this.rooms = new RoomManager();
 
         /**
          * Users mapped to their ids
