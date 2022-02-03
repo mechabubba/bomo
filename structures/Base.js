@@ -42,32 +42,6 @@ class Base {
         return this.createdAt.toMillis();
     }
 
-    /**
-     * Creates a (usually plain) object using id, createdTimestamp, and manually supplied custom properties (in the form of objects)
-     * @param  {...object} objects
-     */
-    toObject(...objects) {
-        const data = {
-            "id": this.id,
-            "createdTimestamp": this.createdTimestamp,
-        };
-        if (objects.length) {
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals
-            return objects.reduce((previousObject, currentObject) => ({ ...previousObject, ...currentObject }), data);
-        } else {
-            return data;
-        }
-    }
-
-    /**
-     * Simple shortcut to JSON.stringify on this.toObject()
-     * @param  {...any} objects
-     */
-    toJSON(...objects) {
-        return JSON.stringify(this.toObject(...objects), null, 0); // No whitespace
-    }
-
     valueOf() {
         return this.id;
     }
