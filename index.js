@@ -119,9 +119,9 @@ const initialize = async function() {
      */
     bomo.app.get("/api/rooms",
         async (req, res, next) => {
-            let rooms = bomo.rooms.getRooms();
+            const rooms = bomo.rooms.getRooms();
             res.status(200).json(rooms);
-        }
+        },
     );
 
     /**
