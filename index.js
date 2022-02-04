@@ -37,6 +37,7 @@ import "./modules/env.js"; // Populates environment variables
 
 import { log } from "./modules/log.js";
 import { rateLimit } from "@tinyhttp/rate-limit";
+import { brandTitle } from "./modules/constants.js";
 import { User } from "./structures/User.js";
 import { Bomo } from "./structures/Bomo.js";
 
@@ -159,12 +160,12 @@ const initialize = async function() {
 
     // Register page routes with tinyhttp
     bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
-        title: process.env.title,
+        title: brandTitle,
         icon: "/favicon.ico",
         node_version: process.version,
     }));
     // bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
-    //     title: `${process.env.title} - api test`,
+    //     title: `${brandTitle} - api test`,
     //     icon: "/favicon.ico",
     // }));
 
