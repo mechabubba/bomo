@@ -34,12 +34,12 @@ class Service extends EventEmitter {
         /**
          * @type {RoomManager}
          */
-        this.rooms = new RoomManager();
+        this.rooms = new RoomManager(this);
 
         /**
          * @type {WebSocketManager}
          */
-        this.sockets = new WebSocketManager();
+        this.sockets = new WebSocketManager(this);
 
         // Check if the port environment variable is valid
         /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */

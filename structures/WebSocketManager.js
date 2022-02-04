@@ -35,7 +35,7 @@ class WebSocketManager extends Base {
         this.server.on("listening", () => {
             log.info(`${chalk.green("[READY]")} Websocket server ready to upgrade connections`);
         });
-        this.wss.on("connection", this.sockets.serverOnConnection);
+        this.server.on("connection", this.serverConnectionListener);
     }
 
     /**

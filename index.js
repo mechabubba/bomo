@@ -36,7 +36,7 @@ import "./modules/env.js"; // Populates environment variables script
 
 import { log } from "./modules/log.js";
 import { brandTitle } from "./modules/constants.js";
-import { Service } from "./structures/Backend.js";
+import { Service } from "./structures/Service.js";
 
 const initialize = async function() {
     log.info("Starting bomo...");
