@@ -1,6 +1,6 @@
+import EventEmitter from "node:events";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createHash } from "node:crypto";
 
 import chalk from "chalk";
 import ejs from "ejs";
@@ -15,42 +15,32 @@ import { WebSocketEvents } from "./WebSocketEvents.js";
 import { Room } from "./Room.js";
 import { RoomManager } from "./RoomManager.js";
 
+const moduleDirectory = dirname(fileURLToPath(import.meta.url));
+
 /**
- * Main server-side class
- * @note Named Backend rather than app to differentiate from tinyhttp's App
+ * Main class for backend/server side code
+ * @note Named Service rather than App or Server to differentiate from tinyhttp's App and http server
  */
-class AppManager {
+class Service extends EventEmitter {
     /**
      * Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
      */
     constructor() {
+        super();
 
         /**
          * Path of the publicly served folder. Used with sirv.
          */
-        this.public = join(dirname(fileURLToPath(import.meta.url)), "../public");
+        this.public = join(moduleDirectory, "..", "public");
 
         /**
-         * Currently available rooms mapped to their ids
-         * @type {Map<string, Room>}
+         * @type {RoomManager}
          */
         this.rooms = new RoomManager();
 
-        /**
-         * Users mapped to their ids
-         * @type {Map<string, Room>}
-         */
-        this.users = new Map();
-
-        /**
-         * Valid base64 encoded authorization strings mapped to user ids
-         * @type {Map<string, string>}
-         */
-        this.auth = new Map();
-
         // Check if the port environment variable is valid
         /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */
-        if (!process.env.port) throw new TypeError("PORT environment variable must be a valid number");
+        if (!process.env.port) throw new Error("PORT environment variable must be a valid number");
 
         /**
          * Tinyhttp App w/ ejs templating engine
