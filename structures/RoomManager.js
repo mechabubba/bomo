@@ -1,16 +1,17 @@
+import { Base } from "./Base.js";
 import { Room } from "./Room.js";
 
 /**
  * RoomManager
  */
-class RoomManager {
-    constructor(bomo) {
-        if (!bomo) throw new TypeError("RoomManager instantiated without reference to bomo");
-        Object.defineProperty(this, "bomo", { value: bomo }); // feel free to just extend this to the base class, didn't feel like it needed such properties other than the "bomo" property but its probably just easier
+class RoomManager extends Base {
+    constructor(service) {
+        super(service, "roomManager");
 
         /**
          * All currently created rooms.
          * @type {Map<string, Room>}
+         * @todo This should be named cache
          */
         this.rooms = new Map();
     }
@@ -23,7 +24,7 @@ class RoomManager {
      * @returns {Room?}
      */
     create(creator, name = null, options = {}) {
-        const room = new Room(this.bomo, creator, name, options);
+        const room = new Room(this.service, creator, name, options);
         this.rooms.set(room.id, room);
         return room;
     }

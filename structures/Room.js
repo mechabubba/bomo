@@ -1,10 +1,9 @@
-import { User } from "./User.js";
 import { Base } from "./Base.js";
-import { generateRandomHex } from "../modules/generateRandomHex.js";
+import { Player } from "./Player.js";
 
 /**
- * Specific room options.
- * @typedef {Object} RoomOptions
+ * Room settings controlling the room and games started within it
+ * @typedef {Object} RoomSettings
  * @property {bool} isPrivate - Whether the specific room is private or not.
  */
 
@@ -13,15 +12,15 @@ import { generateRandomHex } from "../modules/generateRandomHex.js";
  */
 class Room extends Base {
     /**
-     * @param {Bomo} bomo - Reference to the Bomo instantiating this Room
-     * @param {User} creator - The initial user who created of a room who will be assigned initial leadership over it
+     * @param {Service} service - Reference to the service instantiating this Room
+     * @param {Player} creator - Player who created the room and will be assigned initial leadership over it
      * @param {?string} [name] - The room's name, will fallback to the room's id if not supplied
-     * @param {?RoomOptions} options - Room options.
+     * @param {?RoomSettings} settings - Room settings
      */
-    constructor(bomo = null, creator = null, name = null, options = {}) {
-        if (!bomo) throw new TypeError("Room instantiated without reference to bomo"); // Have to check here, otherwise bomo.rooms could throw a type error
+    constructor(service, creator, name = null, settings = {}) {
+        super(service);
         if (!creator) throw new TypeError("Room instantiated without creator");
-        super(bomo, generateRandomHex(bomo.rooms._rooms));
+        if (creator instanceof Player === false) throw new TypeError("Room instantiated without creator");
 
         /**
          * The room's name, will fallback to the room's id if not supplied
@@ -29,26 +28,29 @@ class Room extends Base {
         this.name = name || this.id;
 
         /**
-         * The room's current members (P.S. is there a reason to use objects instead of arrays?)
+         * The room's current players, does not include spectators
+         * @type {Player[]}
          */
-        this.members = [creator];
-        // this.members = {
-        //     [creator.id]: creator, // cool syntax here
-        // };
+        this.players = [creator];
 
         /**
          * The room's current leaders
+         * @type {Player[]}
          */
         this.leaders = [creator];
 
         /**
-         * Room options.
+         * The room's current spectators
+         * @type {Player[]}
+         */
+        this.spectators = [];
+
+        /**
+         * Room settings
+         * @type {RoomSettings}
          * @todo in the future, all non-null room data (id, members, etc) should be properties of `this`; all optional/variable data (privacy, any custom room name, etc) should be in this object
          */
-        this.options = options;
-
-        // this.name = `Room ${this.id.toUpperCase()}`;
-        // this.game = null;
+        this.settings = settings || {};
     }
 
     // set name(value) {

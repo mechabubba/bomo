@@ -1,27 +1,30 @@
 import { v4 as uuidv4 } from "uuid";
 import { DateTime } from "luxon";
 
+import { Service } from "./Service.js";
+
 /**
  * @abstract
  */
 class Base {
     /**
-     * @param {Bomo} bomo - Reference to the Bomo instantiating this
+     * @param {Service} service - Reference to the Service instantiating this
      * @param {?string} [id] An optional pre-existing id, used for custom ids
      */
-    constructor(bomo, id = null) {
-        if (!bomo) throw new TypeError("Class instantiated without reference to bomo");
+    constructor(service, id = null) {
+        if (!service) throw new TypeError("Class instantiated without reference to service");
+        if (service instanceof Service === false) throw new TypeError("Service parameter must be an instance of Service");
 
         /**
-         * Reference to the instance of Bomo which instantiated this
-         * @name Base#bomo
-         * @type {Bomo}
+         * Reference to the service which instantiated this
+         * @name Base#service
+         * @type {Service}
          * @readonly
          */
-        Object.defineProperty(this, "bomo", { value: bomo });
+        Object.defineProperty(this, "service", { value: service });
 
         /**
-         * A version 4 uuid or a custom id string
+         * A custom id string or a version 4 uuid
          * @type {string}
          */
         this.id = id || uuidv4();

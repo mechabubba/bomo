@@ -1,4 +1,4 @@
-/** @todo This is gradually going to become outdated, right? Maybe we aught to get rid of it */
+/** @todo Move this to a docs file and update it after the 0.0.3 refactors */
 /*
 # Tentative Structure
     /public/ (Files served static accessible to browsers/client)
@@ -30,147 +30,53 @@
     index.js
 */
 
-// ES modules are loaded asynchronously, the order of these statements
-// matters to all code loaded later that uses process and process.env
-import "./modules/processEvents.js"; // Node.js process events
-import "./modules/env.js"; // Populates environment variables
+// loaded asynchronously, order of statements matters
+import "./modules/processEvents.js"; // Node.js process events script
+import "./modules/env.js"; // Populates environment variables script
 
 import { log } from "./modules/log.js";
-import { rateLimit } from "@tinyhttp/rate-limit";
 import { brandTitle } from "./modules/constants.js";
-import { User } from "./structures/User.js";
-import { Bomo } from "./structures/Bomo.js";
+import { Service } from "./structures/Backend.js";
 
 const initialize = async function() {
     log.info("Starting bomo...");
     // const { rateLimit } = await import("@tinyhttp/rate-limit");
 
-    // Instantiate bomo
-    // Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by Bomo's constructor
-    const bomo = new Bomo();
-
-    /**
-     * Authorization header validation
-     * @param {*} req - Request
-     * @param {*} res - Response
-     * @param {function} next - Next function
-     * @todo not sure where this should go, simplest would be right here
-     * @todo Check bomo.auth.has() with the authorization header
-     * @todo Return 403 forbidden for requests with invalid authorization headers
-     * @todo Would be nice to handle 401 unauthorized and send it with the proper WWW-Authenticate header https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
-     */
-    const validate = async function(req, res, next) {
-        // if (!req.get("Authorization")) {}
-        // const authorization = Buffer.from(req.get("Authorization"), "base64").toString("utf8");
-        log.trace("Validating authorization header from", req.ip || req.socket.remoteAddress);
-        next();
-    };
+    // Instantiate service
+    // Setting engine, parsing cookies, http logging middleware, 404 route, and serving the public folder are handled by Service's constructor
+    const service = new Service();
 
     // Register api routes with tinyhttp
-    // bomo.app.get("/time", (req, res, next) => res.json({ content: DateTime.now().toFormat("HH:mm:ss.SSS") }));
-    // bomo.app.post("/time", (req, res, next) => res.json({
-    //     message: "yes i can here u are",
-    //     content: DateTime.now().toFormat("HH:mm:ss.SSS"),
-    // }));
-
-    /**
-     * Creates a new user with authorization details
-     */
-    bomo.app.post("/api/users",
-        /** @todo Couldn't decide on a good rate limit */
-        // rateLimit({ max: 8, windowMs: 10000 /* 10 seconds */ }),
-        (req, res, next) => {
-            const user = new User(bomo, req.ip || req.socket.remoteAddress);
-            res.status(201).json({
-                content: user.toObject(),
-            });
-        },
-    );
-
-    /**
-     * Retrieves user info
-     */
-    bomo.app.get("/api/users/:id",
-        /** @todo Couldn't decide on a good rate limit */
-        /** @todo Needs to use the authorization middleware */
-        /** @todo Are the returns after Response.json() nesscary? */
-        /** @todo Returning 404 is arguably dumb, and different stack overflow questions have completely different answers debating it, but 204 No Content can't have a body (?) */
-        async (req, res, next) => {
-            if (!req.params.id || !bomo.users.has(req.params.id)) {
-                res.status(404).json({
-                    "code": 404,
-                    "status": "404 Not Found",
-                    "message": `User "${req.params.id}" not found`,
-                });
-                return;
-            }
-            const user = bomo.users.get(req.params.id);
-            const data = user.toObject();
-            // Important to strip certain details from the object if the user shouldn't have them
-            if (user.auth.encoded !== req.get("Authorization")) delete data.authorization;
-            res.status(200).json({
-                content: data,
-            });
-        },
-    );
 
     /**
      * Gets room information.
-     * @todo we should control what information gets sent from this api (it will send all users and their information lmao, bad idea). for now this is fine...
+     * @todo https://github.com/mechabubba/bomo/projects/1#card-77107543
      */
-    bomo.app.get("/api/rooms",
+    service.app.get("/api/rooms",
         async (req, res, next) => {
-            const rooms = bomo.rooms.getRooms();
+            const rooms = service.rooms.getRooms();
             res.status(200).json(rooms);
         },
     );
 
-    /**
-     * Route that will always return 200 OK content: true
-     */
-    bomo.app.get("/api/test/true", (req, res, next) => res.status(200).json({ content: true }));
+    // Route that will always return 200 OK content: true
+    service.app.get("/api/test/true", (req, res, next) => res.status(200).json({ content: true }));
 
-    /**
-     * Route to test rate limiting
-     */
-    bomo.app.get("/api/test/limit",
-        rateLimit({ max: 10, windowMs: 60000 /* 1 minute */ }),
+    // Route to test stateless sessions
+    service.app.get("/api/test/session",
+        // Session validation middleware
         (req, res, next) => res.status(200).json({ content: true }),
     );
-
-    /**
-     * Route to test authentication
-     * @todo No validation middleware yet
-     */
-    bomo.app.get("/api/test/auth",
-        // Validation middleware
-        (req, res, next) => res.status(200).json({ content: true }),
-    );
-
-    // // Lobby API Endpoints
-    // bomo.app.post("/api/lobby/create", (req, res, next) => {
-    //     // params: name, some sort of browser/session id
-    //     // returns: success, lobby code
-    // });
-
-    // bomo.app.post("/api/lobby/join", (req, res, next) => {
-    //     // params: name, some sort of browser/session id, lobby code
-    //     // returns: success
-    // });
 
     // Register page routes with tinyhttp
-    bomo.app.get("/", (req, res, next) => res.render("index.ejs", {
+    service.app.get("/", (req, res, next) => res.render("index.ejs", {
         title: brandTitle,
         icon: "/favicon.ico",
         node_version: process.version,
     }));
-    // bomo.app.get("/test", (req, res, next) => res.render("test.ejs", {
-    //     title: `${brandTitle} - api test`,
-    //     icon: "/favicon.ico",
-    // }));
 
     // Start
-    bomo.start();
+    service.start();
 };
 
 initialize();
