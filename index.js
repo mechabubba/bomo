@@ -39,7 +39,7 @@ import { brandTitle } from "./modules/constants.js";
 import { Service } from "./structures/Service.js";
 
 const initialize = async function() {
-    log.info("Starting bomo...");
+    log.info(`Starting ${brandTitle}...`);
     // const { rateLimit } = await import("@tinyhttp/rate-limit");
 
     // Instantiate service
