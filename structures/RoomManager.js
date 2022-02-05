@@ -1,19 +1,18 @@
-import { Base } from "./Base.js";
+import { BaseManager } from "./BaseManager.js";
 import { Room } from "./Room.js";
 
 /**
  * RoomManager
  */
-class RoomManager extends Base {
+class RoomManager extends BaseManager {
     constructor(service) {
-        super(service, "roomManager");
+        super(service);
 
         /**
-         * All currently created rooms.
+         * Cache of current rooms mapped by their id
          * @type {Map<string, Room>}
-         * @todo This should be named cache
+         * @name RoomManager#cache
          */
-        this.rooms = new Map();
     }
 
     /**
@@ -25,7 +24,7 @@ class RoomManager extends Base {
      */
     create(creator, name = null, options = {}) {
         const room = new Room(this.service, creator, name, options);
-        this.rooms.set(room.id, room);
+        this.cache.set(room.id, room);
         return room;
     }
 
@@ -34,7 +33,7 @@ class RoomManager extends Base {
      * @returns {bool} - Whether the room exists or not.
      */
     exists(id) {
-        for (const _id in this.rooms) {
+        for (const _id in this.cache) {
             if (_id === id) return true;
         }
         return false;
@@ -47,20 +46,18 @@ class RoomManager extends Base {
      */
     getRoom(room_id) {
         if (!this.exists(room_id)) return null;
-        return this.rooms.get(room_id);
+        return this.cache.get(room_id);
     }
 
     /**
-     * Gets a list of rooms.
+     * Gets an array of rooms
      * @param {bool} includePrivate - Include private rooms in this list?
      * @returns {Room[]} - An array of rooms.
+     * @todo Just use map's methods for this rather than a for loop
      */
     getRooms(includePrivate = false) {
-        const arr = [];
-        for (const room of this.rooms) {
-            if (room.options.isPrivate) arr.push(room);
-        }
-        return arr;
+        const rooms = Array.from(this.cache.values());
+        return includePrivate ? rooms : rooms.filter(room => !room.options.isPrivate);
     }
 }
 

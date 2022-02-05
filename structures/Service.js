@@ -100,16 +100,16 @@ class Service extends EventEmitter {
     /**
      * Stops the service
      */
-    stop(socketsClosed = false) {
-        if (!this.server || !this.sockets.server) return;
-        if (socketsClosed) {
-            // process.exit(0);
-            log.debug("Process would have exited");
-        } else {
+    stop(socketServerClosed = false) {
+        if (!socketServerClosed) {
             this.sockets.server.close((error) => {
                 log.info("Websocket server closed");
                 this.stop(true);
             });
+        } else {
+            // Manually iterate
+            // process.exit(0);
+            log.debug("Process would have exited");
         }
     }
 }

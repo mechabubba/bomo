@@ -1,7 +1,9 @@
+import { BaseIdentifiable } from "./BaseIdentifiable.js";
+
 /**
  * Game
  */
-class Game {
+class Game extends BaseIdentifiable {
 
 }
 

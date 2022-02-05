@@ -1,4 +1,4 @@
-import { Base } from "./Base.js";
+import { BaseIdentifiable } from "./BaseIdentifiable.js";
 import { Player } from "./Player.js";
 
 /**
@@ -10,7 +10,7 @@ import { Player } from "./Player.js";
 /**
  * A room, which manages a group of members, game settings, and the games themselves
  */
-class Room extends Base {
+class Room extends BaseIdentifiable {
     /**
      * @param {Service} service - Reference to the service instantiating this Room
      * @param {Player} creator - Player who created the room and will be assigned initial leadership over it

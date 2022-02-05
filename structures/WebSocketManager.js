@@ -2,9 +2,9 @@ import { WebSocketServer } from "ws";
 import chalk from "chalk";
 
 import { log } from "../modules/log.js";
-import { Base } from "./Base.js";
+import { BaseManager } from "./BaseManager.js";
 
-class WebSocketManager extends Base {
+class WebSocketManager extends BaseManager {
     constructor(service) {
         super(service, "webSocketManager");
 
@@ -18,6 +18,13 @@ class WebSocketManager extends Base {
          * @type {?WebSocketServer}
          */
         this.server = null;
+
+        /**
+         * Cache of current websockets mapped by their id
+         * @type {Map<string, null>}
+         * @name WebSocketManager#cache
+         * @todo Unfinished
+         */
     }
 
     /**
