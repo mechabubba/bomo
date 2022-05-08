@@ -43,6 +43,7 @@ class Service extends EventEmitter {
 
         // Check if the port environment variable is valid
         /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */
+        /** @todo Instead of using templating or throwing here, default to a hardcoded value using || */
         if (!process.env.port) throw new Error("PORT environment variable must be a valid number");
 
         /**
