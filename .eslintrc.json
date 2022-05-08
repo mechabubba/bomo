@@ -1,13 +1,12 @@
 {
   "root": true,
-  "extends": ["eslint:recommended"],
+  "extends": "eslint:recommended",
+  "env": {
+    "node": true
+  },
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module"
-  },
-  "env": {
-    "es2022": true,
-    "node": true
   },
   "rules": {
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
