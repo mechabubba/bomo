@@ -9,34 +9,22 @@
  * @module scripts/env
  */
 
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { existsSync, copyFileSync } from "node:fs";
+import { join } from "node:path";
 import { env } from "node:process";
 import dotenv from "dotenv";
 import { log } from "./log.js";
-import { environmentVariables } from "./constants.js";
+import { environmentVariables, directory } from "./constants.js";
 
-const moduleDirectory = dirname(fileURLToPath(import.meta.url));
-const envPath = join(moduleDirectory, "..", ".env");
-const envTemplate = join(moduleDirectory, "..", "template.env");
+const externalVariables = environmentVariables.filter((variable) => Object.prototype.hasOwnProperty.call(env, variable));
+if (externalVariables.length) log.info("External environment variables", externalVariables);
 
-const variablesPresentExternally = environmentVariables.filter(variable => Object.prototype.hasOwnProperty.call(env, variable));
-
-log.info("Environment variables present externally:", variablesPresentExternally);
-
-if (variablesPresentExternally.length < environmentVariables.length) {
-    if (!existsSync(envPath)) {
-        log.info("No .env file present, copying template...");
-        copyFileSync(envTemplate, envPath);
-    }
-
+// Don't need to load from file if all environment variables are present
+if (externalVariables.length < environmentVariables.length) {
     const result = dotenv.config({
-        override: false, // Will not override environment variables from the machine
-        path: envPath,
+        override: false, // Will not override external environment variables
+        path: join(directory, ".env"),
     });
-
-    if (result.parsed) log.info("Loaded remaining environment variables from file:", Object.keys(result.parsed).map(variable => variable.toLowerCase()).filter(variable => !variablesPresentExternally.includes(variable)));
+    if (result.parsed) log.info("Loaded environment variables from file", Object.keys(result.parsed).map(variable => variable.toLowerCase()).filter(variable => !externalVariables.includes(variable)));
 }
 
 /**
