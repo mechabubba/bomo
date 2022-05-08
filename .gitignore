@@ -34,9 +34,7 @@ Thumbs.db
 .idea
 
 # project
+data/
+logs/
 *.log*
 *.env
-*.env.test
-!template.env
-docs/site/
-junk/
