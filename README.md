@@ -19,15 +19,13 @@ If you want to contribute yourself, let us know on an issue or contact us in our
 - Install [node.js](https://nodejs.org), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) or [pnpm](https://pnpm.io/installation), and [git](https://git-scm.com/downloads)
 - Clone via `git clone https://github.com/mechabubba/bomo.git`
 - Run `npm install` or `pnpm install` in the root to install dependencies
-- If you want, copy & rename `template.env` to `.env` to edit whatever variables you want before starting. If you don't, it'll do this for you without changing anything
-- Run `node index.js` or `npm start` to start the server and you're good to go
-  - To change the port, edit your `.env` file and restart
+- To change the port, make an `.env` file with the line `PORT=1234`, 1234 being the number you want
+  - Refer to the [FAQ](./docs/faq.md) for a list of valid environment variables
+- Run `node index.js` or `npm start` to start the server, the default port is 3000
 
 ## update
 
 - Run `git pull origin`
-
-- Manually update your `.env` file if any new variables were added in `template.env` and you're good to go
 
 <!-- ## documentation
 
@@ -37,7 +35,7 @@ Notes for when it gets written:
 
 - I make use of `@todo` to leave notes and tasks awaiting completion/resolution
 
-- If you get `"message": "this.engines[options.ext] is not a function"` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
+- If you get `this.engines[options.ext] is not a function` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
 
 - `ctrl` + `shift` + `r` forces a complete page refresh in firefox, helpful for clearing cached css
 
@@ -75,15 +73,18 @@ This project is not associated with UNO, Mattel, or Ubisoft in any way.
 - [restfulapi.net](https://restfulapi.net/), good guidance regarding api design
 - [stackoverflow.blog's Best practices for REST API design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/), good article on rest apis
 - [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
-- [discord.js](https://discord.js.org/), for coding practices and educational value
 
 Dependencies
 
 - [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
+- [@tinyhttp/cookie-parser](https://www.npmjs.com/package/@tinyhttp/cookie-parser), cookie parsing
+- [@tinyhttp/rate-limit](https://www.npmjs.com/package/@tinyhttp/rate-limit), rate limiting
+- [milliparsec](https://www.npmjs.com/package/milliparsec), body parsing
+- [ws](https://www.npmjs.com/package/ws), websockets
 - [ejs](https://ejs.co), embedded JavaScript templating
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
-- [@tinyhttp/cookie-parser](https://www.npmjs.com/package/@tinyhttp/cookie-parser), cookie parsing
 - [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
+- [chalk](https://www.npmjs.com/package/chalk), terminal colors
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
 - [Google Fonts](https://fonts.google.com/), an open font cdn
 
