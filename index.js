@@ -1,16 +1,10 @@
-// loaded asynchronously, order of statements matters
+// order of import statements matters, loaded asynchronously
 import "./modules/processEvents.js"; // Node.js process events script
+import "./modules/start.js"; // Starting message
 import "./modules/env.js"; // Populates environment variables script
-
 import { log } from "./modules/log.js";
+import { service } from "./modules/service.js";
 import { title, version } from "./modules/constants.js";
-import { Service } from "./structures/Service.js";
-
-log.info(`Starting ${title} v${version}`);
-
-// Instantiate service
-// Setting engine, parsing cookies, http logging middleware, 404 route, and serving the public folder are handled by Service's constructor
-const service = new Service();
 
 /**
  * Gets room information.
@@ -30,7 +24,7 @@ service.app.get("/api/test/true", (req, res, next) => res.status(200).json({ con
 service.app.get("/", (req, res, next) => res.render("index.ejs", {
     title: title,
     icon: "/favicon.ico",
-    node_version: process.version,
+    version: version,
     ...res.locals,
 }));
 
