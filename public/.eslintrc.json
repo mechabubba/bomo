@@ -1,13 +1,7 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "../.eslintrc.json"
-  ],
-  "parserOptions": {
-    "ecmaVersion": 2020
-  },
+  "extends": "../.eslintrc.json",
   "env": {
     "browser": true,
-    "es2020": true
+    "node": false
   }
 }
