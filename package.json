@@ -4,10 +4,9 @@
   "description": "An open source take on the classic Mattel card game UNO",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no tests\" && exit 1",
     "lint": "eslint . --ext .js,.mjs",
-    "fix": "eslint . --ext .js,.mjs --fix",
-    "docs": "jsdoc --template \"node_modules/boxy-jsdoc-template\" --configure .jsdoc.conf.json"
+    "fix": "eslint . --ext .js,.mjs --fix"
   },
   "repository": {
     "type": "git",
