@@ -5,7 +5,6 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
  */
 class Methods extends null {
-    // ["Content-Type", "application/json"]
     static async send(method, route = null, options = {}, headers = [], provideParsed = true) {
         if (!route) throw new TypeError("Valid route required");
         const init = {
@@ -17,6 +16,7 @@ class Methods extends null {
         };
         for (const header of headers) init.headers.append(...header);
         const response = await fetch(new Request(route, init));
+        // ["Content-Type", "application/json"]
         if (provideParsed) response.parsed = response.headers.get("Content-Type") === "application/json" ? await response.json() || null : null;
         return response;
     }
@@ -38,5 +38,6 @@ class Methods extends null {
 }
 
 export default Methods;
+
 // Useful snippet for browser console
 // const { default: Methods } = await import("./modules/structures/Methods.js")
