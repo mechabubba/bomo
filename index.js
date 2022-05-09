@@ -4,7 +4,7 @@ import "./modules/start.js"; // Starting message
 import "./modules/env.js"; // Populates environment variables script
 import { log } from "./modules/log.js";
 import { service } from "./modules/service.js";
-import { title, version } from "./modules/constants.js";
+import { version } from "./modules/constants.js";
 
 /**
  * Gets room information.
@@ -22,8 +22,7 @@ service.app.get("/api/test/true", (req, res, next) => res.status(200).json({ con
 
 // Register page routes with tinyhttp
 service.app.get("/", (req, res, next) => res.render("index.ejs", {
-    title: title,
-    icon: "/favicon.ico",
+    title: "bomo",
     version: version,
     ...res.locals,
 }));
