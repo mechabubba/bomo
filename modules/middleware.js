@@ -1,5 +1,4 @@
 import { log, httpLoggingStyles } from "./log.js";
-import { title } from "./constants.js";
 
 /**
  * @see https://tinyhttp.v1rtl.site/docs#nomatchhandlerreq-res
@@ -9,7 +8,7 @@ const noMatchHandler = (req, res) => {
     if (req.accepts("html")) {
         // respond with html page
         return res.render("template.ejs", {
-            title: `${title} - 404`,
+            title: `bomo - 404`,
             icon: "/error.ico",
             url: req.url,
             ...res.locals,
