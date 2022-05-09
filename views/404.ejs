@@ -2,17 +2,14 @@
 <html lang="en">
 
 <head>
-    <%- include("partials/standard_head.ejs") %>
+    <%- include("./partials/head.ejs") %>
     <style>
-        #page {
-            padding: 1em;
-        }
-        .nitter-tweet {
+        .tweet {
             display: block;
             height: 500px;
             max-width: 700px;
         }
-        .nitter-tweet iframe {
+        .tweet iframe {
             height: 100%;
             width: 100%;
         }
@@ -20,16 +17,16 @@
 </head>
 
 <body>
-    <%- include("partials/standard_header.ejs") %>
-    <div id="page">
+    <%- include("./partials/header.ejs") %>
+    <div class="content">
         <h1>404</h1>
         <p>The requested url <code><%= url %></code> was not found</p>
         <!-- Embed TopHattWaffle's tweet -->
-        <div class="nitter-tweet">
+        <div class="tweet">
             <iframe scrolling="no" src="https://nitter.net/TopHATTwaffle/status/993234368540954625/embed"></iframe>
         </div>
     </div>
-    <%- include("partials/standard_scripts.ejs") %>
+    <%- include("./partials/scripts.ejs") %>
 </body>
 
 </html>

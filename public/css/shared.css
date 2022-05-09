@@ -10,7 +10,7 @@
     --highlight: #539bf5;
     --highlight-secondary: rgba(83, 155, 245, 0.5);
     --highlight-tertiary: rgba(83, 155, 245, 0.3);
-    --highlight-quaternary: rgba(83, 155, 245, 0.1);
+    --highlight-quaternary: rgba(83, 155, 245, 0.2);
     --text-color: #eee;
     --text-color-secondary: #b8b8b8;
     --text-color-tertiary: #898989;
@@ -83,7 +83,7 @@ code {
 
 pre,
 code {
-    padding: 0 var(--spacing);
+    padding: 0 4px;
     color: inherit;
     font-size: var(--font-size);
     font-family: "Roboto Mono", monospace, sans-serif;
