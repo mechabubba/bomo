@@ -4,26 +4,20 @@
 /* @todo Note that this color scheme is not designed for themes, and id want to redo it if implementing a theme system */
 
 :root {
-    --shade-one: #121212;
-    --shade-two: #2a2a2a;
-    --shade-three: #414141;
-    --shade-four: #5a5a5a;
-    --shade-five: #717171;
-    --shade-six: #898989;
-    --shade-seven: #a0a0a0;
-    --shade-eight: #b8b8b8;
-    --shade-nine: #eee;
-    --shade-primary: #539bf5;
-    --shade-primary-one: rgba(83, 155, 245, 0.1);
-    --shade-primary-two: rgba(83, 155, 245, 0.3);
-    --shade-primary-three: rgba(83, 155, 245, 0.5);
-    --text-color: var(--shade-nine);
-    --text-color-secondary: var(--shade-eight);
-    --text-color-disabled: var(--shade-six);
-    --text-color-highlight: var(--shade-primary);
+    --background: #121212;
+    --background-secondary: #2a2a2a;
+    --background-tertiary: #414141;
+    --highlight: #539bf5;
+    --highlight-secondary: rgba(83, 155, 245, 0.5);
+    --highlight-tertiary: rgba(83, 155, 245, 0.3);
+    --highlight-quaternary: rgba(83, 155, 245, 0.1);
+    --text-color: #eee;
+    --text-color-secondary: #b8b8b8;
+    --text-color-tertiary: #898989;
     --font-size: 16px;
     --spacing: 8px;
-    --corners: 2px;
+    --corners: 4px;
+    --border: 2px solid var(--background-secondary);
 }
 
 * {
@@ -50,14 +44,14 @@ body {
 }
 
 html {
-    background-color: var(--shade-one);
+    background-color: var(--background);
 }
 
 body {
     min-height: 100vh;
     color: var(--text-color);
     font-size: var(--font-size);
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* General Elements */
@@ -79,21 +73,22 @@ img {
 
 pre {
     display: block;
+    white-space: pre;
 }
 
 code {
     display: inline-block;
+    white-space: pre-wrap;
 }
 
 pre,
 code {
-    padding: 0px 3px;
+    padding: 0 var(--spacing);
     color: inherit;
     font-size: var(--font-size);
     font-family: "Roboto Mono", monospace, sans-serif;
-    background-color: var(--shade-primary-one);
-    border-radius: 6px;
-    white-space: nowrap;
+    background-color: var(--highlight-quaternary);
+    border-radius: var(--corners);
 }
 
 article,
@@ -106,31 +101,45 @@ main {
     display: block;
 }
 
-/* @todo Write css for lists and tables */
+/* @todo write css for lists and tables */
 
 /* Interface Components */
+
+/* 
+added in firefox 92
+could be used with css filters for much cleaner interface component css
+body, body * {
+    accent-color: var(--highlight);
+} */
 
 ::placeholder {
     color: var(--text-color-secondary);
 }
 
-:focus,
-:focus-visible {
-    outline: 1px solid var(--shade-primary);
-    outline-offset: 1px;
+/* :focus,
+:focus-visible, */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+audio:focus,
+video:focus {
+    outline: 2px solid var(--highlight);
+    /* outline-offset: 1px; */
 }
 
-:focus:not(:focus-visible) {
+/* :focus:not(:focus-visible) {
     outline: none;
-}
+} */
 
 a {
     /* rgb(102, 156, 255) */
-    color: var(--text-color-highlight);
+    color: var(--highlight);
     border: solid 1px transparent;
     text-decoration: none;
-    outline-color: var(--shade-primary);
-    transition: 0.2s;
+    outline-color: var(--highlight);
+    transition: 0.1s;
 }
 
 a:hover,
@@ -149,16 +158,20 @@ textarea {
     cursor: text;
 }
 
+textarea {
+    min-height: 27px;
+}
+
 button,
 input,
 textarea {
-    background-color: var(--shade-primary-two);
+    background-color: var(--highlight-tertiary);
     padding: 4px 6px;
 }
 
 select {
     padding: 4px 1px;
-    background-color: var(--shade-three);
+    background-color: var(--background-tertiary);
 }
 
 input[type="checkbox"] {
@@ -187,14 +200,14 @@ select,
 textarea {
     display: inline-block;
     color: var(--text-color);
-    outline-color: var(--shade-primary);
+    outline-color: var(--highlight);
     font-size: var(--font-size);
     font-family: "Roboto", sans-serif;
     margin: unset;
     border: none;
     border-radius: var(--corners);
     text-decoration: none;
-    transition: 0.2s;
+    transition: 0.1s;
 }
 
 button:hover,
@@ -202,17 +215,17 @@ input:hover,
 textarea:hover,
 input:focus-visible,
 textarea:focus-visible {
-    background-color: var(--shade-primary-three);
+    background-color: var(--highlight-secondary);
 }
 
 input[type="checkbox"]:hover,
 input[type="checkbox"]:focus-visible {
-    background-color: var(--shade-primary-two);
+    background-color: var(--highlight-tertiary);
 }
 
 input[type="checkbox"]:checked,
 input[type="checkbox"]:checked:disabled {
-    background-color: var(--shade-primary-three);
+    background-color: var(--highlight-secondary);
 }
 
 button:disabled,
@@ -223,7 +236,7 @@ button:disabled:hover,
 input:disabled:hover,
 select:disabled:hover,
 textarea:disabled:hover {
-    color: var(--text-color-disabled);
+    color: var(--text-color-tertiary);
     cursor: default;
 }
 
@@ -233,12 +246,12 @@ textarea:disabled,
 button:disabled:hover,
 input:disabled:hover,
 textarea:disabled:hover {
-    background-color: var(--shade-primary-one);
+    background-color: var(--highlight-quaternary);
 }
 
 select:disabled,
 select:disabled:hover {
-    background-color: var(--shade-two);
+    background-color: var(--background-secondary);
 }
 
 canvas {
