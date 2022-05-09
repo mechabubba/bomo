@@ -8,7 +8,6 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readFileSync } from "node:fs";
 
-
 /**
  * Root directory
  * @type {string}
@@ -22,19 +21,13 @@ const directory = join(dirname(fileURLToPath(import.meta.url)), "..");
 const packageData = JSON.parse(readFileSync(join(directory, "package.json")));
 
 /**
- * Title used in page titles, branding, etc.
- * @type {string}
- */
-const title = "bomo";
-
-/**
- * Description used in page titles, branding, etc.
+ * Description used in branding
  * @type {string}
  */
 const description = packageData.description;
 
 /**
- * Current version, retrieved from package.json
+ * Current version retrieved from package.json
  * @type {string}
  */
 const version = packageData.version;
@@ -59,7 +52,6 @@ const defaultPort = 3000;
 export {
     directory,
     packageData,
-    title,
     description,
     version,
     environmentVariables,
