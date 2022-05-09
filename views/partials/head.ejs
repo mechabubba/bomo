@@ -1,0 +1,15 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="<%= locals.iconType || "image/x-icon" %>"  href="<%= locals.icon || "/favicon.ico" %>" />
+<title id="title"><%= locals.title || "bomo" %></title>
+<meta property="og:title" content="<%= locals.title || "bomo" %>" />
+<% if (locals.description) { %>
+<meta name="description" content="<%= locals.description %>" />
+<meta property="og:description" content="<%= locals.description %>" />
+<% } if (locals.logo) { %>
+<meta property="og:image" content="<%= locals.logo %>" />
+<% } %>
+<meta name="author" content="https://github.com/mechabubba/bomo/graphs/contributors" />
+<link rel="author" href="https://github.com/mechabubba/bomo/graphs/contributors" />
+<link rel="stylesheet" href="/css/shared.css" />
+<link rel="stylesheet" href="/css/standard.css" />
