@@ -4,5 +4,5 @@
         "moduleResolution": "node",
         "module": "ES2020",
     },
-    "include": ["modules", "public", "structures", "views"],
+    "exclude": ["node_modules"],
 }
