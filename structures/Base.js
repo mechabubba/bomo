@@ -1,5 +1,3 @@
-import { DateTime } from "luxon";
-
 import { Service } from "./Service.js";
 
 /**
@@ -17,21 +15,6 @@ class Base {
          * @readonly
          */
         Object.defineProperty(this, "service", { value: service });
-
-        /**
-         * DateTime instance for when this was instantiated
-         * @type {DateTime}
-         */
-        this.createdAt = DateTime.now();
-    }
-
-    /**
-     * A unix timestamp in milliseconds for when this was instantiated
-     * @type {number}
-     * @readonly
-     */
-    get createdTimestamp() {
-        return this.createdAt.toMillis();
     }
 }
 

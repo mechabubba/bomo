@@ -10,7 +10,7 @@ class RoomManager extends BaseManager {
 
         /**
          * Cache of current rooms mapped by their id
-         * @type {Map<string, Room>}
+         * @type {Collection<string, Room>}
          * @name RoomManager#cache
          */
     }

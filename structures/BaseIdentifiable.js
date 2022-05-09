@@ -1,5 +1,5 @@
 import { Base } from "./Base.js";
-import { generate } from "../modules/id.js";
+import { generateIdentifier } from "../modules/id.js";
 
 /**
  * A base identifiable by an id
@@ -12,7 +12,7 @@ class BaseIdentifiable extends Base {
          * A collision proof id
          * @type {string}
          */
-        this.id = generate();
+        this.id = generateIdentifier();
     }
 
     valueOf() {
