@@ -22,6 +22,7 @@
   "main": "./index.js",
   "exports": "./index.js",
   "dependencies": {
+    "@discordjs/collection": "^0.6.0",
     "@tinyhttp/app": "^2.0.16",
     "@tinyhttp/cookie-parser": "^2.0.4",
     "@tinyhttp/rate-limit": "^2.0.0",
