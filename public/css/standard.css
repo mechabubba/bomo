@@ -1,6 +1,46 @@
-/* --title-color: rgb(242, 217, 58); */
+body,
+#header,
+#main,
+.flex-row,
+.flex-column {
+    display: flex;
+}
 
-/* Classes */
+body,
+.flex-column {
+    flex-direction: column;
+}
+
+#header,
+#main,
+.flex-row {
+    flex-direction: row;
+}
+
+#main,
+.content,
+.flex-grow {
+    flex-grow: 1;
+}
+
+#left,
+#right {
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+#header {
+    background-color: var(--background-secondary);
+    justify-content: left;
+    align-items: center;
+    gap: var(--spacing);
+}
+
+#header,
+.content,
+#footer {
+    padding: var(--spacing);
+}
 
 .content > :first-child {
     margin-top: 0;
@@ -10,62 +50,8 @@
     margin-bottom: 0;
 }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    gap: 1em;
-}
-
-.grow {
-    flex-grow: 1;
-}
-
-/* @todo Write classes for styling tables */
-
-/* Layout */
-
-body {
-    display: flex;
-    flex-direction: column;
-}
-
-#page-header {
-    background-color: var(--shade-two);
-    padding: var(--spacing);
-}
-
-#page {
-    flex-grow: 1;
-}
-
-.header > * {
-    margin: unset;
-}
-
-#open-about-modal {
-    cursor: pointer;
-}
-
-#about {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0; 
-    right: 0; 
-    margin: auto;
-    height: 400px;
-    width: 400px;
-    padding: 20px;
-    border-radius: 1em;
-    background-color: var(--shade-two);
-}
-
-#about > #close-about {
-    position: absolute;
-    padding: 6px 10px;
-    top: 0;
-    right: 0;
-    cursor: pointer;
+@media only screen and (max-width: 700px) {
+    #main {
+        flex-direction: column;
+    }
 }
