@@ -43,7 +43,7 @@ const onError = (err, req, res) => {
 /**
  * Middleware used for logging http requests
  */
-const httpLogger = (req, res, next) => {
+const requestLogger = (req, res, next) => {
     res.on("finish", () => {
         const code = res.statusCode.toString();
         const url = req.originalUrl || req.url;
@@ -62,5 +62,5 @@ const httpLogger = (req, res, next) => {
 export {
     noMatchHandler,
     onError,
-    httpLogger,
+    requestLogger,
 };

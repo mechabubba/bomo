@@ -6,7 +6,7 @@ import { BaseManager } from "./BaseManager.js";
 
 class WebSocketManager extends BaseManager {
     constructor(service) {
-        super(service, "webSocketManager");
+        super(service);
 
         /**
          * Websocket server using ws
@@ -21,7 +21,7 @@ class WebSocketManager extends BaseManager {
 
         /**
          * Cache of current websockets mapped by their id
-         * @type {Map<string, null>}
+         * @type {Collection<string, null>}
          * @name WebSocketManager#cache
          * @todo Unfinished
          */

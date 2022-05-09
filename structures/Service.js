@@ -1,35 +1,60 @@
-import EventEmitter from "node:events";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
+import { Server } from "node:http";
 
-import chalk from "chalk";
+import { App } from "@tinyhttp/app";
+import { cookieParser } from "@tinyhttp/cookie-parser";
+import { json, urlencoded } from "milliparsec";
 import ejs from "ejs";
 import sirv from "sirv";
-import { cookieParser } from "@tinyhttp/cookie-parser";
-import { App } from "@tinyhttp/app";
+import chalk from "chalk";
 
+import { directory, defaultPort } from "../modules/constants.js";
 import { log } from "../modules/log.js";
 import { WebSocketManager } from "./WebSocketManager.js";
-import { noMatchHandler, onError, httpLogger } from "../modules/middleware.js";
+import { noMatchHandler, onError, requestLogger } from "../modules/middleware.js";
 import { RoomManager } from "./RoomManager.js";
 
-const moduleDirectory = dirname(fileURLToPath(import.meta.url));
+/**
+ * @typedef {Object} ServiceOptions
+ * @property {?number} [port]
+ */
 
 /**
- * Main class for backend/server side code
- * @note Named Service rather than App or Server to differentiate from tinyhttp's App and http server
+ * Main class for the backend/server side code
+ *
+ * Named Service rather than App or Server to differentiate from tinyhttp's App and http server
  */
-class Service extends EventEmitter {
+class Service {
     /**
-     * Setting engine, parsing cookie headers, logging middleware, 404 route, and serving the public folder are handled by this constructor
+     * @param {?ServiceOptions} [input]
      */
-    constructor() {
-        super();
+    constructor(input) {
+        const options = input || {};
 
         /**
-         * Path of the publicly served folder. Used with sirv.
+         * Port used with the http server
+         *
+         * Defaults to defaultPort from constants.js
+         *
+         * Keep in mind that environment variables are strings, so if you're
+         * using one for input you can do it like this:
+         *
+         * `process.env.port ? Number(process.env.port) : null`
+         *
+         * And null will fallback to defaultPort here
+         * @type {number}
          */
-        this.public = join(moduleDirectory, "..", "public");
+        this.port = options.port || defaultPort;
+
+        /**
+         * The http.Server used by the service
+         *
+         * This will be null until Service.start() is called
+         * @see https://github.com/tinyhttp/tinyhttp/blob/a9e00dcaa93f2e38f7a68e3301f7cd97dea69270/packages/app/src/app.ts#L354
+         * @see https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener
+         * @type {Server|null}
+         */
+        this.server = null;
 
         /**
          * @type {RoomManager}
@@ -41,11 +66,6 @@ class Service extends EventEmitter {
          */
         this.sockets = new WebSocketManager(this);
 
-        // Check if the port environment variable is valid
-        /** @todo Not checking number validity yet, just falsy, which works because empty strings are falsy */
-        /** @todo Instead of using templating or throwing here, default to a hardcoded value using || */
-        if (!process.env.port) throw new Error("PORT environment variable must be a valid number");
-
         /**
          * Tinyhttp App w/ ejs templating engine
          * @see https://tinyhttp.v1rtl.site/docs#application
@@ -53,6 +73,10 @@ class Service extends EventEmitter {
          * @type {App}
          */
         this.app = new App({
+            settings: {
+                networkExtensions: true,
+                xPoweredBy: true,
+            },
             noMatchHandler: noMatchHandler,
             onError: onError,
         });
@@ -60,57 +84,50 @@ class Service extends EventEmitter {
         // Engine
         this.app.engine("ejs", ejs.renderFile);
 
+        // Logging middleware
+        this.app.use(requestLogger);
+
         // Parse cookie headers via cookie-parser
         this.app.use(cookieParser());
 
-        // Logging middleware
-        this.app.use(httpLogger);
+        // Body parsing via milliparsec
+        this.app.use(json());
+        this.app.use(urlencoded());
 
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
-        this.app.use("/", sirv(this.public, {
+        this.app.use("/", sirv(join(directory, "public"), {
             dev: process.env.dev === "true",
             maxAge: 86400, // Cached for 24 hours
         }));
-
-        /**
-         * The http.Server returned by tinyhttp's App.listen()
-         *
-         * This will be null until Service.start() is called
-         * @see https://github.com/tinyhttp/tinyhttp/blob/a9e00dcaa93f2e38f7a68e3301f7cd97dea69270/packages/app/src/app.ts#L354
-         * @see https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener
-         * @type {?http.Server}
-         */
-        this.server = null;
     }
 
     /**
      * Starts the service
      */
     start() {
-        // Create http server & make tinyhttp listen
-        this.server = this.app.listen(Number(process.env.port), () => {
-            // callback after server starts listening
-            log.info(`${chalk.green("[READY]")} tinyhttp listening on port ${process.env.port}`);
+        // Create http server and start listening
+        this.server = this.app.listen(this.port, () => {
+            log.info(`${chalk.green("[READY]")} Web server listening on port ${this.port}`);
         });
 
-        // Creates the websocket server and adding event listeners
+        // Create websocket server and add events
         this.sockets.start();
     }
 
     /**
      * Stops the service
      */
-    stop(socketServerClosed = false) {
-        if (!socketServerClosed) {
+    stop(socketsClosed = false) {
+        if (!socketsClosed) {
             this.sockets.server.close((error) => {
                 log.info("Websocket server closed");
                 this.stop(true);
             });
         } else {
-            // Manually iterate
-            // process.exit(0);
-            log.debug("Process would have exited");
+            this.server.close(() => {
+                process.exit(0);
+            });
         }
     }
 }

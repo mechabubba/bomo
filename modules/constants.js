@@ -55,4 +55,5 @@ export {
     description,
     version,
     environmentVariables,
+    defaultPort,
 };
