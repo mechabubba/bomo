@@ -2,7 +2,13 @@
     "compilerOptions": {
         "strictNullChecks": true,
         "moduleResolution": "node",
-        "module": "ES2020",
+        "module": "ESNext",
+        "target": "esnext",
+        "lib": ["ESNext"]
     },
-    "exclude": ["node_modules"],
+    "exclude": [
+        ".vscode",
+        "logs",
+        "node_modules",
+    ]
 }
