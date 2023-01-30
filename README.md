@@ -10,11 +10,13 @@ To play, visit the public server at <url>, or setup your own. -->
 - Install [node.js](https://nodejs.org), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) or [pnpm](https://pnpm.io/installation), and [git](https://git-scm.com/downloads)
 - Clone via `git clone https://github.com/mechabubba/bomo.git`
 - Run `npm install` or `pnpm install` in the root to install dependencies
-- To change the port, make an `.env` file with the line `PORT=1234`, 1234 being the number you want
-  - Refer to the [FAQ](./docs/faq.md) for a list of valid environment variables
+- To change the port, make an `.env` file in the root with the line `PORT=3000`, 3000 being whatever number you want
+  - Valid environment variables used by bomo may be found [here](docs/enviromentVariables.md)
 - Run `node index.js` or `npm start` to start the server, the default port is 3000
 
 To update, run `git pull origin`.
+
+Refer to the [FAQ](./docs/faq.md) for common questions.
 
 <!-- ## documentation
 
@@ -54,6 +56,7 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 ## Credits & Attributions
 
 - [UNO](https://www.mattelgames.com/en-us/cards/uno)® by Mattel, Inc for inspiration
+- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
 
 ### Technology
 
@@ -62,7 +65,6 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 - [pnpm](https://pnpm.io/), fast & disk space efficient JavaScript package manager
 - [eslint](https://eslint.org/), a configurable JavaScript linter
 - [optipng](https://optipng.sourceforge.net/), an optimizer for PNG files
-- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
 
 ### Dependencies
 
@@ -70,19 +72,13 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 - [@tinyhttp/cookie-parser](https://www.npmjs.com/package/@tinyhttp/cookie-parser), cookie parsing
 - [@tinyhttp/rate-limit](https://www.npmjs.com/package/@tinyhttp/rate-limit), rate limiting
 - [milliparsec](https://www.npmjs.com/package/milliparsec), body parsing
-- [pino](https://github.com/pinojs/pino/) and [pino-pretty](https://github.com/pinojs/pino-pretty), json logging
-- [ws](https://www.npmjs.com/package/ws), websockets
-- [eta](https://eta.js.org/), embedded JavaScript templating
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
-- [Luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
+- [eta](https://eta.js.org/), embedded JavaScript templating
+- [ws](https://www.npmjs.com/package/ws), websockets
+- [pino](https://github.com/pinojs/pino/) and [pino-pretty](https://github.com/pinojs/pino-pretty), json logging
+- [luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
 - [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
-- [Google Fonts](https://fonts.google.com/), an open font CDN
-
-### Extensions
-
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint), visual studio code extension by Dirk Baeumer
-- [EJS language support](https://marketplace.visualstudio.com/items?itemName=DigitalBrainstem.javascript-ejs-support), visual studio code extension by DigitalBrainstem
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode), an opinionated code formatter for visual studio code
+<!-- - [Google Fonts](https://fonts.google.com/), an open font CDN -->
 
 ## Legal
 
