@@ -36,5 +36,6 @@ Thumbs.db
 # project
 data/
 logs/
+old/
 *.log*
 *.env
