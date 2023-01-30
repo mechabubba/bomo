@@ -35,7 +35,9 @@ Thumbs.db
 
 # project
 data/
+!data/.gitkeep
 logs/
+!logs/.gitkeep
 old/
 *.log*
 *.env
