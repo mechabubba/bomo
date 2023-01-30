@@ -1,12 +1,15 @@
+/**
+ * If desired you may modify this file to change constants used throughout the
+ * project
+ *
+ * Environment variables loaded from file cannot be accessed in this module as
+ * some constants here are used by the env script
+ * @module constants
+ */
+
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DateTime } from "luxon";
-
-/**
- * Used in various places, must be filename friendly on both windows and linux
- * @type {string}
- */
-export const name = "bomo";
 
 /**
  * Root directory
@@ -21,27 +24,44 @@ export const directory = join(dirname(fileURLToPath(import.meta.url)), "..");
 export const startTime = DateTime.now();
 
 /**
+ * Version number
+ * @type {string}
+ */
+export const version = "0.0.1";
+
+/**
+ * The minimum nodejs version
+ * @type {number}
+ */
+export const minimumNodeVersion = 18;
+
+/**
  * Object containing lowerCamelCase keyed properties set to their corrosponding
- * but distinctly different snake_case environment variable names, in a manner
- * inspired by enum flags
+ * snake_case environment variable names, in a manner inspired by enum flags,
+ * allowing for environment variables to be documented and cleanly accessed
  *
  * Note that when providing node.js with environment variables, including via
- * the .env file, they should follow google's naming standard and use
- * SCREAMING_SNAKE_CASE.
+ * .env file, they should follow google's naming standard and use SCREAMING_SNAKE_CASE
  * @see https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
  * @see https://web.archive.org/web/20220415192041id_/https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
  */
 export const envFlags = {
+    /** Whether bomo is running in a development environment */
     "dev": "dev",
+    /** The port used for the http server */
     "port": "port",
+    /**
+     * Pino Logging level (trace, debug, info, warn, error, fatal, or silent)
+     * @see https://getpino.io/#/docs/api?id=loggerlevel-string-gettersetter
+     */
+    "logLevel": "log_level",
 };
 
 /**
- * Array of valid environment variables in snake_case
+ * Array of lowercase valid environment variable names
  *
- * Note that when providing node.js with environment variables, including via
- * the .env file, they should follow google's naming standard and use
- * SCREAMING_SNAKE_CASE.
+ * Environment variables provided via the .env file should follow google's
+ * naming standard and use uppercase names
  * @see https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
  * @see https://web.archive.org/web/20220415192041id_/https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
  * @type {string[]}
@@ -52,4 +72,4 @@ export const environmentVariables = Array.from(Object.values(envFlags));
  * Connection string used for the keyv database
  * @type {string}
  */
-export const keyvConnection = `sqlite://data/${name}.sqlite`;
+export const keyvConnection = "sqlite://data/db.sqlite";
