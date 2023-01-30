@@ -48,7 +48,7 @@ export const minimumNodeVersion = 18;
 export const envFlags = {
     /** Whether bomo is running in a development environment */
     "dev": "dev",
-    /** The port used for the http server */
+    /** The port used for the http server, defaults to 3000 */
     "port": "port",
     /**
      * Pino Logging level (trace, debug, info, warn, error, fatal, or silent)
