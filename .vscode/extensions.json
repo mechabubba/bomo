@@ -3,7 +3,7 @@
     "recommendations": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "DigitalBrainstem.javascript-ejs-support",
+        "shadowtime2000.eta-vscode",
         "mikestead.dotenv",
     ]
 }
