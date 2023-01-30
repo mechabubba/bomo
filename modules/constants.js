@@ -33,15 +33,8 @@ export const startTime = DateTime.now();
  */
 export const envFlags = {
     "dev": "dev",
-    "name": "name",
     "port": "port",
 };
-
-/* Plain text list of environment variables:
-DEV=
-NAME=
-PORT=
-*/
 
 /**
  * Array of valid environment variables in snake_case
