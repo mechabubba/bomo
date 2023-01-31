@@ -2,7 +2,7 @@ import { Service } from "./classes/Service.js";
 import { log } from "./log.js";
 
 export const service = new Service({
-    port: process.env.port ? Number(process.env.port) : null,
+    port: process.env.port,
 });
 
-log.info("Created service");
+log.debug("Created service");
