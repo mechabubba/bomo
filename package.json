@@ -4,6 +4,7 @@
   "description": "An open source take on the classic Mattel card game UNO",
   "scripts": {
     "start": "node index.js",
+    "clear-logs": "del logs\\*.log",
     "test": "echo \"Error: no tests\" && exit 1",
     "lint": "eslint . --ext .js,.mjs",
     "fix": "eslint . --ext .js,.mjs --fix"
