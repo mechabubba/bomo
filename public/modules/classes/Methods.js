@@ -4,7 +4,7 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Response
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
  */
-class Methods extends null {
+export class Methods extends null {
     static async send(method, route = null, options = {}, headers = [], provideParsed = true) {
         if (!route) throw new TypeError("Valid route required");
         const init = {
@@ -36,8 +36,6 @@ class Methods extends null {
         return await Methods.send("PATCH", route, options, headers, provideParsed);
     }
 }
-
-export default Methods;
 
 // Useful snippet for browser console
 // const { default: Methods } = await import("./modules/structures/Methods.js")

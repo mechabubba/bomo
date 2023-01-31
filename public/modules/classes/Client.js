@@ -1,5 +1,4 @@
-import Methods from "./Methods.js";
-import Chat from "./Chat.js";
+import { Methods } from "./Methods.js";
 
 /**
  * Client which manages the websocket connection and events
@@ -7,7 +6,7 @@ import Chat from "./Chat.js";
  * @see https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events
  * @extends {EventTarget}
  */
-class Client extends EventTarget {
+export class Client extends EventTarget {
     constructor() {
         super();
         /**
@@ -15,11 +14,6 @@ class Client extends EventTarget {
          * @see https://developer.mozilla.org/en-US/docs/Web/API/Location
          */
         this.ws = null;
-
-        /**
-         * Unfinished
-         */
-        this.chat = new Chat();
 
         /**
          * The server side user id
@@ -62,5 +56,3 @@ class Client extends EventTarget {
         });
     }
 }
-
-export default Client;
