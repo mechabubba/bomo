@@ -1,20 +1,21 @@
 import { Base } from "./Base.js";
+import { Service } from "./Service.js";
 
 /**
- * A base identifiable by an id
+ * A object identifiable by an id
  * @abstract
  */
 class BaseIdentifiable extends Base {
     /**
-     * @param {string} id - Unique id within the context of a given manager
-     * @param {Service} service - Reference to the Service instantiating this
+     * @param {Service} service Reference to the Service instantiating this
+     * @param {string} id Unique id within the context of a given manager
      */
-    constructor(id, service) {
-        if (!id) throw new TypeError("id must be ");
+    constructor(service, id) {
+        if (!id) throw new TypeError("id required");
         super(service);
 
         /**
-         * A collision proof id
+         * Unique id within the context of a given manager
          * @type {string}
          */
         this.id = id;
@@ -24,8 +25,18 @@ class BaseIdentifiable extends Base {
         return this.id;
     }
 
+    /**
+     * Payload safe json objects
+     * @return {{ id: string }}
+     */
+    toJSON() {
+        return {
+            id: this.id,
+        };
+    }
+
     toString() {
-        return this.id;
+        return JSON.stringify(this.toJSON());
     }
 }
 

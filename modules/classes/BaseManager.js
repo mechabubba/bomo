@@ -1,9 +1,12 @@
 import { Collection } from "@discordjs/collection";
 import { randomBytes } from "node:crypto";
+import { log } from "../log.js";
 import { Base } from "./Base.js";
+import { BaseIdentifiable } from "./BaseIdentifiable.js";
 import { Service } from "./Service.js";
 
 /**
+ * A manager with a cache
  * @abstract
  */
 export class BaseManager extends Base {
@@ -14,29 +17,22 @@ export class BaseManager extends Base {
         super(service);
 
         /**
-         * @type {Collection<string, {}>}
+         * @type {Collection<string, BaseIdentifiable>}
          */
         this.cache = new Collection();
-
-        /**
-         * Set of ids that have
-         * @type {Set<string>}
-         */
-        this.ids = new Set();
     }
 
     /**
      * Generates an id
-     * @param {number} radix An integer in the range `2` through `36` to use with
-     * [toString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString)
+     * @param {number} byteCount Number of bytes used in the id
      * @returns {string}
      */
-    generateIdentifier = function(byteCount = 3) {
+    generateIdentifier = function(byteCount = 4) {
         const id = randomBytes(byteCount).toString("hex");
-        if (this.ids.has(id)) {
+        if (this.cache.has(id)) {
+            log.warn(`id "${id}" already exists, rerolling`);
             return this.generateIdentifier(byteCount);
         }
-        this.ids.add(id);
         return id;
     };
 }
