@@ -1,8 +1,9 @@
+import { Collection } from "@discordjs/collection";
 import { BaseManager } from "./BaseManager.js";
 import { Room } from "./Room.js";
 
 /**
- * RoomManager
+ * Manager class for instances of Room
  */
 class RoomManager extends BaseManager {
     constructor(service) {
@@ -11,33 +12,30 @@ class RoomManager extends BaseManager {
         /**
          * Cache of current rooms mapped by their id
          * @type {Collection<string, Room>}
-         * @name RoomManager#cache
          */
+        this.cache;
     }
 
     /**
      * Creates a room.
-     * @param {User} creator - Who created the room.
-     * @param {?string} name - The rooms name.
-     * @param {?RoomOptions} options - Room options.
-     * @returns {Room?}
+     * @param {User} creator The user which created the room
+     * @param {RoomData} data Room data
+     * @param {?RoomSettings} settings Room settings
+     * @returns {Room}
+     * @todo Unfinished
      */
-    create(creator, name = null, options = {}) {
-        const id = this.generateIdentifier();
-        const room = new Room(id, this.service, creator, name, options);
+    create(creator, data, settings) {
+        const room = new Room(this.service, this.generateIdentifier(), data, settings);
         this.cache.set(room.id, room);
         return room;
     }
 
     /**
-     * Gets an array of rooms
-     * @param {bool} includePrivate - Include private rooms in this list
-     * @returns {Room[]} - An array of rooms
-     * @todo This function is mainly useful for the public list of rooms, but we need to account for private rooms, ie. password protected, vses rooms which are "public", ie. on the public room list
+     * Gets all public rooms
+     * @returns {Collection<string, Room>} A collection of rooms
      */
-    getRooms(includePrivate = false) {
-        const rooms = Array.from(this.cache.values());
-        return includePrivate ? rooms : rooms.filter(room => !room.options.isPrivate);
+    getPublicRooms() {
+        return this.cache.filter((room) => room.public);
     }
 }
 
