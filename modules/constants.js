@@ -36,6 +36,12 @@ export const version = "0.0.1";
 export const minimumNodeVersion = 18;
 
 /**
+ * Default port used for web services
+ * @type {number}
+ */
+export const defaultPort = 3000;
+
+/**
  * Object containing lowerCamelCase keyed properties set to their corrosponding
  * snake_case environment variable names, in a manner inspired by enum flags,
  * allowing for environment variables to be documented and cleanly accessed
