@@ -4,7 +4,9 @@
         "moduleResolution": "node",
         "module": "ESNext",
         "target": "esnext",
-        "lib": ["ESNext"]
+        "lib": [
+            "ESNext"
+        ],
     },
     "exclude": [
         ".vscode",
