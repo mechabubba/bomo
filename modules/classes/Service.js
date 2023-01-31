@@ -8,11 +8,12 @@ import ejs from "ejs";
 import sirv from "sirv";
 import chalk from "chalk";
 
-import { directory, defaultPort } from "../constants.js";
 import { log } from "../log.js";
-import { WebSocketManager } from "./WebSocketManager.js";
+import { directory, defaultPort } from "../constants.js";
 import { noMatchHandler, onError, requestLogger } from "../middleware.js";
+import { WebSocketManager } from "./WebSocketManager.js";
 import { RoomManager } from "./RoomManager.js";
+import { GameManager } from "./GameManager.js";
 
 /**
  * @typedef {Object} ServiceOptions
@@ -26,25 +27,16 @@ import { RoomManager } from "./RoomManager.js";
  */
 class Service {
     /**
-     * @param {?ServiceOptions} [input]
+     * @param {?ServiceOptions} [options]
      */
-    constructor(input) {
-        const options = input || {};
-
+    constructor(options) {
         /**
          * Port used with the http server
          *
          * Defaults to defaultPort from constants.js
-         *
-         * Keep in mind that environment variables are strings, so if you're
-         * using one for input you can do it like this:
-         *
-         * `process.env.port ? Number(process.env.port) : null`
-         *
-         * And null will fallback to defaultPort here
          * @type {number}
          */
-        this.port = options.port || defaultPort;
+        this.port = options?.port || defaultPort;
 
         /**
          * The http.Server used by the service
@@ -57,14 +49,25 @@ class Service {
         this.server = null;
 
         /**
+         * @type {WebSocketManager}
+         */
+        this.sockets = new WebSocketManager(this);
+
+        /**
          * @type {RoomManager}
          */
         this.rooms = new RoomManager(this);
 
         /**
-         * @type {WebSocketManager}
+         * @type {RoomManager}
          */
-        this.sockets = new WebSocketManager(this);
+        this.rooms = new RoomManager(this);
+
+        /**
+         * @type {RoomManager}
+         */
+        this.rooms = new RoomManager(this);
+
 
         /**
          * Tinyhttp App w/ ejs templating engine
