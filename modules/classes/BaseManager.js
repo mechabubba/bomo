@@ -1,3 +1,4 @@
+import { Collection } from "@discordjs/collection";
 import { randomBytes } from "node:crypto";
 import { Base } from "./Base.js";
 import { Service } from "./Service.js";
@@ -11,6 +12,11 @@ export class BaseManager extends Base {
      */
     constructor(service) {
         super(service);
+
+        /**
+         * @type {Collection<string, {}>}
+         */
+        this.cache = new Collection();
 
         /**
          * Set of ids that have
@@ -29,9 +35,8 @@ export class BaseManager extends Base {
         const id = randomBytes(byteCount).toString("hex");
         if (this.ids.has(id)) {
             return this.generateIdentifier(byteCount);
-        } else {
-            this.ids.add(id);
-            return id;
         }
+        this.ids.add(id);
+        return id;
     };
 }
