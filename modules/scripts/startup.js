@@ -6,7 +6,7 @@
 import { versions, platform, env } from "node:process";
 import { log } from "../log.js";
 import { version, minimumNodeVersion } from "../constants.js";
-import { stringToBoolean } from "../utility.js";
+import { stringToBoolean } from "../misc.js";
 import { presentVariables, parsedVariables } from "./env.js";
 
 console.log(Number(versions.node.split(".")[0]), "<", minimumNodeVersion);

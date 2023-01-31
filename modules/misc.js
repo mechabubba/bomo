@@ -1,4 +1,9 @@
 /**
+ * Basic miscellaneous utilities that are oft reused throughout the project
+ * @module misc
+ */
+
+/**
  * String to boolean, where "true" is true and anything else is false
  *
  * Mainly useful for environment variables
