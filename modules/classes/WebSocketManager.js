@@ -1,6 +1,7 @@
 import { WebSocketServer } from "ws";
 import { log } from "../log.js";
 import { BaseManager } from "./BaseManager.js";
+import { UserManager } from "./UserManager.js";
 
 class WebSocketManager extends BaseManager {
     constructor(service) {
@@ -41,6 +42,10 @@ class WebSocketManager extends BaseManager {
             log.info(`[READY] Websocket server ready to upgrade connections`);
         });
         this.server.on("connection", this.serverConnectionListener);
+        this.server.on("error", this.serverErrorListener);
+        this.server.on("close", () => {
+            // something terrible has happened
+        })
     }
 
     /**
@@ -48,7 +53,8 @@ class WebSocketManager extends BaseManager {
      * @todo this has to add listeners to new websockets and handle stateless sessions
      */
     serverConnectionListener(websocket, request) {
-        //
+        // Connection occured, create user. There will/should be some auth/verification here to see if we're getting garbage...
+        this.service.users.create(websocket);
     }
 
     /**

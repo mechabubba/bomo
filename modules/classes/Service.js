@@ -59,15 +59,14 @@ class Service {
         this.rooms = new RoomManager(this);
 
         /**
-         * @type {RoomManager}
+         * @type {UserManager}
          */
-        this.rooms = new RoomManager(this);
+        this.users = new UserManager(this);
 
         /**
-         * @type {RoomManager}
+         * @type {GameManager}
          */
-        this.rooms = new RoomManager(this);
-
+        this.games = new GameManager(this);
 
         /**
          * Tinyhttp App w/ ejs templating engine
