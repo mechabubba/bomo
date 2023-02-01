@@ -1,7 +1,6 @@
 import { WebSocketServer } from "ws";
 import { log } from "../log.js";
 import { BaseManager } from "./BaseManager.js";
-import { UserManager } from "./UserManager.js";
 
 class WebSocketManager extends BaseManager {
     constructor(service) {
@@ -43,9 +42,8 @@ class WebSocketManager extends BaseManager {
         });
         this.server.on("connection", this.serverConnectionListener);
         this.server.on("error", this.serverErrorListener);
-        this.server.on("close", () => {
-            // something terrible has happened
-        })
+        this.server.on("headers", this.serverHeaderListener);
+        this.server.on("close", this.serverCloseListener);
     }
 
     /**
@@ -54,6 +52,7 @@ class WebSocketManager extends BaseManager {
      */
     serverConnectionListener(websocket, request) {
         // Connection occured, create user. There will/should be some auth/verification here to see if we're getting garbage...
+        // @todo `request.headers`
         this.service.users.create(websocket);
     }
 
@@ -64,41 +63,15 @@ class WebSocketManager extends BaseManager {
         //
     }
 
-    serverHeadersListener() {
+    /**
+     * @see https://github.com/websockets/ws/blob/HEAD/doc/ws.md#event-headers
+     * @todo unsure completely what this event provides and if its useful
+     */
+    serverHeaderListener(headers, request) {
         //
     }
 
-    // Websocket functions
-
-    socketCloseListener() {
-        //
-    }
-
-    socketErrorListener() {
-        //
-    }
-
-    socketMessageListener() {
-        //
-    }
-
-    socketOpenListener() {
-        //
-    }
-
-    socketPingListener() {
-        //
-    }
-
-    socketPongListener() {
-        //
-    }
-
-    socketUnexpectedResponseListener() {
-        //
-    }
-
-    socketUpgradeListener() {
+    serverCloseListener() {
         //
     }
 }

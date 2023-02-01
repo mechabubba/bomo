@@ -13,6 +13,7 @@ import { directory, defaultPort } from "../constants.js";
 import { noMatchHandler, onError, requestLogger } from "../middleware.js";
 import { WebSocketManager } from "./WebSocketManager.js";
 import { RoomManager } from "./RoomManager.js";
+import { UserManager } from "./UserManager.js";
 import { GameManager } from "./GameManager.js";
 
 /**

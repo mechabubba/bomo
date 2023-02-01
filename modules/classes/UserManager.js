@@ -1,4 +1,5 @@
 import { Collection } from "@discordjs/collection";
+import { WebSocket } from "ws";
 import { BaseManager } from "./BaseManager.js";
 import { User } from "./User.js";
 
@@ -18,7 +19,10 @@ class UserManager extends BaseManager {
     }
 
     /**
-     * Creates a User with a given websocket, and returns
+     * Creates a user.
+     * @param {WebSocket} socket The websocket that instantiated the user connection.
+     * @returns {User}
+     * @todo Unfinished
      */
     create(socket) {
         const id = this.generateIdentifier();
@@ -26,8 +30,6 @@ class UserManager extends BaseManager {
         this.cache.set(id, user);
         return user;
     }
-
-    /** @todo should have a create function similar to RoomManager */
 }
 
 export { UserManager };
