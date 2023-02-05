@@ -6,7 +6,9 @@ import { BaseIdentifiable } from "./BaseIdentifiable.js";
 import { Service } from "./Service.js";
 
 /**
- * A manager with a cache
+ * A manager with a cache.
+ * 
+ * **All managers that extend this class should specify their own "creation" method, that creates and specifies classes within the cache.** The rest of this class is just helper functions.
  * @abstract
  */
 export class BaseManager extends Base {
@@ -20,6 +22,17 @@ export class BaseManager extends Base {
          * @type {Collection<string, BaseIdentifiable>}
          */
         this.cache = new Collection();
+    }
+
+    get(id) {
+        return this.cache.get(id);
+    }
+
+    remove(id) {
+        if (!this.cache.has(id)) {
+            throw new Error("User not found");
+        }
+        this.cache.remove(id);
     }
 
     /**

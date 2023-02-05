@@ -52,8 +52,13 @@ class WebSocketManager extends BaseManager {
      */
     serverConnectionListener(websocket, request) {
         // Connection occured, create user. There will/should be some auth/verification here to see if we're getting garbage...
-        // @todo `request.headers`
-        this.service.users.create(websocket);
+        if (!request.headers.authorization) {
+            this.service.users.create(websocket, request);
+        } else {
+            // @todo detect if websocket request is valid somehow
+            // if auth key present, auth w/ player
+            // if not, create new player on server side
+        }
     }
 
     /**
