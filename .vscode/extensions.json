@@ -3,7 +3,7 @@
     "recommendations": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "shadowtime2000.eta-vscode",
+        "DanielKnights.eta-vscode",
         "mikestead.dotenv",
     ]
 }

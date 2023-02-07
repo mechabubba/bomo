@@ -21,10 +21,6 @@ class BaseIdentifiable extends Base {
         this.id = id;
     }
 
-    valueOf() {
-        return this.id;
-    }
-
     /**
      * Payload safe json objects
      * @return {{ id: string }}

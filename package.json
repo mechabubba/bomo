@@ -28,6 +28,7 @@
     "@tinyhttp/cookie-parser": "^2.0.6",
     "@tinyhttp/rate-limit": "^2.0.9",
     "dotenv": "^16.0.0",
+    "eta": "^2.0.0",
     "luxon": "^3.2.1",
     "milliparsec": "^2.2.1",
     "pino": "^8.8.0",
