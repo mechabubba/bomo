@@ -36,7 +36,6 @@ export class Room extends BaseIdentifiable {
         if (!data?.creator || !(data?.creator instanceof User)) throw new TypeError("Room instantiated without creator");
         super(service, id);
 
-
         /**
          * The room's name, will fallback to the room's id if not supplied
          */
@@ -74,5 +73,19 @@ export class Room extends BaseIdentifiable {
         this.settings = settings || {};
     }
 
+    /**
+     * Broadcasts a message to all users in a room.
+     * @param {User} sender The author of the message.
+     * @param {Object} data The message to transmit.
+     * @param {?boolean} noEcho Whether to echo the message to the original sender.
+     * @returns {void}
+     */
+    broadcast(sender, data, noEcho = true) {
+        if (!data) return;
 
+        for (const member of this.members) {
+            if (sender.id === member.id && noEcho) continue;
+            member.send(data);
+        }
+    }
 }

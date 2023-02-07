@@ -1,4 +1,5 @@
 import { BaseIdentifiable } from "./BaseIdentifiable.js";
+import { log } from "../log.js";
 
 /**
  * User data
@@ -22,10 +23,26 @@ class User extends BaseIdentifiable {
     }
 
     /**
+     * Sends a message to the User this class represents.
+     * @param {Object} data The message to send, to be stringified.
+     * @returns {void}
+     */
+    send(data) {
+        const message = JSON.stringify(data); /** @todo maybe do more serialization here */
+        this.socket.send(message);
+    }
+
+    /**
      * @see https://github.com/websockets/ws/blob/HEAD/doc/ws.md#event-message
      */
     socketMessageListener(data, isBinary) {
-        // user sent message to tha server
+        try {
+            data = JSON.parse(data);
+        } catch (e) {
+            log.error("Error parsing socket message.");
+        }
+
+        // do some parsing n shit
     }
 
     /**
@@ -63,6 +80,10 @@ class User extends BaseIdentifiable {
         //
     }
     */
+
+    get id() {
+        return this.id;
+    }
 }
 
 export { User };
