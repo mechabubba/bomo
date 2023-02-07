@@ -73,7 +73,7 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 - [@tinyhttp/rate-limit](https://www.npmjs.com/package/@tinyhttp/rate-limit), rate limiting
 - [milliparsec](https://www.npmjs.com/package/milliparsec), body parsing
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
-- [eta](https://eta.js.org/), embedded JavaScript templating
+- [ejs](https://ejs.co), html templating with embedded js
 - [ws](https://www.npmjs.com/package/ws), websockets
 - [pino](https://github.com/pinojs/pino/) and [pino-pretty](https://github.com/pinojs/pino-pretty), json logging
 - [luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
