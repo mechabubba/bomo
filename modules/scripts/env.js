@@ -33,7 +33,6 @@ if (presentVariables.length < environmentVariables.length) {
         path: join(directory, ".env"),
     });
     if (result.parsed) parsedVariables.push(...Object.keys(result.parsed).map(variable => variable.toLowerCase()));
-    console.log(result.parsed);
 }
 
 /**
