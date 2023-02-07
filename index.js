@@ -5,3 +5,4 @@ import "./modules/scripts/startup.js"; // Startup script (version check, logging
 import "./modules/scripts/api.js"; // API routes
 import "./modules/scripts/pages.js"; // Page routes
 import { service } from "./modules/service.js";
+service.start();
