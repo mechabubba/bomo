@@ -1,7 +1,8 @@
+import { env } from "node:process";
 import pino from "pino";
-import { startTime } from "./constants.js";
+import { envFlags, startTime } from "./constants.js";
 
-const level = "trace";
+const level = env[envFlags.logLevel] || "trace";
 
 const log = pino({
     level: level,
