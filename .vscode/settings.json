@@ -10,5 +10,12 @@
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[html]": {
+        "editor.defaultFormatter": "j69.ejs-beautify"
+    },
     "javascript.preferences.importModuleSpecifierEnding": "js",
+    "files.associations": {
+        ".env": "dotenv"
+    },
+    "js-beautify.indent_size": 4,
 }
