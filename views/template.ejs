@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <%- include("./partials/head.ejs") %>
-    </head>
-    <body>
-        <%- include("./partials/header.ejs") %>
-        <div class="content"></div>
-        <%- include("./partials/scripts.ejs") %>
-    </body>
+
+<head>
+    <%- include("./partials/head.ejs") %>
+    <% if (locals.style) { %>
+    <link rel="stylesheet" href="<%= locals.style %>" />
+    <% } %>
+</head>
+
+<body>
+    <% if (locals.partial) { %>
+    <%- include(locals.partial) %>
+    <% } %>
+</body>
+
 </html>
