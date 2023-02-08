@@ -20,6 +20,7 @@ class User extends BaseIdentifiable {
         this.socket.on("error", this.socketErrorListener);
 
         this.name = `User ${this.id}`;
+        this.room = null;
     }
 
     /**
