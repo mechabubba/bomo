@@ -2,21 +2,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
 
 :root {
-    --background-color: #121212;
-    --text-color: #eee;
     --font-size: 16px;
+    --spacing: 16px;
     --corners: 4px;
+    --border: 2px solid var(--background-secondary);
 }
+
+/* Page Elements */
 
 * {
     box-sizing: border-box;
 }
 
-* > :first-child {
+div > :first-child {
     margin-top: 0;
 }
 
-* > :last-child {
+div > :last-child {
     margin-bottom: 0;
 }
 
@@ -32,14 +34,15 @@ body {
 }
 
 html {
-    background-color: var(--background-color);
+    background-color: var(--background-primary);
+    scroll-behavior: smooth;
 }
 
 body {
     min-height: 100vh;
-    color: var(--text-color);
+    color: var(--text-primary);
     font-size: var(--font-size);
-    font-family: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* General Elements */
@@ -50,30 +53,48 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+pre {
     margin: var(--font-size) 0;
 }
 
 img {
-    vertical-align: center;
-    border: none;
+    vertical-align: middle;
 }
 
 pre {
     display: block;
-    white-space: pre;
+    padding: 7px;
+    border: 1px solid var(--highlight-tertiary);
 }
 
 code {
     display: inline-block;
-    white-space: pre-wrap;
+    padding: 2px 4px;
 }
 
 pre,
 code {
-    padding: 0 4px;
-    color: inherit;
-    font-size: var(--font-size);
-    font-family: "Roboto Mono", monospace, sans-serif;
+    background-color: var(--highlight-tertiary);
     border-radius: var(--corners);
+    color: inherit;
+    font-size: inherit;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    vertical-align: middle;
+}
+
+/* Interface Components */
+
+a {
+    text-decoration: none;
+    color: var(--highlight-primary);
+    accent-color: var(--highlight-primary);
+    outline-color: var(--highlight-primary);
+}
+
+a:hover,
+a:active {
+    text-decoration: underline;
 }

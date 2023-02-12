@@ -1,0 +1,12 @@
+:root {
+    color-scheme: dark;
+    --highlight-primary: #2f84ed;
+    --highlight-secondary: rgba(47, 132, 237, 0.6);
+    --highlight-tertiary: rgba(47, 132, 237, 0.2);
+    --text-primary: #eee;
+    --text-secondary: #b8b8b8;
+    --text-tertiary: #898989;
+    --background-primary: #121212;
+    --background-secondary: #2a2a2a;
+    --background-tertiary: #414141;
+}
