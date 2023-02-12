@@ -11,6 +11,7 @@ export const renderMinifiedFile = function(path, locals, options, callback) {
         if (err) return callback(err, html);
         const minified = await minify(html, {
             collapseWhitespace: true,
+            conservativeCollapse: true,
         });
         callback(err, minified);
     });
