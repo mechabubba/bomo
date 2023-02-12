@@ -1,10 +1,11 @@
 {
     // Documentation for extensions.json: https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions
     "recommendations": [
-        "mikestead.dotenv", // for .env files
-        "esbenp.prettier-vscode", // for formatting css
-        "dbaeumer.vscode-eslint", // for linting and formatting js
-        "digitalbrainstem.javascript-ejs-support", // for ejs syntax highlighting
-        "j69.ejs-beautify" // for formatting ejs
+        "mikestead.dotenv", // .env files syntax highlighting
+        "esbenp.prettier-vscode", // formatting css
+        "dbaeumer.vscode-eslint", // linting and formatting js
+        "digitalbrainstem.javascript-ejs-support", // ejs syntax highlighting
+        "j69.ejs-beautify", // formatting ejs
+        "vunguyentuan.vscode-css-variables" // better css variables
     ]
 }
