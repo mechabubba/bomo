@@ -8,3 +8,10 @@ service.app.get("/", (req, res, next) => res.render("template.ejs", {
     partial: "./pages/index.ejs",
     version: version,
 }));
+
+service.route("get", ["/test", "/test.html"],
+    (req, res, next) => res.render("template.ejs", {
+        title: "test",
+        partial: "./pages/test.ejs",
+    }),
+);
