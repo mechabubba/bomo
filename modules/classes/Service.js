@@ -114,23 +114,6 @@ class Service {
     }
 
     /**
-     * Shorthand for setting multiple routes at once with the same callback
-     * @param {string} method
-     * @param {string[]} paths
-     * @param {function} callback
-     */
-    route(method, paths, callback) {
-        if (!method) throw new TypeError("method cannot be falsy");
-        if (!paths || !Array.isArray(paths)) throw new TypeError("paths must be an array");
-        if (!callback) throw new TypeError("callback cannot be falsy");
-        if (!paths.length) return;
-        for (const path of paths) {
-            this.app[method](path, callback);
-        }
-        return;
-    }
-
-    /**
      * Starts the service
      */
     start() {
