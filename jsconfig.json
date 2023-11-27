@@ -2,7 +2,7 @@
     "compilerOptions": {
         "strictNullChecks": true,
         "moduleResolution": "nodenext",
-        "module": "ESNext",
+        "module": "NodeNext",
         "target": "esnext",
         "lib": [
             "ESNext"
