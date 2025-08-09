@@ -14,7 +14,7 @@
     "url": "git+https://github.com/mechabubba/bomo.git"
   },
   "author": "https://github.com/mechabubba/bomo/graphs/contributors",
-  "license": "Unlicense",
+  "license": "CC0-1.0",
   "bugs": {
     "url": "https://github.com/mechabubba/bomo/issues"
   },
@@ -44,6 +44,6 @@
     "eslint": "^8.54.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }
