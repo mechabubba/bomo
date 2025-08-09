@@ -1,15 +1,21 @@
-/**
- * If desired you may modify this file to change constants used throughout the
- * project
- *
- * Environment variables loaded from file cannot be accessed in this module as
- * some constants here are used by the env script
- * @module constants
- */
+// Constants used throughout the project
+// This file cannot use logging or environment variables in order to implement configurable log levels
 
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DateTime } from "luxon";
+
+/**
+ * Current version
+ * @type {string}
+ */
+export const version = "0.0.4";
+
+/**
+ * The minimum nodejs version
+ * @type {number}
+ */
+export const minimumNodeVersion = 20;
 
 /**
  * Root directory
@@ -22,18 +28,6 @@ export const directory = join(dirname(fileURLToPath(import.meta.url)), "..");
  * @type {DateTime}
  */
 export const startTime = DateTime.now();
-
-/**
- * Version number
- * @type {string}
- */
-export const version = "0.0.1";
-
-/**
- * The minimum nodejs version
- * @type {number}
- */
-export const minimumNodeVersion = 20;
 
 /**
  * Default port used for web services
