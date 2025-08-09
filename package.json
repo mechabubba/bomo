@@ -2,6 +2,16 @@
   "name": "bomo",
   "version": "0.0.3",
   "description": "An open source take on the classic Mattel card game UNO",
+  "author": "https://github.com/mechabubba/bomo/graphs/contributors",
+  "license": "CC0-1.0",
+  "homepage": "https://github.com/mechabubba/bomo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mechabubba/bomo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mechabubba/bomo/issues"
+  },
   "scripts": {
     "start": "node index.js",
     "clear-logs": "del logs\\*.log",
@@ -9,16 +19,6 @@
     "lint": "eslint . --ext .js,.mjs",
     "fix": "eslint . --ext .js,.mjs --fix"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mechabubba/bomo.git"
-  },
-  "author": "https://github.com/mechabubba/bomo/graphs/contributors",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/mechabubba/bomo/issues"
-  },
-  "homepage": "https://github.com/mechabubba/bomo#readme",
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",
