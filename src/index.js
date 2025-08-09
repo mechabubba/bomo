@@ -1,0 +1,8 @@
+// order of import statements matters, loaded asynchronously
+import "./scripts/env.js"; // Populates environment variables
+import "./scripts/processEvents.js"; // Node.js process events
+import "./scripts/startup.js"; // Startup script (version check, logging)
+import "./scripts/api.js"; // API routes
+import "./scripts/pages.js"; // Page routes
+import { service } from "./service.js";
+service.start();

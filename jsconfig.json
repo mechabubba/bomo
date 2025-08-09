@@ -1,16 +1,10 @@
 {
     "compilerOptions": {
-        "strictNullChecks": true,
         "moduleResolution": "nodenext",
         "module": "NodeNext",
-        "target": "esnext",
-        "lib": [
-            "ESNext"
-        ],
+        "lib": ["ESNext"],
+        "strictNullChecks": true,
+        "allowSyntheticDefaultImports": true
     },
-    "exclude": [
-        ".vscode",
-        "logs",
-        "node_modules",
-    ]
+    "include": ["src"],
 }
