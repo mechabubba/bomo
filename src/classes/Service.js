@@ -15,7 +15,6 @@ import { RoomManager } from "./RoomManager.js";
 import { UserManager } from "./UserManager.js";
 import { GameManager } from "./GameManager.js";
 import { PlayerManager } from "./PlayerManager.js";
-import { renderMinifiedFile } from "../ejs.js";
 import { development } from "../environment.js";
 
 /**
@@ -77,7 +76,7 @@ class Service {
         this.players = new PlayerManager(this);
 
         /**
-         * Tinyhttp App w/ eta templating engine
+         * Tinyhttp app
          * @see https://tinyhttp.v1rtl.site/docs#application
          * @see https://eta.js.org/
          * @type {App}
@@ -90,9 +89,6 @@ class Service {
             noMatchHandler: noMatchHandler,
             onError: onError,
         });
-
-        // Engine
-        this.app.engine("ejs", renderMinifiedFile);
 
         // Logging middleware
         this.app.use(requestLogger);

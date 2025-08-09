@@ -1,17 +1,15 @@
 import { service } from "../service.js";
 import { version } from "../constants.js";
+import { sendRender } from "../templating.js";
 
-service.app.get("/", (req, res, next) => res.render("template.ejs", {
-    title: "bomo",
-    // icon: "/assets/example.ico",
+service.app.get("/", (req, res, next) => sendRender(res, "template", {
+    title: "bomo homepage",
     style: "/css/index.css",
-    partial: "./pages/index.ejs",
+    body: "./pages/index",
     version: version,
 }));
 
-service.app.get(["/test", "/test.html"],
-    (req, res, next) => res.render("template.ejs", {
-        title: "test",
-        partial: "./pages/test.ejs",
-    }),
-);
+service.app.get(["/test", "/test.html"], (req, res, next) => sendRender(res, "template", {
+    title: "test",
+    body: "./pages/test",
+}));

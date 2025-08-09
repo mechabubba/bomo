@@ -26,8 +26,6 @@ Notes for when it gets written:
 
 - I make use of `@todo` to leave notes and tasks awaiting completion/resolution
 
-- If you get `this.engines[options.ext] is not a function` and a 500 Internal Server Error, check your `res.render()` calls. You might have missed including the extension `.ejs` or misspelled the template's name
-
 - `ctrl` + `shift` + `r` forces a complete page refresh in firefox, helpful for clearing cached css
 
 - set DEV to true in your environment to have sirv files served fresh
@@ -37,7 +35,7 @@ Notes for when it gets written:
 - Documentation
   - [tinyhttp](https://tinyhttp.v1rtl.site/docs)
     - [Details on route matching via regexparam](https://github.com/lukeed/regexparam)
-  - [ejs](https://ejs.co/#docs)
+  - [edge.js](https://edgejs.dev)
   - [jsdoc](https://jsdoc.app/)
 
 - [The Twelve-Factor App](https://12factor.net/), good guidance regarding app design
@@ -73,7 +71,7 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 - [@tinyhttp/rate-limit](https://www.npmjs.com/package/@tinyhttp/rate-limit), rate limiting
 - [milliparsec](https://www.npmjs.com/package/milliparsec), body parsing
 - [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
-- [ejs](https://ejs.co), html templating with embedded js
+- [edge.js](https://edgejs.dev), file templating with embedded js
 - [ws](https://www.npmjs.com/package/ws), websockets
 - [pino](https://github.com/pinojs/pino/) and [pino-pretty](https://github.com/pinojs/pino-pretty), json logging
 - [luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times

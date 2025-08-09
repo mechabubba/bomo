@@ -1,6 +1,7 @@
 import { log } from "./log.js";
 import { httpCodeSeverity } from "./misc.js";
 import { errorResponse } from "./responses.js";
+import { sendRender } from "./templating.js";
 
 /**
  * @see https://tinyhttp.v1rtl.site/docs#nomatchhandlerreq-res
@@ -15,11 +16,9 @@ export const noMatchHandler = function(req, res) {
     }, "The requested resource was not found");
     if (req.accepts("html")) {
         // respond with html page
-        return res.render("template.ejs", {
+        return sendRender(res, "template", {
             title: "404 Not Found",
-            // icon: "",
-            // style: "/css/404.css",
-            partial: "./pages/404.ejs",
+            body: "./pages/404",
             url: req.url,
         });
     } else if (req.accepts("json")) {
