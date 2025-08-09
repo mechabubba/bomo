@@ -2,8 +2,4 @@
 
 ### HTTPS?
 
-Not built in, use nginx for https.
-
-### Banning Players?
-
-Not built in, block ips on your system or network.
+Not built in, use a reverse proxy like [caddy](https://caddyserver.com/), [ngnix](https://nginx.org/), etc. for HTTPS.
