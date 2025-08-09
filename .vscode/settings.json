@@ -11,7 +11,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[html]": {
-        "editor.defaultFormatter": "j69.ejs-beautify"
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
     "javascript.preferences.importModuleSpecifierEnding": "js",
     "files.associations": {
