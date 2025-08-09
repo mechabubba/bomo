@@ -1,4 +1,3 @@
-import { env } from "node:process";
 import { join } from "node:path";
 import { Server } from "node:http";
 
@@ -9,15 +8,15 @@ import { json, urlencoded } from "milliparsec";
 import sirv from "sirv";
 
 import { log } from "../log.js";
-import { directory, defaultPort, envFlags } from "../constants.js";
+import { directory, defaultPort } from "../constants.js";
 import { noMatchHandler, onError, requestLogger } from "../middleware.js";
 import { WebSocketManager } from "./WebSocketManager.js";
 import { RoomManager } from "./RoomManager.js";
 import { UserManager } from "./UserManager.js";
 import { GameManager } from "./GameManager.js";
 import { PlayerManager } from "./PlayerManager.js";
-import { stringToBoolean } from "../misc.js";
 import { renderMinifiedFile } from "../ejs.js";
+import { development } from "../environment.js";
 
 /**
  * @typedef {Object} ServiceOptions
@@ -108,7 +107,7 @@ class Service {
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
         this.app.use("/", sirv(join(directory, "public"), {
-            dev: stringToBoolean(env[envFlags.dev]),
+            dev: development,
             maxAge: 86400, // Cached for 24 hours
         }));
     }

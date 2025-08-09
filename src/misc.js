@@ -6,7 +6,7 @@
 /**
  * String to boolean, where "true" is true and anything else is false
  *
- * Mainly useful for environment variables
+ * Mainly useful when dealing with environment variables
  *
  * For handling number environment variables, use `Number()`
  * @param {?string|undefined} value

@@ -1,21 +1,19 @@
-import { env } from "node:process";
 import pino from "pino";
-import { envFlags, startTime } from "../constants.js";
-
-const level = env[envFlags.logLevel] || "trace";
+import { startTime } from "../constants.js";
+import { logLevel } from "./environment.js";
 
 const log = pino({
-    level: level,
+    level: logLevel,
     transport: {
         targets: [
             {
                 target: "pino/file",
-                level: level,
+                level: logLevel,
                 options: { destination: `logs/${startTime.toISODate()}_${startTime.toMillis()}.log` },
             },
             {
                 target: "pino-pretty",
-                level: level,
+                level: logLevel,
                 options: {
                     ignore: "pid,hostname",
                 },

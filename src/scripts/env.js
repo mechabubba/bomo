@@ -1,14 +1,7 @@
-/**
- * Populates environment variables using dotenv
- *
- * The design and use of this module is due to how dotenv and ecmascript modules
- * work internally
- *
- * Note that it isn't possible to use environment variables loaded from file
- * this way prior to this module running
- * @see https://www.npmjs.com/package/dotenv
- * @module env
- */
+// Populates environment variables using dotenv
+// The design and use of this module is due to how dotenv and ecmascript modules work internally
+// Note that it isn't possible to use environment variables loaded from file this way prior to this module running
+// See https://www.npmjs.com/package/dotenv for more info
 
 import { env } from "node:process";
 import { join } from "node:path";
@@ -29,6 +22,7 @@ export const parsedVariables = [];
 // Don't need to load from file if all environment variables are present
 if (presentVariables.length < environmentVariables.length) {
     const result = dotenv.config({
+        quiet: true, // Don't pollute my stdout
         override: false, // Prefer pre-existing and manually passed environment variables
         path: join(directory, ".env"),
     });

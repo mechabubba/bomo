@@ -36,28 +36,6 @@ export const startTime = DateTime.now();
 export const defaultPort = 3000;
 
 /**
- * Object containing lowerCamelCase keyed properties set to their corrosponding
- * snake_case environment variable names, in a manner inspired by enum flags,
- * allowing for environment variables to be documented and cleanly accessed
- *
- * Note that when providing node.js with environment variables, including via
- * .env file, they should follow google's naming standard and use SCREAMING_SNAKE_CASE
- * @see https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
- * @see https://web.archive.org/web/20220415192041id_/https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
- */
-export const envFlags = {
-    /** Whether bomo is running in a development environment */
-    "dev": "dev",
-    /** The port used for the http server, defaults to 3000 */
-    "port": "port",
-    /**
-     * Pino Logging level (trace, debug, info, warn, error, fatal, or silent)
-     * @see https://getpino.io/#/docs/api?id=loggerlevel-string-gettersetter
-     */
-    "logLevel": "log_level",
-};
-
-/**
  * Array of lowercase valid environment variable names
  *
  * Environment variables provided via the .env file should follow google's
@@ -66,7 +44,11 @@ export const envFlags = {
  * @see https://web.archive.org/web/20220415192041id_/https://google.github.io/styleguide/shellguide.html#s7.3-constants-and-environment-variable-names
  * @type {string[]}
  */
-export const environmentVariables = Array.from(Object.values(envFlags));
+export const environmentVariables = [
+    "BOMO_DEV",
+    "BOMO_LOG_LEVEL",
+    "BOMO_PORT",
+];
 
 /**
  * Connection string used for the keyv database
