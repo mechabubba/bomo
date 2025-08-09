@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    @!component("components/head")
+    @if (style)
+    <link rel="stylesheet" href="{{ style }}" />
+    @end
+</head>
+
+<body>
+    @if (body)
+    @!component(body)
+    @end
+</body>
+
+</html>
