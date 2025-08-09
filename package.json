@@ -1,6 +1,6 @@
 {
   "name": "bomo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An open source take on the classic Mattel card game UNO",
   "author": "https://github.com/mechabubba/bomo/graphs/contributors",
   "license": "CC0-1.0",
@@ -23,22 +23,22 @@
   "main": "./index.js",
   "exports": "./index.js",
   "dependencies": {
-    "@discordjs/collection": "^2.0.0",
-    "@tinyhttp/app": "^2.2.1",
-    "@tinyhttp/rate-limit": "^2.1.1",
-    "dotenv": "^16.3.1",
+    "@discordjs/collection": "^2.1.1",
+    "@tinyhttp/app": "^2.5.2",
+    "@tinyhttp/rate-limit": "^2.1.5",
+    "dotenv": "^17.2.1",
     "ejs": "^3.1.9",
     "html-minifier-terser": "^7.2.0",
-    "luxon": "^3.4.4",
-    "milliparsec": "^2.3.0",
-    "pino": "^8.16.2",
+    "luxon": "^3.7.1",
+    "milliparsec": "^5.0.2",
+    "pino": "^9.8.0",
     "pino-pretty": "^10.2.3",
-    "sirv": "^2.0.3",
-    "ws": "^8.14.2"
+    "sirv": "^3.0.1",
+    "ws": "^8.18.3"
   },
   "optionalDependencies": {
-    "bufferutil": "^4.0.8",
-    "utf-8-validate": "^6.0.3"
+    "bufferutil": "^4.0.9",
+    "utf-8-validate": "^6.0.5"
   },
   "devDependencies": {
     "eslint": "^8.54.0"
