@@ -3,7 +3,6 @@
   "version": "0.0.4",
   "description": "An open source take on the classic Mattel card game UNO",
   "author": "https://github.com/mechabubba/bomo/graphs/contributors",
-  "license": "CC0-1.0",
   "homepage": "https://github.com/mechabubba/bomo#readme",
   "repository": {
     "type": "git",
@@ -12,6 +11,7 @@
   "bugs": {
     "url": "https://github.com/mechabubba/bomo/issues"
   },
+  "license": "CC0-1.0",
   "scripts": {
     "start": "node src/index.js | npx pino-pretty",
     "test": "echo \"Error: no tests\" && exit 1",
