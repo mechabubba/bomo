@@ -13,11 +13,11 @@
     "url": "https://github.com/mechabubba/bomo/issues"
   },
   "scripts": {
-    "start": "node index.js",
-    "clear-logs": "del logs\\*.log",
+    "start": "node src/index.js | npx pino-pretty",
     "test": "echo \"Error: no tests\" && exit 1",
     "lint": "eslint . --ext .js,.mjs",
-    "fix": "eslint . --ext .js,.mjs --fix"
+    "fix": "eslint . --ext .js,.mjs --fix",
+    "clear-logs": "del logs\\*.log"
   },
   "type": "module",
   "main": "./index.js",
