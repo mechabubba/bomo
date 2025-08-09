@@ -33,7 +33,7 @@ export const version = "0.0.1";
  * The minimum nodejs version
  * @type {number}
  */
-export const minimumNodeVersion = 18;
+export const minimumNodeVersion = 20;
 
 /**
  * Default port used for web services
