@@ -3,9 +3,8 @@
     "recommendations": [
         "mikestead.dotenv", // .env files syntax highlighting
         "esbenp.prettier-vscode", // formatting css
+        "vunguyentuan.vscode-css-variables", // better css variables
         "dbaeumer.vscode-eslint", // linting and formatting js
-        "digitalbrainstem.javascript-ejs-support", // ejs syntax highlighting
-        "j69.ejs-beautify", // formatting ejs
-        "vunguyentuan.vscode-css-variables" // better css variables
+        "adonisjs.vscode-edge", // syntax highlighting for edge.js templates
     ]
 }
