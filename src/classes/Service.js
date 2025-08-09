@@ -78,13 +78,12 @@ class Service {
         /**
          * Tinyhttp app
          * @see https://tinyhttp.v1rtl.site/docs#application
-         * @see https://eta.js.org/
          * @type {App}
          */
         this.app = new App({
             settings: {
-                networkExtensions: true,
-                xPoweredBy: true,
+                "networkExtensions": true,
+                "xPoweredBy": true,
             },
             noMatchHandler: noMatchHandler,
             onError: onError,
@@ -102,7 +101,7 @@ class Service {
 
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
-        this.app.use("/", sirv(join(directory, "public"), {
+        this.app.use("/", sirv(join(directory, "src", "public"), {
             dev: development,
             maxAge: 86400, // Cached for 24 hours
         }));

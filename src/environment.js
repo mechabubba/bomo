@@ -11,11 +11,11 @@ import { env } from "node:process";
 import { defaultPort } from "./constants.js";
 import { stringToBoolean } from "./misc.js";
 
-export const development = stringToBoolean(env["DEV"]);
+export const development = stringToBoolean(env["BOMO_DEV"]);
 export const production = !development;
 
 /** Pino logging level */
-export const logLevel = env["LOG_LEVEL"] || null;
+export const logLevel = env["BOMO_LOG_LEVEL"] || "debug";
 
 /** Port for the web service, defaults to 3000 */
-export const port = Number(env["PORT"]) || defaultPort;
+export const port = Number(env["BOMO_PORT"]) || defaultPort;

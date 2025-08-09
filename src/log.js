@@ -1,5 +1,5 @@
 import pino from "pino";
-import { startTime } from "../constants.js";
+import { startTime } from "./constants.js";
 import { logLevel } from "./environment.js";
 
 const log = pino({
