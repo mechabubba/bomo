@@ -54,7 +54,6 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 ## Credits & Attributions
 
 - [UNO](https://www.mattelgames.com/en-us/cards/uno)® by Mattel, Inc for inspiration
-- [TopHattWaffle](https://twitter.com/tophattwaffle) for [this photo](https://twitter.com/tophattwaffle/status/993234368540954625) of their [3D printed source engine errors](https://www.etsy.com/listing/597289214/developer-error-source-engine) (used on the 404 page)
 
 ### Technology
 
@@ -66,16 +65,18 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 
 ### Dependencies
 
-- [tinyhttp](https://tinyhttp.v1rtl.site), a lightweight express-like web framework
-- [@tinyhttp/cookie-parser](https://www.npmjs.com/package/@tinyhttp/cookie-parser), cookie parsing
+- [tinyhttp](https://tinyhttp.v1rtl.site), lightweight express-like web framework
+- [@tinyhttp/cookie](https://www.npmjs.com/package/@tinyhttp/cookie), cookie parsing
 - [@tinyhttp/rate-limit](https://www.npmjs.com/package/@tinyhttp/rate-limit), rate limiting
 - [milliparsec](https://www.npmjs.com/package/milliparsec), body parsing
-- [sirv](https://www.npmjs.com/package/sirv), lightweight middleware for serving static assets
-- [edge.js](https://edgejs.dev), file templating with embedded js
+- [sirv](https://www.npmjs.com/package/sirv), middleware for serving static assets
+- [edge.js](https://edgejs.dev), file templating
+- [html-minifier-terser](https://www.npmjs.com/package/html-minifier-terser), html minification
 - [ws](https://www.npmjs.com/package/ws), websockets
 - [pino](https://github.com/pinojs/pino/) and [pino-pretty](https://github.com/pinojs/pino-pretty), json logging
 - [luxon](https://moment.github.io/luxon/), modern wrapper for JavaScript dates and times
-- [dotenv](https://www.npmjs.com/package/dotenv), zero-dependency module for `.env` file support
+- [dotenv](https://www.npmjs.com/package/dotenv), `.env` file support
+- [@discordjs/collection](https://www.npmjs.com/package/@discordjs/collection), powerful key/value data structure
 <!-- - [Google Fonts](https://fonts.google.com/), an open font CDN -->
 
 ## Legal
