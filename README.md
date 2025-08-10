@@ -83,4 +83,4 @@ If you want to contribute yourself, we welcome you to join the discord and talk 
 
 This project is not associated with UNO, Mattel, or Ubisoft in any way.
 
-This project is licensed with [The Unlicense](https://unlicense.org/)
+This project is licensed with [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/legalcode.en)
