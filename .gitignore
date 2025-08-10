@@ -38,5 +38,4 @@ data/
 !data/.gitkeep
 logs/
 !logs/.gitkeep
-*.log*
 *.env
