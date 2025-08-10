@@ -5,15 +5,21 @@ import { sendRender } from "./templating.js";
 
 /**
  * @see https://tinyhttp.v1rtl.site/docs#nomatchhandlerreq-res
+ * @param {import("@tinyhttp/app").Request} req
+ * @param {import("@tinyhttp/app").Response} res
+ * @param {import("@tinyhttp/app").NextFunction} next
+ * @param {?boolean} [logError]
  */
-export const noMatchHandler = function(req, res) {
+export const noMatchHandler = function(req, res, next, logError = true) {
+    if (logError) {
+        log.debug({
+            "ip": req.ip || req.socket.remoteAddress || null,
+            "method": req.method,
+            "code": 404,
+            "url": req.originalUrl || req.url || null,
+        }, "A requested resource was not found");
+    }
     res.status(404);
-    log.debug({
-        "ip": req.ip || req.socket.remoteAddress || null,
-        "method": req.method,
-        "code": 404,
-        "url": req.originalUrl || req.url || null,
-    }, "The requested resource was not found");
     if (req.accepts("html")) {
         // respond with html page
         return sendRender(res, "template", {
@@ -32,6 +38,9 @@ export const noMatchHandler = function(req, res) {
 
 /**
  * @see https://tinyhttp.v1rtl.site/docs#onerrorerr-req-res
+ * @param {*} error
+ * @param {import("@tinyhttp/app").Request} req
+ * @param {import("@tinyhttp/app").Response} res
  */
 export const onError = function(error, req, res) {
     log.error({
@@ -42,26 +51,30 @@ export const onError = function(error, req, res) {
         "error": error.name || null,
         "stack": error.stack || null,
     }, error.message);
+    console.error("onError", error);
     res.status(500).json(errorResponse(500, "500 Internal Server Error", "An internal server error occurred, see logs for more information"));
 };
 
 /**
- * Middleware used for logging http requests and responses
+ * Middleware used for partial http logging
+ * @param {import("@tinyhttp/app").Request} req
+ * @param {import("@tinyhttp/app").Response} res
+ * @param {import("@tinyhttp/app").NextFunction} next
  */
 export const requestLogger = function(req, res, next) {
     const time = Date.now();
     res.on("finish", function() {
-        /** @todo Figure out how to log the JSON body of requests and responses if present on either */
         const ms = Date.now() - time;
         const level = httpCodeSeverity(res.statusCode.toString().charAt(0));
-        log[level]({
-            "ip": req.ip || req.socket.remoteAddress || null,
-            "method": req.method,
-            "code": res.statusCode,
-            "url": req.originalUrl || req.url || null,
-            "cookies": req.cookies,
-            "responseTime": `${ms}ms`,
-        }, res.statusMessage);
+        const data = {
+            ip: req.ip || req.socket.remoteAddress || null,
+            method: req.method,
+            url: req.originalUrl || req.url || null,
+            code: res.statusCode,
+            status: res.statusMessage,
+            // ping: `${ms}ms`,
+        };
+        log[level](data, `${req.method} ${data.url} in ${ms}ms`);
     });
     next();
 };
