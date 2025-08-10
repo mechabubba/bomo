@@ -2,8 +2,6 @@ import { join } from "node:path";
 import { Server } from "node:http";
 
 import { App } from "@tinyhttp/app";
-// If we need cookies server side, use this
-// import { cookieParser } from "@tinyhttp/cookie-parser";
 import { json, urlencoded } from "milliparsec";
 import sirv from "sirv";
 
@@ -92,12 +90,9 @@ class Service {
         // Logging middleware
         this.app.use(requestLogger);
 
-        // Parse cookie headers via cookie-parser
-        // this.app.use(cookieParser());
-
         // Body parsing via milliparsec
+        // this.app.use(urlencoded());
         this.app.use(json());
-        this.app.use(urlencoded());
 
         // Static webserver using sirv serving the public folder
         // https://www.npmjs.com/package/sirv
