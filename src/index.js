@@ -7,7 +7,7 @@ import "./scripts/startup.js"; // Startup script (version check, logging)
 import { service } from "./service.js";
 
 // Routes
-import "./scripts/api.js";
-import "./scripts/pages.js";
+import "./routes/api.js";
+import "./routes/pages.js";
 
 service.start();
