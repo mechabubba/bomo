@@ -55,3 +55,15 @@ export const environmentVariables = [
  * @type {string}
  */
 export const keyvConnection = "sqlite://data/db.sqlite";
+
+/**
+ * Alphabet for use in token generation.
+ * @type {string}
+ */
+export const token_alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+/**
+ * Token length.
+ * @type {number}
+ */
+export const token_length = 32;
