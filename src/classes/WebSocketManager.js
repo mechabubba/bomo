@@ -53,11 +53,32 @@ class WebSocketManager extends BaseManager {
     serverConnectionListener(websocket, request) {
         // Connection occured, create user. There will/should be some auth/verification here to see if we're getting garbage...
         log.info("User connected to socket.");
-        if (!request.headers.authorization) {
-            return;
-        }
-        this.service.users.create(websocket, request);
 
+        // Instantiate a temporary global listener to handle client authentication.
+        // The WebSocketServer already handles clients as individuals, but we need to match the individuals to authenticated users.
+        const globalListener = (data) => {
+            let msg;
+            try {
+                msg = JSON.parse(data);
+            } catch (e) {
+                log.debug("Invalid WS message:", data);
+                return;
+            }
+
+            if (msg.token) {
+                const user = this.service.users.findByToken(msg.token);
+                if (user) {
+                    // woo hoo!
+                    user.socket = websocket;
+                    websocket.removeListener(globalListener);
+                }
+            }
+
+            // sad path
+            websocket.send("no");
+        };
+
+        websocket.on("message", globalListener);
         // @todo detect if websocket request is valid somehow
         // if auth key present, auth w/ player
         // if not, create new player on server side

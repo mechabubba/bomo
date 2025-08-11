@@ -9,6 +9,7 @@ import { service } from "./service.js";
 // Routes
 import "./routes/libraries.js";
 import "./routes/api.js";
+import "./routes/auth.js";
 import "./routes/pages.js";
 
 service.start();

@@ -1,5 +1,6 @@
 import { BaseIdentifiable } from "./BaseIdentifiable.js";
 import { log } from "../log.js";
+import { generateToken } from "../misc.js";
 
 /**
  * User data
@@ -11,16 +12,22 @@ import { log } from "../log.js";
  * User
  */
 class User extends BaseIdentifiable {
-    constructor(service, id, socket) {
+    constructor(service, token) {
+        // ideally a uuid or something, but distinct from the token (using token for now)
+        // (even though they serve the same purpose, the id is used for the identifiable and shouldn't be used for any auth stuff)
+        const id = generateToken(32);
         super(service, id);
 
+        this.name = `User ${this.id}`;
+        this.token = token;
+        this.room = null;
+    }
+
+    set socket(socket) {
         this.socket = socket;
         this.socket.on("message", this.socketMessageListener);
         this.socket.on("close", this.socketCloseListener);
         this.socket.on("error", this.socketErrorListener);
-
-        this.name = `User ${this.id}`;
-        this.room = null;
     }
 
     /**

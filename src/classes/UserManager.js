@@ -15,7 +15,7 @@ class UserManager extends BaseManager {
          * @type {Collection<string, User>}
          * @name GameManager#cache
          */
-        this.cache;
+        this.cache = new Collection();
     }
 
     /**
@@ -24,11 +24,21 @@ class UserManager extends BaseManager {
      * @returns {User}
      * @todo Unfinished
      */
-    create(socket, request) {
-        const id = this.generateIdentifier();
-        const user = new User(this.service, id, socket);
-        this.cache.set(id, user);
+    create(token) {
+        const user = new User(this.service, token);
+        this.cache.set(user.id, user);
         return user;
+    }
+
+    /**
+     * Find a user by their token.
+     * @todo is this wise?
+     * @param {string} token
+     */
+    findByToken(token) {
+        return this.cache.find((v, k) => {
+            v.token == token;
+        });
     }
 }
 
