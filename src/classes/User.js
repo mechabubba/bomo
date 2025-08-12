@@ -1,6 +1,7 @@
 import { BaseIdentifiable } from "./BaseIdentifiable.js";
 import { log } from "../log.js";
 import { generateToken } from "../misc.js";
+import { generateSecret } from "../auth.js";
 
 /**
  * User data
@@ -12,22 +13,29 @@ import { generateToken } from "../misc.js";
  * User
  */
 class User extends BaseIdentifiable {
-    constructor(service, token) {
-        // ideally a uuid or something, but distinct from the token (using token for now)
-        // (even though they serve the same purpose, the id is used for the identifiable and shouldn't be used for any auth stuff)
-        const id = generateToken(32);
+    constructor(service, id) {
         super(service, id);
 
+        /** @type {?WebSocket} */
+        this.socket = null;
         this.name = `User ${this.id}`;
-        this.token = token;
+        this.token = generateSecret();
         this.room = null;
     }
 
+    /**
+     * @param {WebSocket} socket
+     */
     set socket(socket) {
-        this._socket = socket;
-        this._socket.on("message", this.socketMessageListener.bind(this));
-        this._socket.on("close", this.socketCloseListener.bind(this));
-        this._socket.on("error", this.socketErrorListener.bind(this));
+        Object.defineProperty(this, "socket", {
+            value: socket,
+            writable: true,
+            enumerable: true,
+            configurable: true,
+        });
+        this.socket.on("message", this.socketMessageListener.bind(this));
+        this.socket.on("close", this.socketCloseListener.bind(this));
+        this.socket.on("error", this.socketErrorListener.bind(this));
     }
 
     /**

@@ -56,11 +56,8 @@ export const environmentVariables = [
  */
 export const keyvConnection = "sqlite://data/db.sqlite";
 
-/**
- * Alphabet for use in token generation.
- * @type {string}
- */
-export const token_alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+/** English alphabet and arabic numerals. Used in secret generation. */
+export const alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 /**
  * Token length.

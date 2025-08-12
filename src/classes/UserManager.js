@@ -24,8 +24,9 @@ class UserManager extends BaseManager {
      * @returns {User}
      * @todo Unfinished
      */
-    create(token) {
-        const user = new User(this.service, token);
+    create() {
+        const id = this.generateIdentifier();
+        const user = new User(this.service, id);
         this.cache.set(user.id, user);
         return user;
     }

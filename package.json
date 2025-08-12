@@ -23,6 +23,8 @@
   "main": "./src/index.js",
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "@tinyhttp/app": "^2.5.2",
     "@tinyhttp/cookie": "^2.1.1",
     "@tinyhttp/rate-limit": "^2.1.5",

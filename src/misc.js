@@ -25,14 +25,3 @@ export const httpCodeSeverity = function(firstDigit) {
     if (firstDigit == "4") return "debug";
     return "trace";
 };
-
-/**
- * Generates a token.
- */
-export const generateToken = function(len = token_length, alpha = token_alphabet) {
-    const token = Array.from(randomBytes(len));
-    for (let i = 0; i < token.length; i++) {
-        token[i] = alpha[token[i] % alpha.length];
-    }
-    return token.join("");
-};
