@@ -15,7 +15,7 @@ class UserManager extends BaseManager {
          * @type {Collection<string, User>}
          * @name GameManager#cache
          */
-        this.cache = new Collection();
+        this.cache;
     }
 
     /**
@@ -32,12 +32,12 @@ class UserManager extends BaseManager {
 
     /**
      * Find a user by their token.
-     * @todo is this wise?
+     * @todo is this wise? probably better to use a jwt or something that can a) be verified and b) physically stores the users id
      * @param {string} token
      */
     findByToken(token) {
         return this.cache.find((v, k) => {
-            v.token == token;
+            return v.token == token;
         });
     }
 }

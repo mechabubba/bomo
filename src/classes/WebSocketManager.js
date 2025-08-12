@@ -40,10 +40,10 @@ class WebSocketManager extends BaseManager {
         this.server.on("listening", () => {
             log.info(`[READY] Websocket server ready to upgrade connections`);
         });
-        this.server.on("connection", this.serverConnectionListener);
-        this.server.on("error", this.serverErrorListener);
-        this.server.on("headers", this.serverHeaderListener);
-        this.server.on("close", this.serverCloseListener);
+        this.server.on("connection", this.serverConnectionListener.bind(this));
+        this.server.on("error", this.serverErrorListener.bind(this));
+        this.server.on("headers", this.serverHeaderListener.bind(this));
+        this.server.on("close", this.serverCloseListener.bind(this));
     }
 
     /**
@@ -56,7 +56,7 @@ class WebSocketManager extends BaseManager {
 
         // Instantiate a temporary global listener to handle client authentication.
         // The WebSocketServer already handles clients as individuals, but we need to match the individuals to authenticated users.
-        const globalListener = (data) => {
+        const globalListener = (function(data) {
             let msg;
             try {
                 msg = JSON.parse(data);
@@ -68,20 +68,14 @@ class WebSocketManager extends BaseManager {
             if (msg.token) {
                 const user = this.service.users.findByToken(msg.token);
                 if (user) {
-                    // woo hoo!
                     user.socket = websocket;
-                    websocket.removeListener(globalListener);
+                    websocket.removeListener("message", globalListener);
+                    return;
                 }
             }
-
-            // sad path
-            websocket.send("no");
-        };
+        }).bind(this); // need to bind here, too
 
         websocket.on("message", globalListener);
-        // @todo detect if websocket request is valid somehow
-        // if auth key present, auth w/ player
-        // if not, create new player on server side
     }
 
     /**

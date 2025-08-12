@@ -24,10 +24,10 @@ class User extends BaseIdentifiable {
     }
 
     set socket(socket) {
-        this.socket = socket;
-        this.socket.on("message", this.socketMessageListener);
-        this.socket.on("close", this.socketCloseListener);
-        this.socket.on("error", this.socketErrorListener);
+        this._socket = socket;
+        this._socket.on("message", this.socketMessageListener.bind(this));
+        this._socket.on("close", this.socketCloseListener.bind(this));
+        this._socket.on("error", this.socketErrorListener.bind(this));
     }
 
     /**
@@ -49,8 +49,7 @@ class User extends BaseIdentifiable {
         } catch (e) {
             log.error("Error parsing socket message.");
         }
-
-        // do some parsing n shit
+        log.debug(`${this.name}:`, data);
     }
 
     /**
@@ -88,10 +87,6 @@ class User extends BaseIdentifiable {
         //
     }
     */
-
-    get id() {
-        return this.id;
-    }
 }
 
 export { User };
