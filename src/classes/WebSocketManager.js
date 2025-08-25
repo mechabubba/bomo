@@ -1,6 +1,7 @@
 import { WebSocketServer } from "ws";
 import { log } from "../log.js";
 import { BaseManager } from "./BaseManager.js";
+import { WebSocketMessage as WSMessage, WebSocketMessageType as WSType } from "./WebSocketMessage.js";
 
 class WebSocketManager extends BaseManager {
     constructor(service) {
@@ -56,17 +57,15 @@ class WebSocketManager extends BaseManager {
 
         // Instantiate a temporary global listener to handle client authentication.
         // The WebSocketServer already handles clients as individuals, but we need to match the individuals to authenticated users.
-        const globalListener = (function(data) {
-            let msg;
-            try {
-                msg = JSON.parse(data);
-            } catch (e) {
+        const globalListener = (function(data, isBinary) {
+            const msg = WSMessage.parse(null, data.toString());
+            if (!msg) {
                 log.debug("Invalid WS message:", data);
                 return;
             }
 
-            if (msg.token) {
-                const user = this.service.users.findByToken(msg.token);
+            if (msg.type == WSType.AUTH && msg.content) {
+                const user = this.service.users.findByToken(msg.content);
                 if (user) {
                     user.socket = websocket;
                     websocket.removeListener("message", globalListener);

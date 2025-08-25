@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import { log } from "../log.js";
 
 class WebSocketMessage {
@@ -5,26 +6,35 @@ class WebSocketMessage {
         if (typeof message !== "object") {
             throw new Error("message should be object");
         }
-
         this.user = user;
         this.type = message.type;
         this.data = message.data;
     }
 
     /**
-     * Parses a websocket message.
+     * Parses a websocket message and ensures its structure.
      * @param {User} user The user that sent it.
      * @param {string} data The actual websocket message.
      */
     static parse(user, data) {
+        let json;
+        console.log(data);
         try {
-            JSON.parse(data);
+            json = JSON.parse(data);
+            assert.ok("type" in json);
+            assert.ok("content" in json);
         } catch (e) {
-            log.error(`Recieved invalid message.`, data);
+            log.debug("Error parsing WebSocket message;", e);
+            log.error(e);
+            return null;
         }
-
-        return this(user, data);
+        return new this(user, json);
     }
 }
 
-export { WebSocketMessage };
+const WebSocketMessageType = Object.freeze({
+    AUTH: "auth",           // global listener only
+    HEARTBEAT: "heartbeat",
+});
+
+export { WebSocketMessage, WebSocketMessageType };

@@ -1,6 +1,14 @@
 import { Client } from "./classes/Client.js";
 
-document.addEventListener("DOMContentLoaded", async function(event) {
+window.mainnn = async function() {
     const client = new Client();
     window.client = client; // Add reference to window for debugging purposes
-});
+    client.connect();
+    client.register();
+
+    setInterval(() => {
+        client.heartbeat();
+    }, 5000);
+}
+
+// document.addEventListener("DOMContentLoaded", main);

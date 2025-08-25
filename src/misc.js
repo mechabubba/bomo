@@ -3,7 +3,7 @@
  * @module misc
  */
 import { randomBytes } from "node:crypto";
-import { token_alphabet, token_length } from "./constants.js";
+import { alphanumeric, token_length } from "./constants.js";
 
 /**
  * String to boolean, where "true" is true and anything else is false
